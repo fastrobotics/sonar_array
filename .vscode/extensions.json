@@ -3,6 +3,7 @@
         "bierner.markdown-mermaid",
         "jebbs.plantuml",
         "xaver.clang-format",
-        "cschlosser.doxdocgen"
+        "cschlosser.doxdocgen",
+        "analytic-signal.preview-pdf"
     ]
 }

@@ -2,6 +2,8 @@
 __TOC__
 - [Overview](#overview)
 - [Project Plan](#project-plan)
+- [Sensors](#sensors)
+- [Sonar Array Package](#sonar-array-package)
 
 ## Overview
 The Sonar Array project is designed to study and create an advanced sensor array that can use COTS sonar sensors to build a map of a robot's surroundings.
