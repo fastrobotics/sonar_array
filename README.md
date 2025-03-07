@@ -8,6 +8,14 @@ __TOC__
 ## Overview
 The Sonar Array project is designed to study and create an advanced sensor array that can use COTS sonar sensors to build a map of a robot's surroundings.
 
+The Sonar Array will be composed of the following:
+- Multiple [Parallax Ping Ultrasonic Distance Sensors](doc/Sensors/PingUltraSonicDistanceSensor/PingUltraSonicDistanceSensor.md).
+- A mounting hardware design to provide the following mounting options:
+  - A fully contained Sonar Array
+  - Hardware designed to mount sonar sensors to specific locations on your robot
+- Software Driver running on a Board to use the Sonar Sensors, along with a ROS Node that can communicate with the Borad that publishes this data over ROS.
+- Visualization tools used to see the Sonar Array in action
+
 ## Project Plan
 | Status | Epic |
 | --- | --- |
