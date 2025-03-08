@@ -1,1 +1,2 @@
 add_subdirectory(SonarArrayNodeDriver)
+add_subdirectory(exec)

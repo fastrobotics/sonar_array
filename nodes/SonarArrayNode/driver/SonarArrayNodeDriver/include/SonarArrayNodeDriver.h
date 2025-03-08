@@ -2,7 +2,6 @@
  * @file SonarArrayNodeDriver.h
  * @author David Gitz
  * @brief
- * @date 2025-02-21
  *
  * @copyright Copyright (c) 2025
  *
@@ -11,6 +10,15 @@
 #include <eros/Logger.h>
 #include <eros_utility/ConvertUtility.h>
 #include <eros_utility/PrettyUtility.h>
+#include <errno.h>
+#include <fcntl.h>
+#include <termios.h>
+#include <unistd.h>
+
+#include <cstring>
+#include <iostream>
+
+#include "BaseSonarArrayNodeDriver.h"
 
 //! sonar_array Namespace
 namespace sonar_array {
@@ -18,7 +26,7 @@ namespace sonar_array {
  * @brief SonarArrayNodeDriver Class
  * @details
  */
-class SonarArrayNodeDriver
+class SonarArrayNodeDriver : public BaseSonarArrayNodeDriver
 {
    public:
     SonarArrayNodeDriver();
@@ -30,26 +38,19 @@ class SonarArrayNodeDriver
      * @return true
      * @return false
      */
-    bool init(eros::Logger* logger);
-    /**
-     * @brief Update SonarArrayNodeDriver
-     * @details
-     *
-     * @param dt Delta Time in seconds.
-     * @return true
-     * @return false
-     */
-    bool update(double dt);
+    bool init(eros::Logger* logger) override;
     /**
      * @brief Finish and Close Driver
      *
      * @return true
      * @return false
      */
-    bool finish();
-    std::string pretty();
+    bool set_comm_device(std::string comm_device);
+    bool finish() override;
+    std::string pretty(std::string mode = "") override;
 
    private:
-    eros::Logger* logger;
+    std::string comm_device_;
+    int fd;
 };
 }  // namespace sonar_array

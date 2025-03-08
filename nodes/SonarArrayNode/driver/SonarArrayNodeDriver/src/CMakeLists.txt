@@ -1,3 +1,3 @@
 add_library(SonarArrayNodeDriver SonarArrayNodeDriver.cpp)
-target_link_libraries(SonarArrayNodeDriver ${catkin_LIBRARIES} gps logger prettyUtility convertUtility)
+target_link_libraries(SonarArrayNodeDriver ${catkin_LIBRARIES} logger prettyUtility convertUtility)
 add_subdirectory(test)

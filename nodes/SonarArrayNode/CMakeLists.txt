@@ -1,6 +1,7 @@
 include_directories(
- driver/SonarArrayNodeDriver/include/
-
+    driver/include/
+    driver/SonarArrayNodeDriver/include/
+    ${catkin_INCLUDE_DIRS}
 )
 add_subdirectory(driver)
 #add_subdirectory(node)
