@@ -25,7 +25,7 @@ class BaseSonarArrayNodeDriver : public ISonarArrayNodeDriver
         return fully_initialized;
     }
 
-    bool update(double dt) override {
+    bool update(double dt) {
         run_time += dt;
         return true;
     }

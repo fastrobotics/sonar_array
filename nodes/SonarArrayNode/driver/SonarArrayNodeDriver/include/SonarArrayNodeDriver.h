@@ -39,15 +39,18 @@ class SonarArrayNodeDriver : public BaseSonarArrayNodeDriver
      * @return false
      */
     bool init(eros::Logger* logger) override;
+    bool update(double dt) override;
+
+    bool set_comm_device(std::string comm_device, int speed);
     /**
      * @brief Finish and Close Driver
      *
      * @return true
      * @return false
      */
-    bool set_comm_device(std::string comm_device);
     bool finish() override;
     std::string pretty(std::string mode = "") override;
+    int readFromSerialPort(char* buffer, size_t size);
 
    private:
     std::string comm_device_;
