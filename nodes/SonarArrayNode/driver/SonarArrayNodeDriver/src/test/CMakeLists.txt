@@ -1,0 +1,3 @@
+catkin_add_gtest(test_SonarArrayNodeDriver test_SonarArrayNodeDriver.cpp)
+target_link_libraries(test_SonarArrayNodeDriver ${catkin_LIBRARIES} ${Boost_LIBRARIES} logger SonarArrayNodeDriver)
+add_dependencies(test_SonarArrayNodeDriver eros_generate_messages_cpp)

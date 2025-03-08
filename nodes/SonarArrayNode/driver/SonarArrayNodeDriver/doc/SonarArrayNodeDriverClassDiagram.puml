@@ -1,0 +1,16 @@
+@startuml
+title Sonar Array Node Driver Class Diagram
+namespace eros {
+    class Logger
+    class Level
+}
+
+namespace sonar_array {
+    class SonarArrayNodeDriver  {
+        +bool init(Logger logger)
+        +bool update(double dt)
+        +bool finish()
+        +std::string pretty();
+    }
+}
+@enduml

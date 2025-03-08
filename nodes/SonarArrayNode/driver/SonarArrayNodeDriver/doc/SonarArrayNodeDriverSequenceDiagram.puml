@@ -1,0 +1,18 @@
+@startuml
+title Sonar Array Node Driver Sequence Diagram
+actor User as user
+participant SonarArrayNodeDriver as driver
+
+alt initialize
+activate driver
+user -> driver++: init(Logger logger)
+driver --> user--
+end
+alt loop
+user -> driver++: update(dt)
+
+driver --> user--: 
+
+end
+
+@enduml
