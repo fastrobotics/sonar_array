@@ -2,7 +2,8 @@
 __TOC__
 - [Overview](#overview)
 - [Project Plan](#project-plan)
-- [Boards](#boads)
+- [Boards](#boards)
+- [Communication](#communication)
 - [Sensors](#sensors)
 - [Sonar Array Package](#sonar-array-package)
 
@@ -21,7 +22,7 @@ The Sonar Array will be composed of the following:
 | Status | Epic |
 | --- | --- |
 | STARTED | [Sonar Sensor Characterization](https://dev.azure.com/davidgitz/Sonar%20Array/_workitems/edit/1443) |
-| NOT STARTED | [Sonar Array Driver](https://dev.azure.com/davidgitz/Sonar%20Array/_workitems/edit/1438) |
+| STARTED | [Sonar Array Driver](https://dev.azure.com/davidgitz/Sonar%20Array/_workitems/edit/1438) |
 | NOT STARTED | [Sonar Array Hardware Design & Build](https://dev.azure.com/davidgitz/Sonar%20Array/_workitems/edit/1442) |
 | NOT STARTED | [Sonar Array Simulation](https://dev.azure.com/davidgitz/Sonar%20Array/_workitems/edit/1445) |
 | NOT STARTED | [Sonar Array Driver Optimization](https://dev.azure.com/davidgitz/Sonar%20Array/_workitems/edit/1439) |
@@ -29,7 +30,10 @@ The Sonar Array will be composed of the following:
 | NOT STARTED | [Occupancy Grid](https://dev.azure.com/davidgitz/Sonar%20Array/_workitems/edit/1441) |
 | NOT STARTED | [Sonar Array Driver Scan/Ping Pattern Automation](https://dev.azure.com/davidgitz/Sonar%20Array/_workitems/edit/1444) |
 
-## [Boads](doc/Boards/Boards.md)
+![](doc/output/SonarArraySystemDiagram.png)
+
+## [Boards](doc/Boards/Boards.md)
+## [Communication](doc/Communication/Communication.md)
 ## [Sensors](doc/Sensors/Sensors.md)
 
 ## Sonar Array Package
