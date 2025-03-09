@@ -1,0 +1,2 @@
+add_library(SonarArrayNodeDriver SonarArrayNodeDriver.cpp)
+target_link_libraries(SonarArrayNodeDriver ${catkin_LIBRARIES} baseSonarArrayNodeDriver)

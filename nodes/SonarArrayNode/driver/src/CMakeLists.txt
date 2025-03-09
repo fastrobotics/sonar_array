@@ -1,0 +1,3 @@
+add_library(baseSonarArrayNodeDriver BaseSonarArrayNodeDriver.cpp)
+target_link_libraries(baseSonarArrayNodeDriver ${catkin_LIBRARIES} logger prettyUtility convertUtility)
+add_subdirectory(test)

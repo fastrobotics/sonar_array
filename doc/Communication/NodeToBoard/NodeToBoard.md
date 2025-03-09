@@ -26,3 +26,18 @@ Note that in the current state, main design consideration is given to optimizing
 - Configuration
 - Time Sync
 - Enable/Disable
+
+## Setup
+Install: `minicom`
+```bash
+```
+## Troubleshooting
+### Issue: Permission Denied on Serial Port
+Run:
+```bash
+sudo gpasswd --add ${USER} dialout
+```
+And then logout/login.
+
+## References
+- https://www.geeksforgeeks.org/serial-port-connection-in-cpp/
