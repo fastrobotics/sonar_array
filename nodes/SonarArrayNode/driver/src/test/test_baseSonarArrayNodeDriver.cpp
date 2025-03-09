@@ -13,8 +13,8 @@ class TesterSonarArrayNodeDriver : public BaseSonarArrayNodeDriver
     virtual ~TesterSonarArrayNodeDriver() {
         finish();
     }
-    bool init(eros::Logger* logger) override {
-        bool status = BaseSonarArrayNodeDriver::init(logger);
+    bool init(eros::eros_diagnostic::Diagnostic diagnostic, eros::Logger* logger) override {
+        bool status = BaseSonarArrayNodeDriver::init(diagnostic, logger);
         if (status == true) {
             fully_initialized = true;
             return true;
@@ -28,7 +28,8 @@ class TesterSonarArrayNodeDriver : public BaseSonarArrayNodeDriver
 TEST(BasicTest, Test_Initialization) {
     eros::Logger* logger = new eros::Logger("DEBUG", "test_baseSonarArrayNodeDriver");
     TesterSonarArrayNodeDriver SUT;
-    SUT.init(logger);
+    eros::eros_diagnostic::Diagnostic diagnostic;
+    SUT.init(diagnostic, logger);
     EXPECT_TRUE(SUT.is_fully_initialized());
 
     delete logger;

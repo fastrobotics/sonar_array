@@ -35,8 +35,8 @@ class MockSonarArrayNodeDriver : public BaseSonarArrayNodeDriver
      * @return true
      * @return false
      */
-    bool init(eros::Logger* logger) override;
-    bool update(double current_time_sec, double dt) override;
+    bool init(eros::eros_diagnostic::Diagnostic diagnostic, eros::Logger* logger) override;
+    eros::eros_diagnostic::Diagnostic update(double current_time_sec, double dt) override;
 
     /**
      * @brief Finish and Close Driver

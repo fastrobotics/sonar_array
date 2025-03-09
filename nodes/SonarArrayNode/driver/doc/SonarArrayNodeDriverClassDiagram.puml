@@ -1,16 +1,46 @@
 @startuml
 title Sonar Array Node Driver Class Diagram
-namespace eros {
+package eros {
     class Logger
     class Level
+    namespace eros_diagnostic {
+        class Diagnostic
+    }
 }
 
+
 namespace sonar_array {
-    class SonarArrayNodeDriver  {
-        +bool init(Logger logger)
-        +bool update(double dt)
-        +bool finish()
-        +std::string pretty();
+    interface ISonarArrayNodeDriver #Yellow {
+        +{abstract} bool init(Diagnostic diagnostic,Logger logger)
+        +{abstract} bool is_fully_initialized()
+        +{abstract} Diagnostic update(double current_time_sec, double dt)
+        +{abstract} bool finish()
+        +{abstract} string pretty(string mode)
     }
+    abstract BaseSonarArrayNodeDriver #Yellow {
+        +bool init(Diagnostic diagnostic,Logger logger)
+        +bool is_fully_initialized()
+        +Diagnostic update(double current_time_sec, double dt)
+        +string pretty(string mode)
+        #Diagnostic diagnostic
+        #Logger logger
+
+    }
+    ISonarArrayNodeDriver <|.. BaseSonarArrayNodeDriver
+    class SonarArrayNodeDriver #Yellow {
+        +bool init(Diagnostic diagnostic,Logger logger)
+        +Diagnostic update(double current_time_sec, double dt)
+        +string pretty(string mode)
+        +bool finish()
+    }
+    BaseSonarArrayNodeDriver <|-- SonarArrayNodeDriver
+    class MockSonarArrayNodeDriver #Yellow {
+        +bool init(Diagnostic diagnostic,Logger logger)
+        +Diagnostic update(double current_time_sec, double dt)
+        +string pretty(string mode)
+        +bool finish()
+    }
+    BaseSonarArrayNodeDriver <|-- MockSonarArrayNodeDriver
+
 }
 @enduml

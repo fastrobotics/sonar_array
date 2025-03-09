@@ -5,6 +5,7 @@ __TOC__
 - [Boards](#boards)
 - [Communication](#communication)
 - [Sensors](#sensors)
+- [Nodes](#nodes)
 - [Sonar Array Package](#sonar-array-package)
 
 ## Overview
@@ -35,6 +36,7 @@ The Sonar Array will be composed of the following:
 ## [Boards](doc/Boards/Boards.md)
 ## [Communication](doc/Communication/Communication.md)
 ## [Sensors](doc/Sensors/Sensors.md)
+## [Nodes](doc/Nodes/Nodes.md)
 
 ## Sonar Array Package
 ![](doc/output/Legend.png)

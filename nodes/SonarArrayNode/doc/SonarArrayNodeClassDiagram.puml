@@ -9,7 +9,7 @@ package eros {
 }
 
 package sonar_array {
-  class SonarArrayNode #Cyan {
+  class SonarArrayNode  {
       +const std::string BASE_NODE_NAME
       +const uint16_t MAJOR_RELEASE_VERSION
       +const uint16_t MINOR_RELEASE_VERSION
@@ -37,7 +37,7 @@ package sonar_array {
 
       -SonarArrayNodeProcess* process;
   }
-  class SonarArrayNodeProcess #Cyan {
+  class SonarArrayNodeProcess  {
       +eros::eros_diagnostic::Diagnostic finish_initialization()
       +reset()
       +eros::eros_diagnostic::Diagnostic update(double t_dt, double t_ros_time)
@@ -47,7 +47,7 @@ package sonar_array {
       -SonarArrayNodeDriver driver
 
   }
-  class SonarArrayNodeDriver #Cyan 
+  class SonarArrayNodeDriver #Yellow 
   BaseNode <|-- SonarArrayNode
   BaseNodeProcess <|-- SonarArrayNodeProcess
   SonarArrayNode -> SonarArrayNodeProcess

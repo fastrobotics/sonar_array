@@ -21,16 +21,17 @@ class BaseSonarArrayNodeDriver : public ISonarArrayNodeDriver
     }
     virtual ~BaseSonarArrayNodeDriver() {
     }
-    bool init(eros::Logger* logger);
+    bool init(eros::eros_diagnostic::Diagnostic diagnostic, eros::Logger* logger);
     bool is_fully_initialized() {
         return fully_initialized;
     }
 
-    bool update(double current_time_sec, double dt);
+    eros::eros_diagnostic::Diagnostic update(double current_time_sec, double dt);
 
     std::string pretty(std::string mode);
 
    protected:
+    eros::eros_diagnostic::Diagnostic diagnostic;
     eros::Logger* logger;
     bool fully_initialized{false};
 

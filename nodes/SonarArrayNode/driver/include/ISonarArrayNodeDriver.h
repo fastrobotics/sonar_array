@@ -8,6 +8,8 @@
  */
 #pragma once
 #include <eros/Logger.h>
+#include <eros_diagnostic/Diagnostic.h>
+#include <eros_diagnostic/DiagnosticUtility.h>
 
 namespace sonar_array {
 class ISonarArrayNodeDriver
@@ -23,10 +25,10 @@ class ISonarArrayNodeDriver
      * @return true
      * @return false
      */
-    virtual bool init(eros::Logger* logger) = 0;
+    virtual bool init(eros::eros_diagnostic::Diagnostic diagnostic, eros::Logger* logger) = 0;
     virtual bool is_fully_initialized() = 0;
 
-    virtual bool update(double current_time_sec, double dt) = 0;
+    virtual eros::eros_diagnostic::Diagnostic update(double current_time_sec, double dt) = 0;
 
     /**
      * @brief Finish and Close Driver

@@ -4,15 +4,26 @@
 using namespace sonar_array;
 SonarArrayNodeDriver driver;
 int main() {
-    eros::Logger* logger = new eros::Logger("DEBUG", "exec_SonarArrayNodeDriver");
+    eros::Logger* logger = new eros::Logger("INFO", "exec_SonarArrayNodeDriver");
+    eros::eros_diagnostic::Diagnostic diag =
+        eros::eros_diagnostic::Diagnostic("UnitTest",
+                                          "UnitTest",
+                                          eros::System::MainSystem::SIMROVER,
+                                          eros::System::SubSystem::ENTIRE_SYSTEM,
+                                          eros::System::Component::MAPPING,
+                                          eros::eros_diagnostic::DiagnosticType::SENSORS,
+                                          eros::eros_diagnostic::Message::INITIALIZING,
+                                          eros::Level::Type::INFO,
+                                          "Initializing");
+
     logger->log_debug("Starting Sonar Array Node Driver");
 
-    driver.init(logger);
+    driver.init(diag, logger);
     if (driver.set_comm_device("/dev/ttyUSB0", B115200) == false) {
         logger->log_error("Error Initializing Driver.  Exiting.");
         return 1;
     }
-    double delta_time_sec = 1.0;
+    double delta_time_sec = 0.1;
     while (true) {
         auto current_time = std::chrono::system_clock::now();
         auto duration_in_seconds = std::chrono::duration<double>(current_time.time_since_epoch());

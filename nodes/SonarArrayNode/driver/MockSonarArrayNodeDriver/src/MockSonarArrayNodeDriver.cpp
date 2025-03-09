@@ -8,12 +8,14 @@ MockSonarArrayNodeDriver::~MockSonarArrayNodeDriver() {
 bool MockSonarArrayNodeDriver::finish() {
     return true;
 }
-bool MockSonarArrayNodeDriver::init(eros::Logger* _logger) {
-    return BaseSonarArrayNodeDriver::init(_logger);
+bool MockSonarArrayNodeDriver::init(eros::eros_diagnostic::Diagnostic _diagnostic,
+                                    eros::Logger* _logger) {
+    return BaseSonarArrayNodeDriver::init(_diagnostic, _logger);
 }
-bool MockSonarArrayNodeDriver::update(double current_time_sec, double dt) {
-    bool status = BaseSonarArrayNodeDriver::update(current_time_sec, dt);
-    return status;
+eros::eros_diagnostic::Diagnostic MockSonarArrayNodeDriver::update(double current_time_sec,
+                                                                   double dt) {
+    diagnostic = BaseSonarArrayNodeDriver::update(current_time_sec, dt);
+    return diagnostic;
 }
 std::string MockSonarArrayNodeDriver::pretty(std::string mode) {
     std::string str = "Mock Sonar Array Node Driver";

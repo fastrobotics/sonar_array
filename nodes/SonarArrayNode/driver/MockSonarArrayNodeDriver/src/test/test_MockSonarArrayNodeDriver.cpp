@@ -12,13 +12,15 @@ TEST(BasicTest, TestDefinitions) {
 TEST(BasicTest, TestOperation) {
     Logger* logger = new Logger("DEBUG", "UnitTestMockSonarArrayNodeDriver");
     MockSonarArrayNodeDriver SUT;
-    SUT.init(logger);
+    eros::eros_diagnostic::Diagnostic diagnostic;
+    SUT.init(diagnostic, logger);
 
     double timeToRun = 10.0;
     double dt = 0.1;
     double timer = 0.0;
     while (timer <= timeToRun) {
-        EXPECT_TRUE(SUT.update(timer, dt));
+        auto diagnostic = SUT.update(timer, dt);
+        EXPECT_TRUE(diagnostic.level <= eros::Level::Type::NOTICE);
 
         logger->log_debug(SUT.pretty());
         timer += dt;
