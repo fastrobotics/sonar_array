@@ -10,9 +10,6 @@
 #include <eros/Logger.h>
 #include <eros_utility/ConvertUtility.h>
 #include <eros_utility/PrettyUtility.h>
-#include <errno.h>
-#include <fcntl.h>
-#include <termios.h>
 #include <unistd.h>
 
 #include <cstring>
@@ -26,11 +23,11 @@ namespace sonar_array {
  * @brief SonarArrayNodeDriver Class
  * @details
  */
-class SonarArrayNodeDriver : public BaseSonarArrayNodeDriver
+class MockSonarArrayNodeDriver : public BaseSonarArrayNodeDriver
 {
    public:
-    SonarArrayNodeDriver();
-    virtual ~SonarArrayNodeDriver();
+    MockSonarArrayNodeDriver();
+    virtual ~MockSonarArrayNodeDriver();
     /**
      * @brief Initialize Sonar Array Node Driver
      *
@@ -41,7 +38,6 @@ class SonarArrayNodeDriver : public BaseSonarArrayNodeDriver
     bool init(eros::Logger* logger) override;
     bool update(double current_time_sec, double dt) override;
 
-    bool set_comm_device(std::string comm_device, int speed);
     /**
      * @brief Finish and Close Driver
      *
@@ -50,10 +46,7 @@ class SonarArrayNodeDriver : public BaseSonarArrayNodeDriver
      */
     bool finish() override;
     std::string pretty(std::string mode = "") override;
-    int readFromSerialPort(char* buffer, size_t size);
 
    private:
-    std::string comm_device_;
-    int fd;
 };
 }  // namespace sonar_array

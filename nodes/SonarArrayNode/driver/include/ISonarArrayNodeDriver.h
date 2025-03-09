@@ -26,7 +26,7 @@ class ISonarArrayNodeDriver
     virtual bool init(eros::Logger* logger) = 0;
     virtual bool is_fully_initialized() = 0;
 
-    virtual bool update(double dt) = 0;
+    virtual bool update(double current_time_sec, double dt) = 0;
 
     /**
      * @brief Finish and Close Driver

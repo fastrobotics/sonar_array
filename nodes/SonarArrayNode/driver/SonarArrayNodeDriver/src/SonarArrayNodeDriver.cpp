@@ -11,17 +11,16 @@ bool SonarArrayNodeDriver::finish() {
     return true;
 }
 bool SonarArrayNodeDriver::init(eros::Logger* _logger) {
-    logger = _logger;
-    return true;
+    return BaseSonarArrayNodeDriver::init(_logger);
 }
-bool SonarArrayNodeDriver::update(double dt) {
-    bool status = BaseSonarArrayNodeDriver::update(dt);
+bool SonarArrayNodeDriver::update(double current_time_sec, double dt) {
+    bool status = BaseSonarArrayNodeDriver::update(current_time_sec, dt);
     if (status == false) {
         return status;
     }
 
     char buffer[100];
-    /*
+
     int n = readFromSerialPort(buffer, sizeof(buffer));
     if (n < 0) {
         status = false;
@@ -31,7 +30,7 @@ bool SonarArrayNodeDriver::update(double dt) {
         logger->log_debug("Read: " + std::string(buffer, n));
         status = true;
     }
-        */
+
     return status;
 }
 std::string SonarArrayNodeDriver::pretty(std::string mode) {
@@ -62,7 +61,7 @@ bool SonarArrayNodeDriver::set_comm_device(std::string comm_device, int speed) {
                                                  // canonical processing
     tty.c_oflag = 0;                             // no remapping, no delays
     tty.c_cc[VMIN] = 0;                          // read doesn't block
-    tty.c_cc[VTIME] = 5;                         // 0.5 seconds read timeout
+    tty.c_cc[VTIME] = 5;                         // 0.1 seconds read timeout
 
     tty.c_iflag &= ~(IXON | IXOFF | IXANY);  // shut off xon/xoff ctrl
 
@@ -77,6 +76,7 @@ bool SonarArrayNodeDriver::set_comm_device(std::string comm_device, int speed) {
         return false;
     }
     fully_initialized = true;
+    logger->log_notice("Sonar Array Node Driver Fully Initialized.");
     return true;
 }
 int SonarArrayNodeDriver::readFromSerialPort(char* buffer, size_t size) {

@@ -21,32 +21,21 @@ class BaseSonarArrayNodeDriver : public ISonarArrayNodeDriver
     }
     virtual ~BaseSonarArrayNodeDriver() {
     }
+    bool init(eros::Logger* logger);
     bool is_fully_initialized() {
         return fully_initialized;
     }
 
-    bool update(double dt) {
-        run_time += dt;
-        return true;
-    }
+    bool update(double current_time_sec, double dt);
 
-    std::string pretty(std::string mode) {
-        std::string str;
-        if (mode == "") {
-            str += pretty("simple");
-            str += "\nRuntime: " + std::to_string(run_time) + " (sec).\n";
-        }
-        else if (mode == "simple") {
-            str += "\tInitialized: " + std::to_string(fully_initialized) + "\n";
-        }
-        return str;
-    }
+    std::string pretty(std::string mode);
 
    protected:
     eros::Logger* logger;
     bool fully_initialized{false};
 
    private:
+    double prev_current_time_sec{-1.0};
     double run_time{0.0};
 };
 }  // namespace sonar_array

@@ -1,3 +1,5 @@
+#include <chrono>
+
 #include "SonarArrayNodeDriver.h"
 using namespace sonar_array;
 SonarArrayNodeDriver driver;
@@ -10,9 +12,13 @@ int main() {
         logger->log_error("Error Initializing Driver.  Exiting.");
         return 1;
     }
-    double delta_time_sec = 0.01;
+    double delta_time_sec = 1.0;
     while (true) {
-        driver.update(delta_time_sec);
+        auto current_time = std::chrono::system_clock::now();
+        auto duration_in_seconds = std::chrono::duration<double>(current_time.time_since_epoch());
+
+        double current_time_sec = duration_in_seconds.count();
+        driver.update(current_time_sec, delta_time_sec);
         usleep(delta_time_sec * 1000000);
 
         logger->log_debug(driver.pretty());
