@@ -6,16 +6,19 @@ SonarArrayNodeDriver driver;
 void printHelp() {
     printf("Tester for Sonar Array Node Driver\n");
     printf("-h This Menu.\n");
+    printf("-d Device.  Default: /dev/ttyUSB0\n");
     printf("-l Logger Threshold. [DEBUG,INFO,NOTICE,WARN,ERROR]\n");
 }
 int main(int argc, char* argv[]) {
     std::string logger_threshold = "DEBUG";
+    std::string device = "/dev/ttyUSB0";
     for (;;) {
         switch (getopt(argc,
                        argv,
-                       "l:h"))  // note the colon (:) to indicate that 'b' has a parameter and
-                                // is not a switch
+                       "d:l:h"))  // note the colon (:) to indicate that 'b' has a parameter and
+                                  // is not a switch
         {
+            case 'd': device = optarg; continue;
             case 'l': logger_threshold = optarg; break;
             case '?': printHelp(); return 0;
             case 'h': printHelp(); return 0;
