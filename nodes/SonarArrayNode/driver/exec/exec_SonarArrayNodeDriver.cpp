@@ -3,8 +3,31 @@
 #include "SonarArrayNodeDriver.h"
 using namespace sonar_array;
 SonarArrayNodeDriver driver;
-int main() {
-    eros::Logger* logger = new eros::Logger("INFO", "exec_SonarArrayNodeDriver");
+void printHelp() {
+    printf("Tester for Sonar Array Node Driver\n");
+    printf("-h This Menu.\n");
+    printf("-d Device.  Default: /dev/ttyUSB0\n");
+    printf("-l Logger Threshold. [DEBUG,INFO,NOTICE,WARN,ERROR]\n");
+}
+int main(int argc, char* argv[]) {
+    std::string logger_threshold = "DEBUG";
+    std::string device = "/dev/ttyUSB0";
+    for (;;) {
+        switch (getopt(argc,
+                       argv,
+                       "d:l:h"))  // note the colon (:) to indicate that 'b' has a parameter and
+                                  // is not a switch
+        {
+            case 'd': device = optarg; continue;
+            case 'l': logger_threshold = optarg; break;
+            case '?': printHelp(); return 0;
+            case 'h': printHelp(); return 0;
+            default: printHelp(); return 0;
+        }
+
+        break;
+    }
+    eros::Logger* logger = new eros::Logger(logger_threshold, "exec_SonarArrayNodeDriver");
     eros::eros_diagnostic::Diagnostic diag =
         eros::eros_diagnostic::Diagnostic("UnitTest",
                                           "UnitTest",

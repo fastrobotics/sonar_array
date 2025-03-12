@@ -8,3 +8,7 @@ It is expected that the majority of the Node's communication responsibilities is
 Note that the Node will be built using [eROS](https://github.com/fastrobotics/eros), such that it will automatically include a variety of input/output messages (such as heartbeats, diagnostics, etc).
 
 ## Message Selection
+
+## References
+- https://docs.ros.org/en/noetic/api/sensor_msgs/html/msg/Range.html
+- https://wiki.ros.org/rviz/DisplayTypes/Range

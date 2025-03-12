@@ -7,6 +7,7 @@ bool BaseSonarArrayNodeDriver::init(eros::eros_diagnostic::Diagnostic diagnostic
         logger = _logger;
         return true;
     }
+
     return false;
 }
 eros::eros_diagnostic::Diagnostic BaseSonarArrayNodeDriver::update(double current_time_sec,

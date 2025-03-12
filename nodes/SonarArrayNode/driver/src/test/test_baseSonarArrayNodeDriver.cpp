@@ -29,10 +29,17 @@ TEST(BasicTest, Test_Initialization) {
     eros::Logger* logger = new eros::Logger("DEBUG", "test_baseSonarArrayNodeDriver");
     TesterSonarArrayNodeDriver SUT;
     eros::eros_diagnostic::Diagnostic diagnostic;
-    SUT.init(diagnostic, logger);
+    EXPECT_TRUE(SUT.init(diagnostic, logger));
     EXPECT_TRUE(SUT.is_fully_initialized());
-
     delete logger;
+}
+TEST(BasicTest, FailureModes) {
+    {  // Logger not initialized
+        eros::Logger* logger;
+        TesterSonarArrayNodeDriver SUT;
+        eros::eros_diagnostic::Diagnostic diagnostic;
+        EXPECT_FALSE(SUT.init(diagnostic, logger));
+    }
 }
 
 int main(int argc, char** argv) {
