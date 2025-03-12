@@ -2,7 +2,9 @@
 title Sonar Array Package Diagram
 
 package sonar_array {
+    class SonarArrayNode #Yellow
     class SonarArrayNodeDriver #Yellow
+    SonarArrayNode --> SonarArrayNodeDriver
 }
 
 @enduml
