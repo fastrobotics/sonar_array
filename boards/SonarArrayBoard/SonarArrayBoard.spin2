@@ -1,0 +1,25 @@
+{Object_Title_and_Purpose}
+
+
+CON
+  _clkfreq = 160_000_000                                                  'Standard clock frequency = 160 MHz
+
+  CONSTANT_NAME = 0
+
+
+VAR
+  long  symbol
+
+
+OBJ
+   term : "jm_fullduplexserial" 'ref: https://github.com/parallaxinc/propeller/tree/master/libraries/community/p2/All/jm_full_duplex_serial
+   ping : "jm_ping"
+
+PUB public_method_name()
+
+
+PRI private_method_name()
+
+
+DAT
+name    byte  "string_data",0
