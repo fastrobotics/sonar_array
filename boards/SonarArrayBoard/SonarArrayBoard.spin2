@@ -3,6 +3,7 @@
 
 CON { timing }
   _clkfreq = 160_000_000                                                  'Standard clock frequency = 160 MHz
+  m_clkfreq = _clkfreq/1000
   FAST_LOOP_MSEC = 10 ' 100 Hz
   MEDIUM_LOOP_MSEC = 50 ' 20 Hz
   SLOW_LOOP_MSEC = 200 ' 5 Hz
@@ -22,6 +23,10 @@ VAR { timing }
   long medium_loop_counter
   long slow_loop_counter
   long veryslow_loop_counter
+
+VAR { Messaging }
+  long sequence_number
+  long start_timestamp
 
 
 OBJ
@@ -62,7 +67,7 @@ PUB run_fast_loop()
 
 
 PUB run_medium_loop()
-  send_dummy_sonar_packet()
+  'send_dummy_sonar_packet()
   medium_loop_counter++
 
 
@@ -71,15 +76,31 @@ PUB run_slow_loop()
 
 PUB run_veryslow_loop()
   send_debug()
+  send_sonar_packet()
   veryslow_loop_counter++
 
 
 PUB init_variables()
     fast_loop_counter := medium_loop_counter := slow_loop_counter := veryslow_loop_counter := 0
+    sequence_number := 0
+    start_timestamp := getct()/m_clkfreq
 
 PUB setup_comms()
 
     term.start(RX_DEBUG, TX_DEBUG, %0000, BAUDRATE_DEBUG)
+PUB send_sonar_packet()
+  sequence_number++
+  term.str(string("$AA"))
+  term.fxdec(sequence_number,3)
+  term.fxdec(fast_loop_counter,8)
+  term.str(string(","))
+  term.dec(getct()/_clkfreq-start_timestamp)
+
+  term.str(string(10,13))
+  if sequence_number > 255
+    sequence_number := 0
+
+
 PUB send_dummy_sonar_packet(): max_number_sonars
   max_number_sonars := 20
   term.str(string("$AA"))                               ' Packet Header
