@@ -1,25 +1,104 @@
 {Object_Title_and_Purpose}
 
 
-CON
+CON { timing }
   _clkfreq = 160_000_000                                                  'Standard clock frequency = 160 MHz
+  FAST_LOOP_MSEC = 10 ' 100 Hz
+  MEDIUM_LOOP_MSEC = 50 ' 20 Hz
+  SLOW_LOOP_MSEC = 200 ' 5 Hz
+  VERYSLOW_LOOP_MSEC = 1000 ' 1 Hz
 
-  CONSTANT_NAME = 0
+CON { IO-Comms }
 
+  RX_DEBUG     = 63
+  TX_DEBUG     = 62
 
-VAR
-  long  symbol
+CON { Comms Constants }
+
+  BAUDRATE_DEBUG = 115_200
+
+VAR { timing }
+  long fast_loop_counter
+  long medium_loop_counter
+  long slow_loop_counter
+  long veryslow_loop_counter
 
 
 OBJ
    term : "jm_fullduplexserial" 'ref: https://github.com/parallaxinc/propeller/tree/master/libraries/community/p2/All/jm_full_duplex_serial
    ping : "jm_ping"
 
-PUB public_method_name()
+PUB init()
+  init_variables()
+  setup_comms()
+  main()
+
+PUB main() | fast_loop_trigger, medium_loop_trigger,slow_loop_trigger,veryslow_loop_trigger
+  fast_loop_trigger := medium_loop_trigger :=  slow_loop_trigger := veryslow_loop_trigger := 0
+  repeat
+    fast_loop_trigger++
+    medium_loop_trigger++
+    slow_loop_trigger++
+    veryslow_loop_trigger++
+    if(fast_loop_trigger >= FAST_LOOP_MSEC)
+      run_fast_loop()
+      fast_loop_trigger := 0
+    if(medium_loop_trigger >= MEDIUM_LOOP_MSEC)
+      run_medium_loop()
+      medium_loop_trigger := 0
+    if(slow_loop_trigger >= SLOW_LOOP_MSEC)
+      run_slow_loop()
+      slow_loop_trigger := 0
+    if(veryslow_loop_trigger >= VERYSLOW_LOOP_MSEC)
+      run_veryslow_loop()
+      veryslow_loop_trigger := 0
+
+    waitms(1)
+
+PUB run_fast_loop()
+  fast_loop_counter++
 
 
-PRI private_method_name()
 
 
-DAT
-name    byte  "string_data",0
+PUB run_medium_loop()
+  send_dummy_sonar_packet()
+  medium_loop_counter++
+
+
+PUB run_slow_loop()
+  slow_loop_counter++
+
+PUB run_veryslow_loop()
+  send_debug()
+  veryslow_loop_counter++
+
+
+PUB init_variables()
+    fast_loop_counter := medium_loop_counter := slow_loop_counter := veryslow_loop_counter := 0
+
+PUB setup_comms()
+
+    term.start(RX_DEBUG, TX_DEBUG, %0000, BAUDRATE_DEBUG)
+PUB send_dummy_sonar_packet(): max_number_sonars
+  max_number_sonars := 20
+  term.str(string("$AA"))                               ' Packet Header
+  term.dec(65535)                                       ' Max Sequence Number
+  term.str(string("4294967295"))                        ' Max Timestamp
+  term.dec(max_number_sonars)                           ' Max Number of Sonars
+  repeat max_number_sonars
+    term.dec(65535)                                     ' Max Sonar Value
+
+
+  term.str(string(10,13))
+
+PUB send_debug()
+  term.str(string("Fast:"))
+  term.dec(fast_loop_counter)
+  term.str(string(" Med: "))
+  term.dec(medium_loop_counter)
+  term.str(string(" Slow: "))
+  term.dec(slow_loop_counter)
+  term.str(string(" Very Slow: "))
+  term.dec(veryslow_loop_counter)
+  term.str(string(10,13))
