@@ -13,7 +13,8 @@ TEST(BasicTest, TestOperation) {
     Logger* logger = new Logger("DEBUG", "UnitTestMockSonarArrayNodeDriver");
     MockSonarArrayNodeDriver SUT;
     eros::eros_diagnostic::Diagnostic diagnostic;
-    SUT.init(diagnostic, logger);
+    std::vector<sensor_msgs::Range> sonars;
+    SUT.init(diagnostic, logger, sonars);
 
     double timeToRun = 10.0;
     double dt = 0.1;

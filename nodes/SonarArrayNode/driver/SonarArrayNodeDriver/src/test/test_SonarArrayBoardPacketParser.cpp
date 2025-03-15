@@ -25,7 +25,7 @@ TEST(BasicTest, ParseMessage_DataStream) {
         EXPECT_EQ(data.sequence_number, 6512);
         EXPECT_EQ(data.sonar_count, 20);
         EXPECT_EQ(data.sonar_values_cm.size(), data.sonar_count);
-        for (auto v : data.sonar_values) { EXPECT_EQ(v, 91); }
+        for (auto v : data.sonar_values_cm) { EXPECT_EQ(v, 91); }
         EXPECT_TRUE(data.parsed_ok);
     }
     {  // Packet with missing data at start, but then complete.

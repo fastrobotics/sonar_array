@@ -4,12 +4,13 @@ actor User as user
 participant ISonarArrayNodeDriver as interface
 participant BaseSonarArrayNodeDriver as base
 participant SonarArrayNodeDriver as driver
+participant SonarArrayBoardPacketParser as parser
 
 alt initialize
 activate user
-user -> interface++: init(Diagnostic diagnostic, Logger logger)
-interface -> driver++: init(Diagnostic diagnostic,Logger logger)
-driver -> base++: init(Diagnostic diagnostic, Logger, logger)
+user -> interface++: init(Diagnostic diagnostic, Logger logger,sensor_msgs::Range[] sonars)
+interface -> driver++: init(Diagnostic diagnostic,Logger logger,sensor_msgs::Range[] sonars)
+driver -> base++: init(Diagnostic diagnostic, Logger, logger,sensor_msgs::Range[] sonars)
 base --> driver--: status
 driver --> interface--: status
 interface --> user--: status
@@ -24,7 +25,10 @@ user -> interface++: update(double current_time, double dt)
 interface -> driver++: update(double current_time, double dt)
 driver -> base++: update(double current_time, doublt dt)
 base --> driver--: diagnostic
-driver -> driver: readFromSerialPort()
+driver -> driver: buffer = readFromSerialPort()
+driver -> parser++: parsePacket(buffer)
+parser --> driver--: packet
+driver -> driver:  updateSonarData(packet)
 driver --> interface--: diagnostic
 interface --> user--: diagnostic
 end

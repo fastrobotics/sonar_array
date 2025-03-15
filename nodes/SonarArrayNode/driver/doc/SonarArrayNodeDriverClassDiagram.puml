@@ -7,40 +7,68 @@ package eros {
         class Diagnostic
     }
 }
-
-
+package ros {
+    class Time
+}
+package sensor_msgs {
+    class Range <<(M,#FFFF00)>>
+}
 namespace sonar_array {
-    interface ISonarArrayNodeDriver #Yellow {
-        +{abstract} bool init(Diagnostic diagnostic,Logger logger)
+    interface ISonarArrayNodeDriver #LimeGreen {
+        +{abstract} bool init(Diagnostic diagnostic,Logger logger,sensor_msgs::Range[] sonars)
         +{abstract} bool is_fully_initialized()
         +{abstract} Diagnostic update(double current_time_sec, double dt)
         +{abstract} bool finish()
         +{abstract} string pretty(string mode)
+        +{abstract} sensor_msgs::Range[] get_sonar_data()
     }
-    abstract BaseSonarArrayNodeDriver #Yellow {
-        +bool init(Diagnostic diagnostic,Logger logger)
+    abstract BaseSonarArrayNodeDriver #LimeGreen {
+        +bool init(Diagnostic diagnostic,Logger logger,sensor_msgs::Range[] sonars)
         +bool is_fully_initialized()
         +Diagnostic update(double current_time_sec, double dt)
         +string pretty(string mode)
+        +sensor_msgs::Range[] get_sonar_data()
         #Diagnostic diagnostic
         #Logger logger
 
     }
     ISonarArrayNodeDriver <|.. BaseSonarArrayNodeDriver
-    class SonarArrayNodeDriver #Yellow {
-        +bool init(Diagnostic diagnostic,Logger logger)
+    class SonarArrayNodeDriver #LimeGreen {
+        +bool init(Diagnostic diagnostic,Logger logger,sensor_msgs::Range[] sonars)
         +Diagnostic update(double current_time_sec, double dt)
         +string pretty(string mode)
         +bool finish()
+        +int readFromSerialPort(char[] buffer, int size)
+        +bool processSequenceNumber(uint16_t sequence_number)
+        +bool updateSonarData(ParsedPacket packet)
     }
     BaseSonarArrayNodeDriver <|-- SonarArrayNodeDriver
-    class MockSonarArrayNodeDriver #Yellow {
-        +bool init(Diagnostic diagnostic,Logger logger)
+    class MockSonarArrayNodeDriver #LimeGreen {
+        +bool init(Diagnostic diagnostic,Logger logger,sensor_msgs::Range[] sonars)
         +Diagnostic update(double current_time_sec, double dt)
         +string pretty(string mode)
         +bool finish()
     }
     BaseSonarArrayNodeDriver <|-- MockSonarArrayNodeDriver
+
+    enum PacketType #LimeGreen {
+        UNKNOWN = 0
+        DATA_STREAM = 1
+        END_OF_LIST = 2
+    }
+    struct ParsedPacket #LimeGreen {
+        +bool parsed_ok
+        +Time time_stamp
+        +PacketType packet_type
+        +uint16_t sequence_number
+        +uint8_t sonar_count
+        +uint16_t[] sonar_values_cm
+    }
+    SonarArrayBoardPacketParser +-- ParsedPacket
+    SonarArrayBoardPacketParser +-- PacketType
+    class SonarArrayBoardPacketParser #LimeGreen {
+        +{static} ParsedPacket parsePacket(string data)
+    }
 
 }
 @enduml

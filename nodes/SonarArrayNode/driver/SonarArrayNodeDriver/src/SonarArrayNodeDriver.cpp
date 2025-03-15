@@ -5,7 +5,6 @@ namespace sonar_array {
 SonarArrayNodeDriver::SonarArrayNodeDriver() {
 }
 SonarArrayNodeDriver::~SonarArrayNodeDriver() {
-    printf("Closing\n");
     close(fd);
     finish();
 }
@@ -177,3 +176,5 @@ bool SonarArrayNodeDriver::updateSonarData(SonarArrayBoardPacketParser::ParsedPa
     return true;
 }
 }  // namespace sonar_array
+
+// GCOVR_EXCL_STOP
