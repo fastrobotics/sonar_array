@@ -1,14 +1,20 @@
 #include "BaseSonarArrayNodeDriver.h"
 namespace sonar_array {
-bool BaseSonarArrayNodeDriver::init(eros::eros_diagnostic::Diagnostic diagnostic_,
-                                    eros::Logger* _logger) {
-    diagnostic = diagnostic_;
-    if (_logger != nullptr) {
-        logger = _logger;
-        return true;
+bool BaseSonarArrayNodeDriver::init(eros::eros_diagnostic::Diagnostic _diagnostic,
+                                    eros::Logger* _logger,
+                                    std::vector<sensor_msgs::Range> _sonars) {
+    diagnostic = _diagnostic;
+    if (_logger == nullptr) {
+        return false;
     }
+    logger = _logger;
+    if (_sonars.size() == 0) {
+        logger->log_error("Sonar Count is 0!");
+        return false;
+    }
+    sonars = _sonars;
 
-    return false;
+    return true;
 }
 eros::eros_diagnostic::Diagnostic BaseSonarArrayNodeDriver::update(double current_time_sec,
                                                                    double dt) {

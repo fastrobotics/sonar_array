@@ -13,8 +13,9 @@ bool SonarArrayNodeDriver::finish() {
     return true;
 }
 bool SonarArrayNodeDriver::init(eros::eros_diagnostic::Diagnostic _diagnostic,
-                                eros::Logger* _logger) {
-    return BaseSonarArrayNodeDriver::init(_diagnostic, _logger);
+                                eros::Logger* _logger,
+                                std::vector<sensor_msgs::Range> _sonars) {
+    return BaseSonarArrayNodeDriver::init(_diagnostic, _logger, _sonars);
 }
 eros::eros_diagnostic::Diagnostic SonarArrayNodeDriver::update(double current_time_sec, double dt) {
     auto diag = BaseSonarArrayNodeDriver::update(current_time_sec, dt);
@@ -23,7 +24,7 @@ eros::eros_diagnostic::Diagnostic SonarArrayNodeDriver::update(double current_ti
         return diag;
     }
 
-    char buffer[100];
+    char buffer[200];
 
     int n = readFromSerialPort(buffer, sizeof(buffer));
     if (n < 0) {
@@ -41,10 +42,42 @@ eros::eros_diagnostic::Diagnostic SonarArrayNodeDriver::update(double current_ti
             logger->log_diagnostic(diag);
             return diag;
         }
-        diag.type = eros::eros_diagnostic::DiagnosticType::SOFTWARE;
-        diag.level = eros::Level::Type::INFO;
-        diag.message = eros::eros_diagnostic::Message::NOERROR;
-        diag.description = "";
+        SonarArrayBoardPacketParser::ParsedPacket packet =
+            SonarArrayBoardPacketParser::parsePacket(buffer);
+        if (packet.parsed_ok == true) {
+            if (processSequenceNumber(packet.sequence_number)) {
+                if (packet.sonar_count != sonars.size()) {
+                    diag.type = eros::eros_diagnostic::DiagnosticType::SOFTWARE;
+                    diag.level = eros::Level::Type::WARN;
+                    diag.message = eros::eros_diagnostic::Message::DROPPING_PACKETS;
+                    diag.description = "Unexpectd Number of Sonars!  " +
+                                       std::to_string(packet.sonar_count) +
+                                       " != " + std::to_string(sonars.size());
+                }
+                else {
+                    good_packet_count++;
+                    packet.time_stamp = ros::Time::now();
+                    updateSonarData(packet);
+                    diag.type = eros::eros_diagnostic::DiagnosticType::SOFTWARE;
+                    diag.level = eros::Level::Type::INFO;
+                    diag.message = eros::eros_diagnostic::Message::NOERROR;
+                    diag.description = "Driver OK";
+                }
+            }
+            else {
+                diag.type = eros::eros_diagnostic::DiagnosticType::SOFTWARE;
+                diag.level = eros::Level::Type::WARN;
+                diag.message = eros::eros_diagnostic::Message::DROPPING_PACKETS;
+                diag.description = "Missed a Packet";
+            }
+        }
+        else {
+            bad_packet_count++;
+            diag.type = eros::eros_diagnostic::DiagnosticType::SOFTWARE;
+            diag.level = eros::Level::Type::WARN;
+            diag.message = eros::eros_diagnostic::Message::DROPPING_PACKETS;
+            logger->log_debug("Unable to parse Packet: " + std::string(buffer, n));
+        }
         diagnostic = diag;
         return diag;
     }
@@ -53,6 +86,8 @@ std::string SonarArrayNodeDriver::pretty(std::string mode) {
     std::string str = "Sonar Array Node Driver";
     str += " Comm Device: " + comm_device_ + "\n";
     str += BaseSonarArrayNodeDriver::pretty(mode);
+    str += "Good Packets: " + std::to_string(good_packet_count) +
+           " Bad Packets: " + std::to_string(bad_packet_count) + "\n";
     return str;
 }
 bool SonarArrayNodeDriver::set_comm_device(std::string comm_device, int speed) {
@@ -128,5 +163,38 @@ bool SonarArrayNodeDriver::set_comm_device(std::string comm_device, int speed) {
 int SonarArrayNodeDriver::readFromSerialPort(char* buffer, size_t size) {
     return read(fd, buffer, size);
 }
-// GCOVR_EXCL_STOP
+bool SonarArrayNodeDriver::processSequenceNumber(uint16_t sequence_number) {
+    bool status = false;
+    if (first_run) {
+        latest_sequence_number = sequence_number;
+        first_run = false;
+        status = true;
+    }
+    else {
+        if ((sequence_number == 0) && (latest_sequence_number == 9999)) {
+            status = true;
+        }
+        else {
+            uint16_t delta = sequence_number - latest_sequence_number;
+            if (delta <= 1) {
+                status = true;
+            }
+            else {
+                status = false;
+            }
+        }
+    }
+    latest_sequence_number = sequence_number;
+    return status;
+}
+bool SonarArrayNodeDriver::updateSonarData(SonarArrayBoardPacketParser::ParsedPacket packet) {
+    if (packet.sonar_values_cm.size() != sonars.size()) {
+        return false;
+    }
+    sonars.header.stamp = packet.stamp;
+    for (std::size_t i = 0; i < packet.sonar_values_cm.size(); ++i) {
+        sonars[i].range = packet.sonar_values_cm[i] / 100.0;
+    }
+    return true;
+}
 }  // namespace sonar_array

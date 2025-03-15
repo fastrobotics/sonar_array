@@ -1,2 +1,5 @@
+add_library(sonarArrayBoardPacketParser SonarArrayBoardPacketParser.cpp)
+
 add_library(SonarArrayNodeDriver SonarArrayNodeDriver.cpp)
-target_link_libraries(SonarArrayNodeDriver ${catkin_LIBRARIES} baseSonarArrayNodeDriver)
+target_link_libraries(SonarArrayNodeDriver ${catkin_LIBRARIES} baseSonarArrayNodeDriver sonarArrayBoardPacketParser)
+add_subdirectory(test)

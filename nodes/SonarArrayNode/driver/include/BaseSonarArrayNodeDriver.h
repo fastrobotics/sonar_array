@@ -21,7 +21,9 @@ class BaseSonarArrayNodeDriver : public ISonarArrayNodeDriver
     }
     virtual ~BaseSonarArrayNodeDriver() {
     }
-    bool init(eros::eros_diagnostic::Diagnostic diagnostic, eros::Logger* logger);
+    bool init(eros::eros_diagnostic::Diagnostic diagnostic,
+              eros::Logger* logger,
+              std::vector<sensor_msgs::Range> sonars);
     bool is_fully_initialized() {
         return fully_initialized;
     }
@@ -29,11 +31,15 @@ class BaseSonarArrayNodeDriver : public ISonarArrayNodeDriver
     eros::eros_diagnostic::Diagnostic update(double current_time_sec, double dt);
 
     std::string pretty(std::string mode);
+    std::vector<sensor_msgs::Range> get_sonar_data() {
+        return sonars;
+    }
 
    protected:
     eros::eros_diagnostic::Diagnostic diagnostic;
     eros::Logger* logger;
     bool fully_initialized{false};
+    std::vector<sensor_msgs::Range> sonars;
 
    private:
     double prev_current_time_sec{-1.0};

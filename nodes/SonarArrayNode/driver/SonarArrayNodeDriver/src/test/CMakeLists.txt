@@ -1,0 +1,3 @@
+catkin_add_gtest(test_SonarArrayBoardPacketParser test_SonarArrayBoardPacketParser.cpp)
+target_link_libraries(test_SonarArrayBoardPacketParser ${catkin_LIBRARIES} ${Boost_LIBRARIES} logger sonarArrayBoardPacketParser)
+add_dependencies(test_SonarArrayBoardPacketParser eros_generate_messages_cpp)
