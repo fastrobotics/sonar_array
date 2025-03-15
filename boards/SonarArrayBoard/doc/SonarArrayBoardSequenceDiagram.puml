@@ -1,0 +1,39 @@
+@startuml
+title Sonar Array Board Sequence Diagram
+actor NodeDriver as node
+participant Propeller as prop
+participant PingObject as obx_ping
+participant UartObject as obx_uart
+actor Sonar as Sonar
+
+alt initialize
+prop -> prop++: init
+prop -> prop: init_variables
+prop -> prop: setup_comms
+prop -> prop: main
+end
+
+alt main
+alt run_fast_loop @ FAST Rate
+prop -> prop++: run_fast_loop()
+prop--
+end
+alt run_medium_loop @ MEDIUM Rate
+prop -> prop++: run_medium_loop()
+prop -> prop++: send_sonar_packet()
+prop -> obx_uart++: transmit
+obx_uart --> prop--
+prop --> prop--
+prop--
+end
+alt run_slow_loop @ SLOW Rate
+prop -> prop++: run_slow_loop()
+prop--
+end
+alt run_veryslow_loop @ VERYSLOW Rate
+prop -> prop++: run_veryslow_loop()
+prop--
+end
+end
+
+@enduml
