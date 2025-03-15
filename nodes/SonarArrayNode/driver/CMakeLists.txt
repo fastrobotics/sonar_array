@@ -1,0 +1,4 @@
+add_subdirectory(src)
+add_subdirectory(MockSonarArrayNodeDriver)
+add_subdirectory(SonarArrayNodeDriver)
+add_subdirectory(exec)

@@ -1,0 +1,128 @@
+'' =================================================================================================
+''
+''   File....... jm_ping.spin2
+''   Purpose.... Parallax Ping Ultrasonic Rangefinder
+''   Author..... Jon "JonnyMac" McPhalen
+''               Copyright (c) 2021-2025 Jon McPhalen
+''               -- see below for terms of use
+''   E-mail..... jon.mcphalen@gmail.com
+''   Started....
+''   Updated.... 07 NOV 2024
+''
+'' =================================================================================================
+
+{{
+
+   Note: The Ping))) is a 5v device so the IO pin should be protected by a 3.3k-4.7k resisteor
+
+}}
+
+
+con
+
+  VERSION = 1_0_1
+
+
+con { fixed io pins }
+
+  PGM_RX   = 63  { I }                                          ' programming / debug
+  PGM_TX   = 62  { O }
+
+  SF_CS    = 61  { O }                                          ' flash storage
+  SF_SCLK  = 60  { O }
+  SF_MOSI  = 59  { O }
+  SF_MISO  = 58  { I }
+
+  LED2     = 57  { O }                                          ' Eval and Edge LEDs
+  LED1     = 56  { O }
+
+
+con
+
+  #true,  ON, OFF
+  #false, NO, YES
+
+  TO_IN = 73_746
+  TO_CM = 29_034
+
+
+pub null()
+
+'' This is not an application
+
+
+pub ticks(pin) : result | timeout
+
+'' Request distance from sensor on pin
+'' -- returns 1-way distance in microseconds
+'' -- will return 0 if bad or missing sensor
+
+  pinclear(pin)                                                 ' reset pin
+
+  pinhigh(pin)                                                  ' generate trigger pulse
+  waitus(5)
+  pinlow(pin)
+  waitus(5)                                                     ' let trigger register
+
+  timeout := getms() + 25                                       ' start time-out timing (25ms)
+  pinstart(pin, p_high_ticks, 0, 0)                             ' measure return pulse (system ticks)
+  repeat
+    if (getms() > timeout)                                      ' if > 25ms, abort
+      return 0
+  until pinread(pin)                                            ' wait for end of pulse
+
+  return (rdpin(pin) / (clkfreq / 1_000_000)) >> 1              ' convert pulse to microseconds
+
+
+pub inches(pin) : result
+
+'' Return measured distance in inches
+
+  return (tenths(pin) + 5) / 10                                 ' round up
+
+
+pub tenths(pin) : result
+
+'' Return measured distance in tenths of inches
+
+  return ticks(pin) * 10_000 / TO_IN
+
+
+pub centimeters(pin) : result
+
+'' Return measured distance in centimeters
+
+  return (millimeters(pin) + 5) / 10                             ' round up
+
+
+pub millimeters(pin) : result
+
+'' Return measured distance in millimeters
+
+  return ticks(pin) * 10_000 / TO_CM
+
+
+con { license }
+
+{{
+
+  Terms of Use: MIT License
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy of this
+  software and associated documentation files (the "Software"), to deal in the Software
+  without restriction, including without limitation the rights to use, copy, modify,
+  merge, publish, distribute, sublicense, and/or sell copies of the Software, and to
+  permit persons to whom the Software is furnished to do so, subject to the following
+  conditions:
+
+  The above copyright notice and this permission notice shall be included in all copies
+  or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+  INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+  PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+  HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
+  CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
+  OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+}}

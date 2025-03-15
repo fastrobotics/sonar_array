@@ -1,0 +1,3 @@
+add_library(mockSonarArrayNodeDriver MockSonarArrayNodeDriver.cpp)
+target_link_libraries(mockSonarArrayNodeDriver ${catkin_LIBRARIES} baseSonarArrayNodeDriver)
+add_subdirectory(test)
