@@ -9,8 +9,9 @@ bool MockSonarArrayNodeDriver::finish() {
     return true;
 }
 bool MockSonarArrayNodeDriver::init(eros::eros_diagnostic::Diagnostic _diagnostic,
-                                    eros::Logger* _logger) {
-    return BaseSonarArrayNodeDriver::init(_diagnostic, _logger);
+                                    eros::Logger* _logger,
+                                    std::vector<sensor_msgs::Range> _sonars) {
+    return BaseSonarArrayNodeDriver::init(_diagnostic, _logger, _sonars);
 }
 eros::eros_diagnostic::Diagnostic MockSonarArrayNodeDriver::update(double current_time_sec,
                                                                    double dt) {

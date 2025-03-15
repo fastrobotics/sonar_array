@@ -85,9 +85,10 @@ eros::eros_diagnostic::Diagnostic SonarArrayNodeDriver::update(double current_ti
 std::string SonarArrayNodeDriver::pretty(std::string mode) {
     std::string str = "Sonar Array Node Driver";
     str += " Comm Device: " + comm_device_ + "\n";
-    str += BaseSonarArrayNodeDriver::pretty(mode);
+    str += BaseSonarArrayNodeDriver::pretty(mode) + "\n";
     str += "Good Packets: " + std::to_string(good_packet_count) +
-           " Bad Packets: " + std::to_string(bad_packet_count) + "\n";
+           " Rate: " + std::to_string(good_packet_count / get_runtime()) +
+           " (Hz) Bad Packets: " + std::to_string(bad_packet_count) + "\n";
     return str;
 }
 bool SonarArrayNodeDriver::set_comm_device(std::string comm_device, int speed) {
@@ -121,9 +122,6 @@ bool SonarArrayNodeDriver::set_comm_device(std::string comm_device, int speed) {
 
     tty.c_oflag &= ~OPOST;  // Prevent special interpretation of output bytes (e.g. newline chars)
     tty.c_oflag &= ~ONLCR;  // Prevent conversion of newline to carriage return/line feed
-    // tty.c_oflag &= ~OXTABS; // Prevent conversion of tabs to spaces (NOT PRESENT ON LINUX)
-    // tty.c_oflag &= ~ONOEOT; // Prevent removal of C-d chars (0x004) in output (NOT PRESENT ON
-    // LINUX)
 
     tty.c_cc[VTIME] =
         10;  // Wait for up to 1s (10 deciseconds), returning as soon as any data is received.
@@ -132,26 +130,6 @@ bool SonarArrayNodeDriver::set_comm_device(std::string comm_device, int speed) {
     // Set in/out baud rate to be 115200
     cfsetispeed(&tty, speed);
     cfsetospeed(&tty, speed);
-    /*
-        cfsetospeed(&tty, speed);
-        cfsetispeed(&tty, speed);
-
-        tty.c_cflag = (tty.c_cflag & ~CSIZE) | CS8;  // 8-bit characters
-        tty.c_iflag &= ~IGNBRK;                      // disable break processing
-        tty.c_lflag = 0;                             // no signaling chars, no echo, no
-                                                     // canonical processing
-        tty.c_oflag = 0;                             // no remapping, no delays
-        tty.c_cc[VMIN] = 0;                          // read doesn't block
-        tty.c_cc[VTIME] = 0.1;                       // 0.1 seconds read timeout
-
-        tty.c_iflag &= ~(IXON | IXOFF | IXANY);  // shut off xon/xoff ctrl
-
-        tty.c_cflag |= (CLOCAL | CREAD);    // ignore modem controls,
-                                            // enable reading
-        tty.c_cflag &= ~(PARENB | PARODD);  // shut off parity
-        tty.c_cflag &= ~CSTOPB;
-        tty.c_cflag &= ~CRTSCTS;
-    */
     if (tcsetattr(fd, TCSANOW, &tty) != 0) {
         logger->log_error(strerror(errno));
         return false;
@@ -191,8 +169,9 @@ bool SonarArrayNodeDriver::updateSonarData(SonarArrayBoardPacketParser::ParsedPa
     if (packet.sonar_values_cm.size() != sonars.size()) {
         return false;
     }
-    sonars.header.stamp = packet.stamp;
+
     for (std::size_t i = 0; i < packet.sonar_values_cm.size(); ++i) {
+        sonars[i].header.stamp = packet.time_stamp;
         sonars[i].range = packet.sonar_values_cm[i] / 100.0;
     }
     return true;

@@ -34,6 +34,9 @@ class BaseSonarArrayNodeDriver : public ISonarArrayNodeDriver
     std::vector<sensor_msgs::Range> get_sonar_data() {
         return sonars;
     }
+    double get_runtime() {
+        return run_time;
+    }
 
    protected:
     eros::eros_diagnostic::Diagnostic diagnostic;

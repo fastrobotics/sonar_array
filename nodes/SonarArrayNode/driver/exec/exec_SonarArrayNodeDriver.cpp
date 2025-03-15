@@ -1,4 +1,5 @@
 #include <chrono>
+#include <csignal>
 
 #include "SonarArrayNodeDriver.h"
 using namespace sonar_array;
@@ -9,7 +10,15 @@ void printHelp() {
     printf("-d Device.  Default: /dev/ttyUSB0\n");
     printf("-l Logger Threshold. [DEBUG,INFO,NOTICE,WARN,ERROR]\n");
 }
+void signalinterrupt_handler(int sig) {
+    printf("Killing Sonar Array Node Driver with Signal: %d\n", sig);
+    driver.finish();
+    exit(0);
+}
 int main(int argc, char* argv[]) {
+    signal(SIGINT, signalinterrupt_handler);
+    signal(SIGTERM, signalinterrupt_handler);
+    ros::Time::init();
     std::string logger_threshold = "DEBUG";
     std::string device = "/dev/ttyUSB0";
     for (;;) {
@@ -40,9 +49,10 @@ int main(int argc, char* argv[]) {
                                           "Initializing");
 
     logger->log_debug("Starting Sonar Array Node Driver");
-
-    driver.init(diag, logger);
-    if (driver.set_comm_device("/dev/ttyUSB0", B115200) == false) {
+    std::vector<sensor_msgs::Range> sonars;
+    sonars.resize(20);
+    driver.init(diag, logger, sonars);
+    if (driver.set_comm_device(device, B115200) == false) {
         logger->log_error("Error Initializing Driver.  Exiting.");
         return 1;
     }

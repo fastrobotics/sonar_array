@@ -30,7 +30,6 @@ eros::eros_diagnostic::Diagnostic BaseSonarArrayNodeDriver::update(double curren
     double elap_time = current_time_sec - prev_current_time_sec;
 
     run_time += elap_time;
-    logger->log_debug(std::to_string(elap_time) + "," + std::to_string(dt));
     prev_current_time_sec = current_time_sec;
     // NO Practical way to Unit Test this
     // GCOVR_EXCL_START
@@ -53,7 +52,7 @@ eros::eros_diagnostic::Diagnostic BaseSonarArrayNodeDriver::update(double curren
 std::string BaseSonarArrayNodeDriver::pretty(std::string mode) {
     std::string str;
     if (mode == "") {
-        str += pretty("simple");
+        str += BaseSonarArrayNodeDriver::pretty("simple");
         str += "\nRuntime: " + std::to_string(run_time) + " (sec).\n";
     }
     else if (mode == "simple") {
