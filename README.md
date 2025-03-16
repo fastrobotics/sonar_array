@@ -2,6 +2,7 @@
 __TOC__
 - [Overview](#overview)
 - [Project Plan](#project-plan)
+- [Literature Review](#literature-review)
 - [Boards](#boards)
 - [Communication](#communication)
 - [Sensors](#sensors)
@@ -33,6 +34,7 @@ The Sonar Array will be composed of the following:
 
 ![](doc/output/SonarArraySystemDiagram.png)
 
+## [Literature Review](doc/LiteratureReview/LiteratureReview.md)
 ## [Boards](doc/Boards/Boards.md)
 ## [Communication](doc/Communication/Communication.md)
 ## [Sensors](doc/Sensors/Sensors.md)

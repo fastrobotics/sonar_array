@@ -20,7 +20,7 @@ The Board Driver is software based on a Paral
 ## References
 | Reference                                                        | Description                                   |
 | --- | --- |
-| [Spin Language](ref/Parallax%20Spin2%20Documentation%20v50.pdf)  | Spin Language Documentation                   |  |
-| [Spec Sheet](ref/P2X8C4M64P_Propeller-2-Spec-Sheet_20211013.pdf) | Quick Spec Sheet.  General Features.          |
-| [Data Sheet](ref/Propeller2-P2X8C4M64P-Datasheet-20221101.pdf)   | Data Sheet.  Design, Registers, etc.          |
-| [Hardware Manual](ref/Propeller-2-Hardware-Manual-20221101.pdf)  | Hardware Manual.  Thorugh User documentation. |
+| [Spin Language](../../LiteratureReview/ref/Propeller2/ProgrammingLanguage/Parallax%20Spin2%20Documentation%20v50.pdf)  | Spin Language Documentation                   |  |
+| [Spec Sheet](../../LiteratureReview/ref/Propeller2/Hardware/P2X8C4M64P_Propeller-2-Spec-Sheet_20211013.pdf) | Quick Spec Sheet.  General Features.          |
+| [Data Sheet](../../LiteratureReview/ref/Propeller2/Hardware/Propeller2-P2X8C4M64P-Datasheet-20221101.pdf) | Data Sheet.  Design, Registers, etc.          |
+| [Hardware Manual](../../LiteratureReview/ref/Propeller2/Hardware/Propeller-2-Hardware-Manual-20221101.pdf) | Hardware Manual.  Thorugh User documentation. |
