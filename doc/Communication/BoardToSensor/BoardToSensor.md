@@ -22,4 +22,4 @@ graph TD;
 
 ## Specification
 The actual specification for this protocol is defined here:
-![](ref/PingCommunicationProtocol.png)
+![](../../LiteratureReview/ref/SonarSensor/Hardware/PingCommunicationProtocol.png)
