@@ -13,12 +13,12 @@ The Board Driver is software based on a Paral
 
 ## Dependencies
 
-|Dependency                                                                                                                     |
+| Dependency |
 | --- |
 | [jm_full_duplex_serial](https://github.com/parallaxinc/propeller/tree/master/libraries/community/p2/All/jm_full_duplex_serial) |
 
 ## References
-| Reference                                                        | Description                                   |
+| Reference | Description |
 | --- | --- |
 | [Spin Language](../../LiteratureReview/ref/Propeller2/ProgrammingLanguage/Parallax%20Spin2%20Documentation%20v50.pdf)  | Spin Language Documentation                   |  |
 | [Spec Sheet](../../LiteratureReview/ref/Propeller2/Hardware/P2X8C4M64P_Propeller-2-Spec-Sheet_20211013.pdf) | Quick Spec Sheet.  General Features.          |
