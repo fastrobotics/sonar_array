@@ -66,6 +66,7 @@ std::string BaseSonarArrayNodeDriver::pretty(std::vector<sensor_msgs::Range> son
     uint16_t index = 0;
     for (auto sonar : sonar_data) {
         str += "S: " + std::to_string(index) + ":R " + std::to_string(sonar.range) + " (m)";
+        index++;
     }
     return str;
 }
