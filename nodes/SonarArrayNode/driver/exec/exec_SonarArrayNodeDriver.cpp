@@ -3,7 +3,7 @@
 
 #include "SonarArrayNodeDriver.h"
 using namespace sonar_array;
-SonarArrayNodeDriver driver;
+ISonarArrayNodeDriver* driver = new SonarArrayNodeDriver();
 void printHelp() {
     printf("Tester for Sonar Array Node Driver\n");
     printf("-h This Menu.\n");
@@ -13,7 +13,8 @@ void printHelp() {
 }
 void signalinterrupt_handler(int sig) {
     printf("Killing Sonar Array Node Driver with Signal: %d\n", sig);
-    driver.finish();
+    driver->finish();
+    delete driver;
     exit(0);
 }
 int main(int argc, char* argv[]) {
@@ -55,8 +56,8 @@ int main(int argc, char* argv[]) {
                       " Sonars.");
     std::vector<sensor_msgs::Range> sonars;
     sonars.resize(sonar_count);
-    driver.init(diag, logger, sonars);
-    if (driver.set_comm_device(device, B115200) == false) {
+    driver->init(diag, logger, sonars);
+    if (driver->set_comm_device(device, B115200) == false) {
         logger->log_error("Error Initializing Driver.  Exiting.");
         return 1;
     }
@@ -66,10 +67,11 @@ int main(int argc, char* argv[]) {
         auto duration_in_seconds = std::chrono::duration<double>(current_time.time_since_epoch());
 
         double current_time_sec = duration_in_seconds.count();
-        driver.update(current_time_sec, delta_time_sec);
+        driver->update(current_time_sec, delta_time_sec);
         usleep(delta_time_sec * 1000000);
 
-        logger->log_debug(driver.pretty());
+        logger->log_debug(driver->pretty());
+        logger->log_info(driver->pretty(driver->get_sonar_data()));
     }
 
     logger->log_debug("Sonar Array Node Driver Finished.");

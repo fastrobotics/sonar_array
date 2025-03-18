@@ -30,6 +30,7 @@ class ISonarArrayNodeDriver
                       eros::Logger* logger,
                       std::vector<sensor_msgs::Range> sonars) = 0;
     virtual bool is_fully_initialized() = 0;
+    virtual bool set_comm_device(std::string comm_device, int speed) = 0;
 
     virtual eros::eros_diagnostic::Diagnostic update(double current_time_sec, double dt) = 0;
 
@@ -42,5 +43,6 @@ class ISonarArrayNodeDriver
     virtual bool finish() = 0;
     virtual std::string pretty(std::string mode = "") = 0;
     virtual std::vector<sensor_msgs::Range> get_sonar_data() = 0;
+    virtual std::string pretty(std::vector<sensor_msgs::Range> sonar_data) = 0;
 };
 }  // namespace sonar_array

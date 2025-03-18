@@ -116,6 +116,7 @@ eros::eros_diagnostic::Diagnostic SonarArrayNode::finish_initialization() {
     std::string srv_nodestate_topic = "srv_nodestate_change";
     nodestate_srv =
         n->advertiseService(srv_nodestate_topic, &SonarArrayNode::changenodestate_service, this);
+    sonardata_pub = n->advertise<sensor_msgs::Range>(robot_namespace + "/robot/sonar", 20);
     diag = process->update_diagnostic(eros::eros_diagnostic::DiagnosticType::COMMUNICATIONS,
                                       eros::Level::Type::INFO,
                                       eros::eros_diagnostic::Message::NOERROR,
@@ -135,6 +136,9 @@ eros::eros_diagnostic::Diagnostic SonarArrayNode::finish_initialization() {
     return diag;
 }
 bool SonarArrayNode::run_loop1() {
+    process->update(0.02, ros::Time::now().toSec());
+    auto sonar_data = process->get_sonar_data();
+    for (auto sonar : sonar_data) { sonardata_pub.publish(sonar); }
     return true;
 }
 bool SonarArrayNode::run_loop2() {
@@ -185,7 +189,6 @@ bool SonarArrayNode::run_1hz() {
     return true;
 }
 bool SonarArrayNode::run_10hz() {
-    process->update(0.1, ros::Time::now().toSec());
     update_diagnostics(process->get_diagnostics());
     update_ready_to_arm(process->get_ready_to_arm());
     return true;

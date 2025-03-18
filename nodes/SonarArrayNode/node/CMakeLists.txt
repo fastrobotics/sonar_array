@@ -1,5 +1,5 @@
 add_library(sonarArrayNodeProcess SonarArrayNodeProcess.cpp)
-target_link_libraries(sonarArrayNodeProcess ${catkin_LIBRARIES} baseNodeProcess)
+target_link_libraries(sonarArrayNodeProcess ${catkin_LIBRARIES} baseNodeProcess sonarArrayNodeDriver)
 
 
 add_executable(sonar_array_node SonarArrayNode.cpp) 
