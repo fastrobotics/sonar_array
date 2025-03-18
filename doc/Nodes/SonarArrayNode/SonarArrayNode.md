@@ -26,13 +26,14 @@ This will give output similiar to:
 Tester for Sonar Array Node Driver
 -h This Menu.
 -d Device.  Default: /dev/ttyUSB0
+-s Sonar Count. Default: 20
 -l Logger Threshold. [DEBUG,INFO,NOTICE,WARN,ERROR]
 
 ```
 
 Examples:
 ```
-./install/bin/exec_sonararray_node_driver -d /dev/ttyUSB0 -l DEBUG
+./install/bin/exec_sonararray_node_driver -d /dev/ttyUSB0 -s 20 -l DEBUG
 ```
 
 

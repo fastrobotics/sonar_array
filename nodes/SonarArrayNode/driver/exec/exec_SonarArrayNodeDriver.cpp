@@ -8,6 +8,7 @@ void printHelp() {
     printf("Tester for Sonar Array Node Driver\n");
     printf("-h This Menu.\n");
     printf("-d Device.  Default: /dev/ttyUSB0\n");
+    printf("-s Sonar Count. Default: 20\n");
     printf("-l Logger Threshold. [DEBUG,INFO,NOTICE,WARN,ERROR]\n");
 }
 void signalinterrupt_handler(int sig) {
@@ -21,13 +22,15 @@ int main(int argc, char* argv[]) {
     ros::Time::init();
     std::string logger_threshold = "DEBUG";
     std::string device = "/dev/ttyUSB0";
+    uint16_t sonar_count = 20;
     for (;;) {
         switch (getopt(argc,
                        argv,
-                       "d:l:h"))  // note the colon (:) to indicate that 'b' has a parameter and
-                                  // is not a switch
+                       "d:s:l:h"))  // note the colon (:) to indicate that 'b' has a parameter and
+                                    // is not a switch
         {
             case 'd': device = optarg; continue;
+            case 's': sonar_count = atoi(optarg); continue;
             case 'l': logger_threshold = optarg; break;
             case '?': printHelp(); return 0;
             case 'h': printHelp(); return 0;
@@ -48,9 +51,10 @@ int main(int argc, char* argv[]) {
                                           eros::Level::Type::INFO,
                                           "Initializing");
 
-    logger->log_debug("Starting Sonar Array Node Driver");
+    logger->log_debug("Starting Sonar Array Node Driver with " + std::to_string(sonar_count) +
+                      " Sonars.");
     std::vector<sensor_msgs::Range> sonars;
-    sonars.resize(20);
+    sonars.resize(sonar_count);
     driver.init(diag, logger, sonars);
     if (driver.set_comm_device(device, B115200) == false) {
         logger->log_error("Error Initializing Driver.  Exiting.");
