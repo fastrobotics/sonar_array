@@ -93,6 +93,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:abde499c1a136c411260aa492f39d216f"><td class="memItemLeft" align="right" valign="top"><a id="abde499c1a136c411260aa492f39d216f"></a>
 virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>is_fully_initialized</b> ()=0</td></tr>
 <tr class="separator:abde499c1a136c411260aa492f39d216f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aabaa0b9f771d2f4d3a6f4d90f807ac9e"><td class="memItemLeft" align="right" valign="top"><a id="aabaa0b9f771d2f4d3a6f4d90f807ac9e"></a>
+virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>set_comm_device</b> (std::string comm_device, int speed)=0</td></tr>
+<tr class="separator:aabaa0b9f771d2f4d3a6f4d90f807ac9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aef7101bc3f58016fc17604c3b9ce9821"><td class="memItemLeft" align="right" valign="top"><a id="aef7101bc3f58016fc17604c3b9ce9821"></a>
 virtual eros::eros_diagnostic::Diagnostic&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> (double current_time_sec, double dt)=0</td></tr>
 <tr class="separator:aef7101bc3f58016fc17604c3b9ce9821"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -105,6 +108,9 @@ virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><b>pretty
 <tr class="memitem:afc3d6e47dda5218711196c47f7884cec"><td class="memItemLeft" align="right" valign="top"><a id="afc3d6e47dda5218711196c47f7884cec"></a>
 virtual std::vector&lt; sensor_msgs::Range &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>get_sonar_data</b> ()=0</td></tr>
 <tr class="separator:afc3d6e47dda5218711196c47f7884cec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a270284ca4f3b3735eec44ea68d57ae"><td class="memItemLeft" align="right" valign="top"><a id="a3a270284ca4f3b3735eec44ea68d57ae"></a>
+virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><b>pretty</b> (std::vector&lt; sensor_msgs::Range &gt; sonar_data)=0</td></tr>
+<tr class="separator:a3a270284ca4f3b3735eec44ea68d57ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>nodes/SonarArrayNode/driver/include/<a class="el" href="ISonarArrayNodeDriver_8h.html">ISonarArrayNodeDriver.h</a></li>

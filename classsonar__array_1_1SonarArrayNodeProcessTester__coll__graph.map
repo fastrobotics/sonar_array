@@ -1,5 +1,6 @@
 <map id="sonar_array::SonarArrayNodeProcessTester" name="sonar_array::SonarArrayNodeProcessTester">
-<area shape="rect" id="node1" title=" " alt="" coords="5,169,217,211"/>
-<area shape="rect" id="node2" href="$classsonar__array_1_1SonarArrayNodeProcess.html" title=" " alt="" coords="5,80,217,121"/>
-<area shape="rect" id="node3" title=" " alt="" coords="24,5,199,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="88,200,300,241"/>
+<area shape="rect" id="node2" href="$classsonar__array_1_1SonarArrayNodeProcess.html" title=" " alt="" coords="88,109,300,151"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,13,180,39"/>
+<area shape="rect" id="node4" href="$classsonar__array_1_1ISonarArrayNodeDriver.html" title=" " alt="" coords="204,5,387,47"/>
 </map>

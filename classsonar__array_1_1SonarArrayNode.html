@@ -94,10 +94,11 @@ Collaboration diagram for sonar_array::SonarArrayNode:</div>
 <div class="dyncontent">
 <div class="center"><img src="classsonar__array_1_1SonarArrayNode__coll__graph.png" border="0" usemap="#sonar__array_1_1SonarArrayNode_coll__map" alt="Collaboration graph"/></div>
 <map name="sonar__array_1_1SonarArrayNode_coll__map" id="sonar__array_1_1SonarArrayNode_coll__map">
-<area shape="rect" title="SonarArrayNode." alt="" coords="20,185,232,212"/>
-<area shape="rect" title=" " alt="" coords="5,89,129,115"/>
-<area shape="rect" href="classsonar__array_1_1SonarArrayNodeProcess.html" title=" " alt="" coords="153,81,365,123"/>
-<area shape="rect" title=" " alt="" coords="172,5,347,32"/>
+<area shape="rect" title="SonarArrayNode." alt="" coords="20,213,232,240"/>
+<area shape="rect" title=" " alt="" coords="5,117,129,143"/>
+<area shape="rect" href="classsonar__array_1_1SonarArrayNodeProcess.html" title=" " alt="" coords="153,109,365,151"/>
+<area shape="rect" title=" " alt="" coords="71,13,245,39"/>
+<area shape="rect" href="classsonar__array_1_1ISonarArrayNodeDriver.html" title=" " alt="" coords="269,5,452,47"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -170,11 +171,11 @@ const uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" 
 <tr class="memdesc:a8898950cbc9c34755863671a45d241ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">The Minor Release Version of the Node. <br /></td></tr>
 <tr class="separator:a8898950cbc9c34755863671a45d241ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1ddd1251eeaa1d1519dfbab90a962a00"><td class="memItemLeft" align="right" valign="top"><a id="a1ddd1251eeaa1d1519dfbab90a962a00"></a>
-const uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsonar__array_1_1SonarArrayNode.html#a1ddd1251eeaa1d1519dfbab90a962a00">BUILD_NUMBER</a> = 0</td></tr>
+const uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsonar__array_1_1SonarArrayNode.html#a1ddd1251eeaa1d1519dfbab90a962a00">BUILD_NUMBER</a> = 1</td></tr>
 <tr class="memdesc:a1ddd1251eeaa1d1519dfbab90a962a00"><td class="mdescLeft">&#160;</td><td class="mdescRight">The Build Number of the Node. <br /></td></tr>
 <tr class="separator:a1ddd1251eeaa1d1519dfbab90a962a00"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad5eb6a681abf1b95403fb1623107c9b2"><td class="memItemLeft" align="right" valign="top"><a id="ad5eb6a681abf1b95403fb1623107c9b2"></a>
-const std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsonar__array_1_1SonarArrayNode.html#ad5eb6a681abf1b95403fb1623107c9b2">FIRMWARE_DESCRIPTION</a> = &quot;Latest Rev: 12-Mar-2025&quot;</td></tr>
+const std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsonar__array_1_1SonarArrayNode.html#ad5eb6a681abf1b95403fb1623107c9b2">FIRMWARE_DESCRIPTION</a> = &quot;Latest Rev: 17-Mar-2025&quot;</td></tr>
 <tr class="memdesc:ad5eb6a681abf1b95403fb1623107c9b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">A Description of the Firmware. <br /></td></tr>
 <tr class="separator:ad5eb6a681abf1b95403fb1623107c9b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a42e525dc768dc97f1a1bb140cb4a8c93"><td class="memItemLeft" align="right" valign="top"><a id="a42e525dc768dc97f1a1bb140cb4a8c93"></a>
@@ -204,6 +205,9 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a6cf22c5ece37b8391dcde6ff5bdf99fa"><td class="memItemLeft" align="right" valign="top"><a id="a6cf22c5ece37b8391dcde6ff5bdf99fa"></a>
 actionlib::SimpleActionServer&lt; eros::system_commandAction &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>system_command_action_server</b></td></tr>
 <tr class="separator:a6cf22c5ece37b8391dcde6ff5bdf99fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a674be31728597d129a7c35fd3e23b396"><td class="memItemLeft" align="right" valign="top"><a id="a674be31728597d129a7c35fd3e23b396"></a>
+ros::Publisher&#160;</td><td class="memItemRight" valign="bottom"><b>sonardata_pub</b></td></tr>
+<tr class="separator:a674be31728597d129a7c35fd3e23b396"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="classsonar__array_1_1SonarArrayNode.html" title="SonarArrayNode.">SonarArrayNode</a>. </p>
