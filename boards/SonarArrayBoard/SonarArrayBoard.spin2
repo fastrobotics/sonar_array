@@ -19,7 +19,7 @@ CON { Comms Constants }
   BAUDRATE_DEBUG = 115_200
 
 CON { Sonar Constants }
-  PIN_SONAR1 = -1 ' FIGURE THIS OUT!
+  PIN_SONAR1 = 46
 
 CON { Other App Constants }
   MAX_NUMBER_SONARS = 20
@@ -79,9 +79,9 @@ PUB run_fast_loop()
 
 
 PUB run_medium_loop()
-  send_dummy_sonar_packet()
-  'read_sonars()
-  'send_sonar_packet()
+  'send_dummy_sonar_packet()
+  read_sonars()
+  send_sonar_packet()
   medium_loop_counter++
 
 
