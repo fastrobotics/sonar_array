@@ -33,11 +33,17 @@ class SonarArrayNodeProcess : public eros::BaseNodeProcess
         return;
     }
     std::vector<sensor_msgs::Range> get_sonar_data() {
-        return driver->get_sonar_data();
+        if (driver == nullptr) {
+            std::vector<sensor_msgs::Range> empty;
+            return empty;
+        }
+        else {
+            return driver->get_sonar_data();
+        }
     }
     std::string pretty() override;
 
    private:
-    ISonarArrayNodeDriver* driver;
+    ISonarArrayNodeDriver* driver;  // Enable during AB#1452
 };
 }  // namespace sonar_array

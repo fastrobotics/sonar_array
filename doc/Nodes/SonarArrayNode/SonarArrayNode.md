@@ -6,7 +6,7 @@
 
 
 ## Usage Instructions
-### Servo Hat Node
+### Sonar Array Node
 
 #### Configuration
 

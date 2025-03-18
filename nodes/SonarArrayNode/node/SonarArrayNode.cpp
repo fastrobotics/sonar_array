@@ -63,7 +63,6 @@ bool SonarArrayNode::start() {
         return false;
         // LCOV_EXCL_STOP
     }
-
     process->initialize(get_basenodename(),
                         get_nodename(),
                         get_hostname(),
@@ -76,10 +75,11 @@ bool SonarArrayNode::start() {
     diagnostic_types.push_back(eros::eros_diagnostic::DiagnosticType::DATA_STORAGE);
     diagnostic_types.push_back(eros::eros_diagnostic::DiagnosticType::SYSTEM_RESOURCE);
     diagnostic_types.push_back(eros::eros_diagnostic::DiagnosticType::COMMUNICATIONS);
-    diagnostic_types.push_back(eros::eros_diagnostic::DiagnosticType::ACTUATORS);
+    diagnostic_types.push_back(eros::eros_diagnostic::DiagnosticType::SENSORS);
     process->enable_diagnostics(diagnostic_types);
     process->finish_initialization();
     diagnostic = finish_initialization();
+    logger->log_diagnostic(diagnostic);
     if (diagnostic.level > eros::Level::Type::WARN) {
         // No practical way to unit test
         // LCOV_EXCL_START
@@ -129,10 +129,10 @@ eros::eros_diagnostic::Diagnostic SonarArrayNode::finish_initialization() {
                                       eros::Level::Type::INFO,
                                       eros::eros_diagnostic::Message::NOERROR,
                                       "All Configuration Files Loaded.");
-    diag = process->update_diagnostic(eros::eros_diagnostic::DiagnosticType::ACTUATORS,
+    diag = process->update_diagnostic(eros::eros_diagnostic::DiagnosticType::SENSORS,
                                       eros::Level::Type::WARN,
                                       eros::eros_diagnostic::Message::INITIALIZING,
-                                      "Servo Hat Initializing...");
+                                      "Sonar Array Initializing...");
     return diag;
 }
 bool SonarArrayNode::run_loop1() {
