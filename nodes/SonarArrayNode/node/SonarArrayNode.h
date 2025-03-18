@@ -35,10 +35,10 @@ class SonarArrayNode : public eros::BaseNode
     const uint16_t MINOR_RELEASE_VERSION = 0;
 
     /*! \brief The Build Number of the Node.*/
-    const uint16_t BUILD_NUMBER = 0;
+    const uint16_t BUILD_NUMBER = 1;
 
     /*! \brief A Description of the Firmware.*/
-    const std::string FIRMWARE_DESCRIPTION = "Latest Rev: 12-Mar-2025";
+    const std::string FIRMWARE_DESCRIPTION = "Latest Rev: 17-Mar-2025";
 
     /*! \brief What System this Node falls under.*/
     const eros::System::MainSystem DIAGNOSTIC_SYSTEM = eros::System::MainSystem::ROVER;
@@ -76,5 +76,7 @@ class SonarArrayNode : public eros::BaseNode
     eros::eros_diagnostic::Diagnostic read_launchparameters();
     SonarArrayNodeProcess* process;
     actionlib::SimpleActionServer<eros::system_commandAction> system_command_action_server;
+
+    ros::Publisher sonardata_pub;
 };
 }  // namespace sonar_array
