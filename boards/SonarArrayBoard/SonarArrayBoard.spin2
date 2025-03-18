@@ -18,6 +18,12 @@ CON { Comms Constants }
 
   BAUDRATE_DEBUG = 115_200
 
+CON { Sonar Constants }
+  PIN_SONAR1 = 46
+
+CON { Other App Constants }
+  MAX_NUMBER_SONARS = 20
+
 VAR { timing }
   long fast_loop_counter
   long medium_loop_counter
@@ -29,7 +35,9 @@ VAR { Messaging }
   long start_timestamp
 
 VAR { Sensor Variables }
+  word fakedistance_cm
   word distance1_cm
+
 
 
 OBJ
@@ -71,8 +79,9 @@ PUB run_fast_loop()
 
 
 PUB run_medium_loop()
-  send_dummy_sonar_packet()
-  'send_sonar_packet()
+  'send_dummy_sonar_packet()
+  read_sonars()
+  send_sonar_packet()
   medium_loop_counter++
 
 
@@ -89,6 +98,7 @@ PUB init_variables()
     fast_loop_counter := medium_loop_counter := slow_loop_counter := veryslow_loop_counter := 0
     sequence_number := 0
     start_timestamp := getct()/m_clkfreq
+    fakedistance_cm := 0
 
 PUB setup_comms()
 
@@ -97,21 +107,21 @@ PUB send_sonar_packet()
 
   term.str(string("$AA"))
   term.fxdec(sequence_number,4)
-
+  term.fxdec(1,2) ' Only 1 Sonar supported currently
+  term.fxdec(distance1_cm,4)
   term.str(string(10,13))
-  if sequence_number >= 255
+  if sequence_number >= 9999
     sequence_number := 0
   else
     sequence_number++
 
 
-PUB send_dummy_sonar_packet(): max_number_sonars
-  max_number_sonars := 20
+PUB send_dummy_sonar_packet()
   term.str(string("$AA"))                               ' Packet Header
-  term.fxdec(sequence_number,3)                        ' Sequence Number
+  term.fxdec(sequence_number,4)                        ' Sequence Number
   term.fxdec(max_number_sonars,2)                       ' Max Number of Sonars
-  repeat max_number_sonars
-    term.fxdec(distance1_cm,4)                                     ' Max Sonar Value
+  repeat MAX_NUMBER_SONARS
+    term.fxdec(fakedistance_cm,4)                                     ' Max Sonar Value
 
 
   term.str(string(10,13))
@@ -119,6 +129,11 @@ PUB send_dummy_sonar_packet(): max_number_sonars
     sequence_number := 0
   else
     sequence_number++
+
+  if fakedistance_cm >= 9999
+    fakedistance_cm := 0
+  else
+    fakedistance_cm++
 
 PUB send_debug()
   term.str(string("Fast:"))
@@ -130,3 +145,6 @@ PUB send_debug()
   term.str(string(" Very Slow: "))
   term.dec(veryslow_loop_counter)
   term.str(string(10,13))
+
+PUB read_sonars()
+   distance1_cm := ping.centimeters(PIN_SONAR1)

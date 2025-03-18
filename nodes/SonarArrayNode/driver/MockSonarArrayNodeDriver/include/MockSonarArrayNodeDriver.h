@@ -38,6 +38,9 @@ class MockSonarArrayNodeDriver : public BaseSonarArrayNodeDriver
     bool init(eros::eros_diagnostic::Diagnostic diagnostic,
               eros::Logger* logger,
               std::vector<sensor_msgs::Range> sonars) override;
+    bool set_comm_device(std::string /* comm_device */, int /* speed */) override {
+        return true;
+    }
     eros::eros_diagnostic::Diagnostic update(double current_time_sec, double dt) override;
 
     /**

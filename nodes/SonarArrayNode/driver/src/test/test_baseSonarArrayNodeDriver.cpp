@@ -23,6 +23,9 @@ class TesterSonarArrayNodeDriver : public BaseSonarArrayNodeDriver
         }
         return false;
     }
+    bool set_comm_device(std::string /* comm_device */, int /* speed */) {
+        return true;
+    }
     bool finish() {
         return true;
     }

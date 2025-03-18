@@ -12,6 +12,9 @@
 #include <eros/BaseNodeProcess.h>
 #include <eros_diagnostic/Diagnostic.h>
 
+#include "ISonarArrayNodeDriver.h"
+#include "SonarArrayNodeDriver.h"
+
 namespace sonar_array {
 /*! \class SonarArrayNodeProcess SonarArrayNodeProcess.h "SonarArrayNodeProcess.h"
  *  \brief */
@@ -29,8 +32,18 @@ class SonarArrayNodeProcess : public eros::BaseNodeProcess
         base_cleanup();
         return;
     }
+    std::vector<sensor_msgs::Range> get_sonar_data() {
+        if (driver == nullptr) {
+            std::vector<sensor_msgs::Range> empty;
+            return empty;
+        }
+        else {
+            return driver->get_sonar_data();
+        }
+    }
     std::string pretty() override;
 
    private:
+    ISonarArrayNodeDriver* driver;  // Enable during AB#1452
 };
 }  // namespace sonar_array
