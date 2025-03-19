@@ -3,7 +3,13 @@
 # Parallax Propeller 2
 
 ## Board Driver
-The Board Driver is software based on a Paral
+The Board Driver is software based on a Parallax Propeller.
+
+## Topics
+
+| Topic |
+| --- |
+| [Semaphores](Topics/Semaphores.md) |
 
 ### Software Design
 ![](../../output/Legend.png)
