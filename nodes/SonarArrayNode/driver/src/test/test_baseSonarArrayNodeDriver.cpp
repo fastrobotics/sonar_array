@@ -38,11 +38,12 @@ TEST(BasicTest, Test_Initialization) {
     sonars.resize(1);
     EXPECT_TRUE(SUT.init(diagnostic, logger, sonars));
     EXPECT_TRUE(SUT.is_fully_initialized());
-    // delete logger;
+
+    delete logger;
 }
 TEST(BasicTest, FailureModes) {
     {  // Logger not initialized
-        eros::Logger* logger;
+        eros::Logger* logger = nullptr;
         TesterSonarArrayNodeDriver SUT;
         eros::eros_diagnostic::Diagnostic diagnostic;
         std::vector<sensor_msgs::Range> sonars;

@@ -67,7 +67,7 @@ namespace sonar_array {
         +PacketType packet_type
         +uint16_t sequence_number
         +uint8_t sonar_count
-        +uint16_t[] sonar_values_cm
+        +double[] sonar_values_m
     }
     SonarArrayBoardPacketParser +-- ParsedPacket
     SonarArrayBoardPacketParser +-- PacketType
