@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Sonar Array: Member List</title>
+<title>Sonar Array: sonar_array::SonarArrayBoardPacketParser::PacketType</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -64,19 +64,56 @@ $(function() {
 <li class="navelem"><a class="el" href="namespacesonar__array.html">sonar_array</a></li><li class="navelem"><a class="el" href="classsonar__array_1_1SonarArrayBoardPacketParser.html">SonarArrayBoardPacketParser</a></li>  </ul>
 </div>
 </div><!-- top -->
-<div class="header">
-  <div class="headertitle">
-<div class="title">sonar_array::SonarArrayBoardPacketParser Member List</div>  </div>
-</div><!--header-->
 <div class="contents">
+<table cellspacing="0" cellpadding="0" border="0">
+  <tr>
+   <td valign="top">
+      <div class="navtab">
+        <table>
+          <tr><td class="navtab"><a class="qindexHL" href="classsonar__array_1_1SonarArrayBoardPacketParser_a4dc0e1b0301a9de539a5f7d3b2265ce4.html#a4dc0e1b0301a9de539a5f7d3b2265ce4">PacketType</a></td></tr>
+        </table>
+      </div>
+   </td>
+   <td valign="top" class="mempage">
+<a id="a4dc0e1b0301a9de539a5f7d3b2265ce4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4dc0e1b0301a9de539a5f7d3b2265ce4">&#9670;&nbsp;</a></span>PacketType</h2>
 
-<p>This is the complete list of members for <a class="el" href="classsonar__array_1_1SonarArrayBoardPacketParser.html">sonar_array::SonarArrayBoardPacketParser</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="classsonar__array_1_1SonarArrayBoardPacketParser_a4dc0e1b0301a9de539a5f7d3b2265ce4.html#a4dc0e1b0301a9de539a5f7d3b2265ce4">PacketType</a> enum name</td><td class="entry"><a class="el" href="classsonar__array_1_1SonarArrayBoardPacketParser.html">sonar_array::SonarArrayBoardPacketParser</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>parsePacket</b>(std::string str) (defined in <a class="el" href="classsonar__array_1_1SonarArrayBoardPacketParser.html">sonar_array::SonarArrayBoardPacketParser</a>)</td><td class="entry"><a class="el" href="classsonar__array_1_1SonarArrayBoardPacketParser.html">sonar_array::SonarArrayBoardPacketParser</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>SonarArrayBoardPacketParser</b>()=default (defined in <a class="el" href="classsonar__array_1_1SonarArrayBoardPacketParser.html">sonar_array::SonarArrayBoardPacketParser</a>)</td><td class="entry"><a class="el" href="classsonar__array_1_1SonarArrayBoardPacketParser.html">sonar_array::SonarArrayBoardPacketParser</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>~SonarArrayBoardPacketParser</b>()=default (defined in <a class="el" href="classsonar__array_1_1SonarArrayBoardPacketParser.html">sonar_array::SonarArrayBoardPacketParser</a>)</td><td class="entry"><a class="el" href="classsonar__array_1_1SonarArrayBoardPacketParser.html">sonar_array::SonarArrayBoardPacketParser</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-</table></div><!-- contents -->
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="classsonar__array_1_1SonarArrayBoardPacketParser_a4dc0e1b0301a9de539a5f7d3b2265ce4.html#a4dc0e1b0301a9de539a5f7d3b2265ce4">sonar_array::SonarArrayBoardPacketParser::PacketType</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a4dc0e1b0301a9de539a5f7d3b2265ce4a696b031073e74bf2cb98e5ef201d4aa3"></a>UNKNOWN&#160;</td><td class="fielddoc"><p>Uninitialized value. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a4dc0e1b0301a9de539a5f7d3b2265ce4acf52dd1382c168398a1990ffa9b1a2fa"></a>DATA_STREAM&#160;</td><td class="fielddoc"><p>Data Stream Packet filled with Sonar Data. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a4dc0e1b0301a9de539a5f7d3b2265ce4ac2b0b4a580050a88a759ac7c20ce853c"></a>END_OF_LIST&#160;</td><td class="fielddoc"><p>Last item of list. Used for Range Checks. </p>
+</td></tr>
+</table>
+<div class="fragment"><div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;                          {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        UNKNOWN = 0,     </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        DATA_STREAM = 1, </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        END_OF_LIST = 2  </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    };</div>
+</div><!-- fragment -->
+</div>
+</div>
+    </td>
+  </tr>
+</table>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">
