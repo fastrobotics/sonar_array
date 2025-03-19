@@ -165,13 +165,13 @@ bool SonarArrayNodeDriver::processSequenceNumber(uint16_t sequence_number) {
     return status;
 }
 bool SonarArrayNodeDriver::updateSonarData(SonarArrayBoardPacketParser::ParsedPacket packet) {
-    if (packet.sonar_values_cm.size() != sonars.size()) {
+    if (packet.sonar_values_m.size() != sonars.size()) {
         return false;
     }
 
-    for (std::size_t i = 0; i < packet.sonar_values_cm.size(); ++i) {
+    for (std::size_t i = 0; i < packet.sonar_values_m.size(); ++i) {
         sonars[i].header.stamp = packet.time_stamp;
-        sonars[i].range = packet.sonar_values_cm[i] / 100.0;
+        sonars[i].range = packet.sonar_values_m[i];
     }
     return true;
 }

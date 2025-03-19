@@ -1,10 +1,6 @@
 #include "SonarArrayBoardPacketParser.h"
 
 namespace sonar_array {
-SonarArrayBoardPacketParser::SonarArrayBoardPacketParser() {
-}
-SonarArrayBoardPacketParser::~SonarArrayBoardPacketParser() {
-}
 SonarArrayBoardPacketParser::ParsedPacket SonarArrayBoardPacketParser::parsePacket(
     std::string str) {
     ParsedPacket data;
@@ -41,11 +37,11 @@ SonarArrayBoardPacketParser::ParsedPacket SonarArrayBoardPacketParser::parsePack
             if (data_str.size() < min_data_size) {  // Incomplete Packet, throw away
                 return data;
             }
-            data.sonar_values_cm.resize(data.sonar_count);
+            data.sonar_values_m.resize(data.sonar_count);
             uint16_t offset = 6;
             for (uint8_t i = 0; i < data.sonar_count; ++i) {
                 std::string v = data_str.substr(offset, 4);
-                data.sonar_values_cm[i] = atoi(v.c_str());
+                data.sonar_values_m[i] = (double)atoi(v.c_str()) / 1000.0;
                 offset += 4;
             }
             data.parsed_ok = true;

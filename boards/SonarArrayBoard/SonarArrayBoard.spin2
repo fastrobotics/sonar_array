@@ -1,5 +1,9 @@
 {Object_Title_and_Purpose}
 
+{ Version History }
+{
+  18-March-2025: Changed units to mm instead of cm for Sonars
+}
 
 CON { timing }
   _clkfreq = 160_000_000                                                  'Standard clock frequency = 160 MHz
@@ -36,7 +40,7 @@ VAR { Messaging }
 
 VAR { Sensor Variables }
   word fakedistance_cm
-  word distance1_cm
+  word distance1_mm
 
 
 
@@ -108,7 +112,7 @@ PUB send_sonar_packet()
   term.str(string("$AA"))
   term.fxdec(sequence_number,4)
   term.fxdec(1,2) ' Only 1 Sonar supported currently
-  term.fxdec(distance1_cm,4)
+  term.fxdec(distance1_mm,4)
   term.str(string(10,13))
   if sequence_number >= 9999
     sequence_number := 0
@@ -147,4 +151,4 @@ PUB send_debug()
   term.str(string(10,13))
 
 PUB read_sonars()
-   distance1_cm := ping.centimeters(PIN_SONAR1)
+   distance1_mm := ping.millimeters(PIN_SONAR1)

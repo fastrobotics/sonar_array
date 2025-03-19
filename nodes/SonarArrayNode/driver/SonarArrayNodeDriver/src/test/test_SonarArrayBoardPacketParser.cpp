@@ -24,8 +24,8 @@ TEST(BasicTest, ParseMessage_DataStream) {
         EXPECT_EQ(data.packet_type, SonarArrayBoardPacketParser::PacketType::DATA_STREAM);
         EXPECT_EQ(data.sequence_number, 6512);
         EXPECT_EQ(data.sonar_count, 20);
-        EXPECT_EQ(data.sonar_values_cm.size(), data.sonar_count);
-        for (auto v : data.sonar_values_cm) { EXPECT_EQ(v, 91); }
+        EXPECT_EQ(data.sonar_values_m.size(), data.sonar_count);
+        for (auto v : data.sonar_values_m) { EXPECT_NEAR(v, 0.091, 1e-8); }
         EXPECT_TRUE(data.parsed_ok);
     }
     {  // Packet with missing data at start, but then complete.
