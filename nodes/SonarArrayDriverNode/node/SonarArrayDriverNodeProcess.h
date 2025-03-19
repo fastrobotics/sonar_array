@@ -13,17 +13,21 @@
 #include <eros_diagnostic/Diagnostic.h>
 
 #include "ISonarArrayNodeDriver.h"
+#include "MockSonarArrayNodeDriver.h"
 #include "SonarArrayNodeDriver.h"
 
 namespace sonar_array {
-/*! \class SonarArrayNodeProcess SonarArrayNodeProcess.h "SonarArrayNodeProcess.h"
+/*! \class SonarArrayDriverNodeProcess SonarArrayDriverNodeProcess.h "SonarArrayDriverNodeProcess.h"
  *  \brief */
-class SonarArrayNodeProcess : public eros::BaseNodeProcess
+class SonarArrayDriverNodeProcess : public eros::BaseNodeProcess
 {
    public:
-    SonarArrayNodeProcess();
-    ~SonarArrayNodeProcess();
+    SonarArrayDriverNodeProcess();
+    ~SonarArrayDriverNodeProcess();
     eros::eros_diagnostic::Diagnostic finish_initialization();
+    void set_enable_mock(bool v) {
+        enable_mock = v;
+    }
     void reset();
     eros::eros_diagnostic::Diagnostic update(double t_dt, double t_ros_time);
     std::vector<eros::eros_diagnostic::Diagnostic> new_commandmsg(eros::command msg);
@@ -44,6 +48,7 @@ class SonarArrayNodeProcess : public eros::BaseNodeProcess
     std::string pretty() override;
 
    private:
+    bool enable_mock{false};
     ISonarArrayNodeDriver* driver;  // Enable during AB#1452
 };
 }  // namespace sonar_array

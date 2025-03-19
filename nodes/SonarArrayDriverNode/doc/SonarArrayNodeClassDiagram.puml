@@ -11,7 +11,7 @@ package sensor_msgs {
     class Range <<(M,#FFFF00)>>
 }
 package sonar_array {
-  class SonarArrayNode  {
+  class SonarArrayDriverNode  {
       +const std::string BASE_NODE_NAME
       +const uint16_t MAJOR_RELEASE_VERSION
       +const uint16_t MINOR_RELEASE_VERSION
@@ -20,7 +20,7 @@ package sonar_array {
       +const eros::System::MainSystem DIAGNOSTIC_SYSTEM
       +const eros::System::SubSystem DIAGNOSTIC_SUBSYSTEM
       +const eros::System::Component DIAGNOSTIC_COMPONENT
-      +SonarArrayNodeProcess* get_process()
+      +SonarArrayDriverNodeProcess* get_process()
       +bool start()
       +eros::eros_diagnostic::Diagnostic finish_initialization()
       +bool run_loop1()
@@ -37,9 +37,9 @@ package sonar_array {
       +system_commandAction_Callback(const eros::system_commandGoalConstPtr& goal)
       +command_Callback(const eros::command::ConstPtr& t_msg)
 
-      -SonarArrayNodeProcess* process;
+      -SonarArrayDriverNodeProcess* process;
   }
-  class SonarArrayNodeProcess  {
+  class SonarArrayDriverNodeProcess  {
       +eros::eros_diagnostic::Diagnostic finish_initialization()
       +reset()
       +eros::eros_diagnostic::Diagnostic update(double t_dt, double t_ros_time)
@@ -50,9 +50,9 @@ package sonar_array {
 
   }
   class SonarArrayNodeDriver #LimeGreen 
-  BaseNode <|-- SonarArrayNode
-  BaseNodeProcess <|-- SonarArrayNodeProcess
-  SonarArrayNode -> SonarArrayNodeProcess
-  SonarArrayNodeProcess -> SonarArrayNodeDriver
+  BaseNode <|-- SonarArrayDriverNode
+  BaseNodeProcess <|-- SonarArrayDriverNodeProcess
+  SonarArrayDriverNode -> SonarArrayDriverNodeProcess
+  SonarArrayDriverNodeProcess -> SonarArrayNodeDriver
 }
 @enduml

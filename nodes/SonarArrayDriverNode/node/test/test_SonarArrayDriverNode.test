@@ -2,10 +2,11 @@
 <launch>
     <arg name="robot_namespace" value="/test" />
     <group ns="test">
-        <include file="$(find sonar_array)/nodes/SonarArrayNode/launch/sonar_array_node.launch">
+        <include file="$(find sonar_array)/nodes/SonarArrayDriverNode/launch/sonar_array_driver_node.launch">
             <arg name="robot_namespace" value="$(arg robot_namespace)"/>
             <arg name="verbosity_level" value="DEBUG"/>
+            <arg name="enable_mock" value="True"/>
         </include>
-        <test test-name="test_sonarArrayNode" pkg="sonar_array" type="test_sonarArrayNode"/>
+        <test test-name="test_sonarArrayDriverNode" pkg="sonar_array" type="test_sonarArrayDriverNode"/>
     </group>
 </launch>

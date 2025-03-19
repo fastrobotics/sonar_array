@@ -1,18 +1,19 @@
-#include "SonarArrayNode.h"
+#include "SonarArrayDriverNode.h"
 bool kill_node = false;
 namespace sonar_array {
 
-SonarArrayNode::SonarArrayNode()
+SonarArrayDriverNode::SonarArrayDriverNode()
     : system_command_action_server(
           *n.get(),
           read_robotnamespace() + "SystemCommandAction",
-          boost::bind(&SonarArrayNode::system_commandAction_Callback, this, _1),
+          boost::bind(&SonarArrayDriverNode::system_commandAction_Callback, this, _1),
           false) {
     system_command_action_server.start();
 }
-SonarArrayNode::~SonarArrayNode() {
+SonarArrayDriverNode::~SonarArrayDriverNode() {
 }
-void SonarArrayNode::system_commandAction_Callback(const eros::system_commandGoalConstPtr &goal) {
+void SonarArrayDriverNode::system_commandAction_Callback(
+    const eros::system_commandGoalConstPtr &goal) {
     eros::eros_diagnostic::Diagnostic diag = process->get_root_diagnostic();
     eros::system_commandResult system_commandResult_;
     system_command_action_server.setAborted(system_commandResult_);
@@ -24,7 +25,7 @@ void SonarArrayNode::system_commandAction_Callback(const eros::system_commandGoa
             eros::Command::CommandString((eros::Command::Type)goal->Command));
     logger->log_diagnostic(diag);
 }
-void SonarArrayNode::command_Callback(const eros::command::ConstPtr &t_msg) {
+void SonarArrayDriverNode::command_Callback(const eros::command::ConstPtr &t_msg) {
     eros::command cmd = eros::eros_utility::ConvertUtility::convert_fromptr(t_msg);
     eros::eros_diagnostic::Diagnostic diag = process->get_root_diagnostic();
     diag = process->update_diagnostic(
@@ -35,17 +36,17 @@ void SonarArrayNode::command_Callback(const eros::command::ConstPtr &t_msg) {
             eros::Command::CommandString((eros::Command::Type)cmd.Command));
     logger->log_diagnostic(diag);
 }
-bool SonarArrayNode::changenodestate_service(eros::srv_change_nodestate::Request &req,
-                                             eros::srv_change_nodestate::Response &res) {
+bool SonarArrayDriverNode::changenodestate_service(eros::srv_change_nodestate::Request &req,
+                                                   eros::srv_change_nodestate::Response &res) {
     eros::Node::State req_state = eros::Node::NodeState(req.RequestedNodeState);
     process->request_statechange(req_state);
     res.NodeState = eros::Node::NodeStateString(process->get_nodestate());
     return true;
 }
-bool SonarArrayNode::start() {
+bool SonarArrayDriverNode::start() {
     initialize_diagnostic(DIAGNOSTIC_SYSTEM, DIAGNOSTIC_SUBSYSTEM, DIAGNOSTIC_COMPONENT);
     bool status = false;
-    process = new SonarArrayNodeProcess();
+    process = new SonarArrayDriverNodeProcess();
     set_basenodename(BASE_NODE_NAME);
     initialize_firmware(
         MAJOR_RELEASE_VERSION, MINOR_RELEASE_VERSION, BUILD_NUMBER, FIRMWARE_DESCRIPTION);
@@ -104,18 +105,23 @@ bool SonarArrayNode::start() {
     status = true;
     return status;
 }
-eros::eros_diagnostic::Diagnostic SonarArrayNode::read_launchparameters() {
+eros::eros_diagnostic::Diagnostic SonarArrayDriverNode::read_launchparameters() {
     eros::eros_diagnostic::Diagnostic diag = diagnostic;
     command_sub = n->subscribe<eros::command>(
-        get_robotnamespace() + "SystemCommand", 10, &SonarArrayNode::command_Callback, this);
+        get_robotnamespace() + "SystemCommand", 10, &SonarArrayDriverNode::command_Callback, this);
+    bool enable_mock = false;
+    n->getParam("enable_mock", enable_mock);
+    if (enable_mock) {
+        process->set_enable_mock(true);
+    }
     get_logger()->log_notice("Configuration Files Loaded.");
     return diag;
 }
-eros::eros_diagnostic::Diagnostic SonarArrayNode::finish_initialization() {
+eros::eros_diagnostic::Diagnostic SonarArrayDriverNode::finish_initialization() {
     eros::eros_diagnostic::Diagnostic diag = diagnostic;
     std::string srv_nodestate_topic = "srv_nodestate_change";
-    nodestate_srv =
-        n->advertiseService(srv_nodestate_topic, &SonarArrayNode::changenodestate_service, this);
+    nodestate_srv = n->advertiseService(
+        srv_nodestate_topic, &SonarArrayDriverNode::changenodestate_service, this);
     sonardata_pub = n->advertise<sensor_msgs::Range>(robot_namespace + "/robot/sonar", 20);
     diag = process->update_diagnostic(eros::eros_diagnostic::DiagnosticType::COMMUNICATIONS,
                                       eros::Level::Type::INFO,
@@ -135,34 +141,34 @@ eros::eros_diagnostic::Diagnostic SonarArrayNode::finish_initialization() {
                                       "Sonar Array Initializing...");
     return diag;
 }
-bool SonarArrayNode::run_loop1() {
+bool SonarArrayDriverNode::run_loop1() {
     process->update(0.02, ros::Time::now().toSec());
     auto sonar_data = process->get_sonar_data();
     for (auto sonar : sonar_data) { sonardata_pub.publish(sonar); }
     return true;
 }
-bool SonarArrayNode::run_loop2() {
+bool SonarArrayDriverNode::run_loop2() {
     return true;
 }
-bool SonarArrayNode::run_loop3() {
+bool SonarArrayDriverNode::run_loop3() {
     return true;
 }
-bool SonarArrayNode::run_001hz() {
+bool SonarArrayDriverNode::run_001hz() {
     return true;
 }
-bool SonarArrayNode::run_01hz() {
+bool SonarArrayDriverNode::run_01hz() {
     return true;
 }
-bool SonarArrayNode::run_01hz_noisy() {
+bool SonarArrayDriverNode::run_01hz_noisy() {
     eros::eros_diagnostic::Diagnostic diag = diagnostic;
     logger->log_debug(pretty());
     return true;
 }
-std::string SonarArrayNode::pretty() {
+std::string SonarArrayDriverNode::pretty() {
     std::string str = process->pretty();
     return str;
 }
-bool SonarArrayNode::run_1hz() {
+bool SonarArrayDriverNode::run_1hz() {
     std::vector<eros::eros_diagnostic::Diagnostic> latest_diagnostics =
         process->get_latest_diagnostics();
     for (std::size_t i = 0; i < latest_diagnostics.size(); ++i) {
@@ -188,15 +194,15 @@ bool SonarArrayNode::run_1hz() {
     }
     return true;
 }
-bool SonarArrayNode::run_10hz() {
+bool SonarArrayDriverNode::run_10hz() {
     update_diagnostics(process->get_diagnostics());
     update_ready_to_arm(process->get_ready_to_arm());
     return true;
 }
-void SonarArrayNode::thread_loop() {
+void SonarArrayDriverNode::thread_loop() {
     while (kill_node == false) { ros::Duration(1.0).sleep(); }
 }
-void SonarArrayNode::cleanup() {
+void SonarArrayDriverNode::cleanup() {
     process->request_statechange(eros::Node::State::FINISHED);
     process->cleanup();
     delete process;
@@ -206,7 +212,7 @@ void SonarArrayNode::cleanup() {
 }  // namespace sonar_array
 // LCOV_EXCL_START
 void signalinterrupt_handler(int sig) {
-    printf("Killing SonarArrayNode with Signal: %d\n", sig);
+    printf("Killing SonarArrayDriverNode with Signal: %d\n", sig);
     kill_node = true;
     exit(0);
 }
@@ -215,8 +221,8 @@ void signalinterrupt_handler(int sig) {
 int main(int argc, char **argv) {
     signal(SIGINT, signalinterrupt_handler);
     signal(SIGTERM, signalinterrupt_handler);
-    ros::init(argc, argv, "sonar_array_node");
-    sonar_array::SonarArrayNode *node = new sonar_array::SonarArrayNode();
+    ros::init(argc, argv, "sonar_array_driver_node");
+    sonar_array::SonarArrayDriverNode *node = new sonar_array::SonarArrayDriverNode();
     bool status = node->start();
     if (status == false) {
         // No practical way to unit test
@@ -224,7 +230,7 @@ int main(int argc, char **argv) {
         return EXIT_FAILURE;
         // LCOV_EXCL_STOP
     }
-    std::thread thread(&sonar_array::SonarArrayNode::thread_loop, node);
+    std::thread thread(&sonar_array::SonarArrayDriverNode::thread_loop, node);
     while ((status == true) and (kill_node == false)) {
         status = node->update(node->get_process()->get_nodestate());
     }

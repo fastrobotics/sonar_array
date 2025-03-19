@@ -1,8 +1,8 @@
 @startuml
 title Sonar Array Node Sequence Diagram
 actor User as user
-participant SonarArrayNode as node
-participant SonarArrayNodeProcess as process
+participant SonarArrayDriverNode as node
+participant SonarArrayDriverNodeProcess as process
 participant SonarArrayNodeDriver as driver
 participant Logger as logger
 
@@ -10,7 +10,7 @@ alt initialize
     activate node
     node -> node++: start()
     node -> node: initialize_diagnostic
-    node -> process++: SonarArrayNodeProcess()
+    node -> process++: SonarArrayDriverNodeProcess()
     node -> node: preinitialize_basenode()
     node -> process: enable_diagnostics()
     node -> process++: finish_initialization()

@@ -3,12 +3,12 @@
 #include <gtest/gtest.h>
 #include <ros/ros.h>
 
-#include "../SonarArrayNode.h"
+#include "../SonarArrayDriverNode.h"
 
 using namespace eros;
 
 std::string robot_namespace = "/test/";
-std::string unittest_nodename = "sonar_array_node";
+std::string unittest_nodename = "sonar_array_driver_node";
 typedef actionlib::SimpleActionClient<eros::system_commandAction> CommandActionClient;
 uint64_t heartbeat_count = 0;
 eros::heartbeat latest_heartbeat;
@@ -16,9 +16,9 @@ void heartbeat_Callback(const eros::heartbeat& msg) {
     latest_heartbeat = msg;
     heartbeat_count++;
 }
-TEST(SonarArrayNode, TestBasics) {
+TEST(SonarArrayDriverNode, TestBasics) {
     ros::NodeHandle nh("~");
-    Logger* logger = new Logger("DEBUG", "test_SonarArrayNode");
+    Logger* logger = new Logger("DEBUG", "test_SonarArrayDriverNode");
     logger->enable_ROS_logger();
     std::string heartbeat_topic = robot_namespace + unittest_nodename + "/heartbeat";
     ros::Subscriber sub = nh.subscribe(heartbeat_topic, 100, &heartbeat_Callback);
@@ -26,7 +26,7 @@ TEST(SonarArrayNode, TestBasics) {
     EXPECT_NE(ros::topic::waitForMessage<eros::heartbeat>(heartbeat_topic, ros::Duration(10)),
               nullptr);
     EXPECT_EQ(1, sub.getNumPublishers());
-    sleep(1.0);  // Wait for SonarArrayNode to Start.
+    sleep(1.0);  // Wait for SonarArrayDriverNode to Start.
     EXPECT_TRUE(heartbeat_count > 0);
 
     logger->log_warn("Testing Unsupported Commands...");
@@ -72,7 +72,7 @@ TEST(SonarArrayNode, TestBasics) {
 }
 int main(int argc, char** argv) {
     testing::InitGoogleTest(&argc, argv);
-    ros::init(argc, argv, "test_SonarArrayNode");
+    ros::init(argc, argv, "test_SonarArrayDriverNode");
     ros::AsyncSpinner spinner(1);
     spinner.start();
     int ret = RUN_ALL_TESTS();

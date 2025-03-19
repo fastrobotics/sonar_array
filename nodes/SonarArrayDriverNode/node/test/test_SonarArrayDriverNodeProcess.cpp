@@ -1,5 +1,5 @@
 /**
- * @file test_SonarArrayNodeProcess.cpp
+ * @file test_SonarArrayDriverNodeProcess.cpp
  * @author your name (you@domain.com)
  * @brief
  * @version 0.1
@@ -11,24 +11,25 @@
 #include <gtest/gtest.h>
 #include <stdio.h>
 
-#include "../SonarArrayNodeProcess.h"
+#include "../SonarArrayDriverNodeProcess.h"
 using namespace eros;
 namespace sonar_array {
-class SonarArrayNodeProcessTester : public SonarArrayNodeProcess
+class SonarArrayDriverNodeProcessTester : public SonarArrayDriverNodeProcess
 {
    public:
-    SonarArrayNodeProcessTester() {
+    SonarArrayDriverNodeProcessTester() {
+        set_enable_mock(true);
     }
-    ~SonarArrayNodeProcessTester() {
+    ~SonarArrayDriverNodeProcessTester() {
     }
 };
 }  // namespace sonar_array
 using namespace sonar_array;
 TEST(BasicTest, TestOperation) {
-    Logger* logger = new Logger("DEBUG", "UnitTestSonarArrayNodeProcess");
-    SonarArrayNodeProcessTester* tester = new SonarArrayNodeProcessTester;
-    tester->initialize("UnitTestSonarArrayNodeProcess",
-                       "UnitTestSonarArrayNodeProcess",
+    Logger* logger = new Logger("DEBUG", "UnitTestSonarArrayDriverNodeProcess");
+    SonarArrayDriverNodeProcessTester* tester = new SonarArrayDriverNodeProcessTester;
+    tester->initialize("UnitTestSonarArrayDriverNodeProcess",
+                       "UnitTestSonarArrayDriverNodeProcess",
                        "MyHost",
                        System::MainSystem::SIMROVER,
                        System::SubSystem::ENTIRE_SYSTEM,

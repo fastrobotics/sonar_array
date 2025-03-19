@@ -2,4 +2,4 @@
 # Nodes
 | Status | Node |
 | --- | --- |
-| STARTED | [Sonar Array Node](SonarArrayNode/SonarArrayNode.md) |
+| STARTED | [Sonar Array Node](SonarArrayDriverNode/SonarArrayDriverNode.md) |
