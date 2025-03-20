@@ -1,5 +1,5 @@
 @startuml
-title Sonar Array Node Class Diagram
+title Sonar Array Driver Node Class Diagram
 package ros {
   class Publisher
 }
@@ -11,7 +11,7 @@ package sensor_msgs {
     class Range <<(M,#FFFF00)>>
 }
 package sonar_array {
-  class SonarArrayDriverNode  {
+  class SonarArrayDriverNode <<ROS>> #Orange {
       +const std::string BASE_NODE_NAME
       +const uint16_t MAJOR_RELEASE_VERSION
       +const uint16_t MINOR_RELEASE_VERSION
@@ -39,20 +39,24 @@ package sonar_array {
 
       -SonarArrayDriverNodeProcess* process;
   }
-  class SonarArrayDriverNodeProcess  {
+  class SonarArrayDriverNodeProcess #Orange {
       +eros::eros_diagnostic::Diagnostic finish_initialization()
       +reset()
       +eros::eros_diagnostic::Diagnostic update(double t_dt, double t_ros_time)
       +std::vector<eros::eros_diagnostic::Diagnostic> new_commandmsg(eros::command msg)
       +std::vector<eros::eros_diagnostic::Diagnostic> check_programvariables()
       +cleanup()
-      -SonarArrayNodeDriver driver
+      -ISonarArrayNodeDriver driver
 
   }
+  class ISonarArrayNodeDriver #LimeGreen 
   class SonarArrayNodeDriver #LimeGreen 
+  class MockSonarArrayNodeDriver #LimeGreen 
   BaseNode <|-- SonarArrayDriverNode
   BaseNodeProcess <|-- SonarArrayDriverNodeProcess
   SonarArrayDriverNode -> SonarArrayDriverNodeProcess
-  SonarArrayDriverNodeProcess -> SonarArrayNodeDriver
+  SonarArrayDriverNodeProcess --> ISonarArrayNodeDriver
+  ISonarArrayNodeDriver <|-- SonarArrayNodeDriver
+  ISonarArrayNodeDriver <|-- MockSonarArrayNodeDriver
 }
 @enduml

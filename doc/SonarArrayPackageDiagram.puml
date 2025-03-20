@@ -2,8 +2,8 @@
 title Sonar Array Package Diagram
 
 package sonar_array {
-    class SonarArrayDriverNode #Yellow
-    class SonarArrayNodeDriver #Yellow
+    class SonarArrayDriverNode <<ROS>> #Orange
+    class SonarArrayNodeDriver #Orange
     SonarArrayDriverNode --> SonarArrayNodeDriver
 }
 
