@@ -74,7 +74,7 @@ _Summary_:Typically used in this project when referring to a ROS Node.
 
 _Related Terms_:
 
-_Example_: [Sonar Array Node](nodes/SonarArrayNode/)
+_Example_: [Sonar Array Node](nodes/SonarArrayDriverNode/)
 
 | References |
 | --- |

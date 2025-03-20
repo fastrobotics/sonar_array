@@ -1,5 +1,5 @@
 /**
- * @file SonarArrayNode.h
+ * @file SonarArrayDriverNode.h
  * @author your name (you@domain.com)
  * @brief
  * @version 0.1
@@ -16,17 +16,17 @@
 // Project
 #include <eros/BaseNode.h>
 
-#include "SonarArrayNodeProcess.h"
+#include "SonarArrayDriverNodeProcess.h"
 namespace sonar_array {
 /**
- * @brief SonarArrayNode
+ * @brief SonarArrayDriverNode
  *
  */
-class SonarArrayNode : public eros::BaseNode
+class SonarArrayDriverNode : public eros::BaseNode
 {
    public:
     /*! \brief The base name of the Node.*/
-    const std::string BASE_NODE_NAME = "sonar_array_node";
+    const std::string BASE_NODE_NAME = "sonar_array_driver_node";
 
     /*! \brief The Major Release Version of the Node.*/
     const uint16_t MAJOR_RELEASE_VERSION = 0;
@@ -35,10 +35,10 @@ class SonarArrayNode : public eros::BaseNode
     const uint16_t MINOR_RELEASE_VERSION = 0;
 
     /*! \brief The Build Number of the Node.*/
-    const uint16_t BUILD_NUMBER = 1;
+    const uint16_t BUILD_NUMBER = 3;
 
     /*! \brief A Description of the Firmware.*/
-    const std::string FIRMWARE_DESCRIPTION = "Latest Rev: 17-Mar-2025";
+    const std::string FIRMWARE_DESCRIPTION = "Latest Rev: 19-Mar-2025";
 
     /*! \brief What System this Node falls under.*/
     const eros::System::MainSystem DIAGNOSTIC_SYSTEM = eros::System::MainSystem::ROVER;
@@ -48,9 +48,9 @@ class SonarArrayNode : public eros::BaseNode
 
     /*! \brief What Component this Node falls under.*/
     const eros::System::Component DIAGNOSTIC_COMPONENT = eros::System::Component::GPIO;
-    SonarArrayNode();
-    ~SonarArrayNode();
-    SonarArrayNodeProcess* get_process() {
+    SonarArrayDriverNode();
+    ~SonarArrayDriverNode();
+    SonarArrayDriverNodeProcess* get_process() {
         return process;
     }
     bool start();
@@ -74,7 +74,7 @@ class SonarArrayNode : public eros::BaseNode
 
    private:
     eros::eros_diagnostic::Diagnostic read_launchparameters();
-    SonarArrayNodeProcess* process;
+    SonarArrayDriverNodeProcess* process;
     actionlib::SimpleActionServer<eros::system_commandAction> system_command_action_server;
 
     ros::Publisher sonardata_pub;

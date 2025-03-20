@@ -11,19 +11,21 @@ TEST(BasicTest, TestDefinitions) {
 }
 TEST(BasicTest, TestOperation) {
     Logger* logger = new Logger("DEBUG", "UnitTestMockSonarArrayNodeDriver");
-    MockSonarArrayNodeDriver SUT;
+    ISonarArrayNodeDriver* SUT = new MockSonarArrayNodeDriver();
     eros::eros_diagnostic::Diagnostic diagnostic;
     std::vector<sensor_msgs::Range> sonars;
-    SUT.init(diagnostic, logger, sonars);
+    sonars.resize(10);
+    SUT->init(diagnostic, logger, sonars);
 
     double timeToRun = 10.0;
     double dt = 0.1;
     double timer = 0.0;
     while (timer <= timeToRun) {
-        auto diagnostic = SUT.update(timer, dt);
+        auto diagnostic = SUT->update(timer, dt);
         EXPECT_TRUE(diagnostic.level <= eros::Level::Type::NOTICE);
+        EXPECT_GT(SUT->get_sonar_data().size(), 0);
 
-        logger->log_debug(SUT.pretty());
+        // logger->log_debug(SUT.pretty());
         timer += dt;
     }
 

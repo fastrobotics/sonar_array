@@ -41,9 +41,9 @@ Examples:
 ## Software Design
 ### Class Diagrams
 ![](../../output/Legend.png)
-![](../../../nodes/SonarArrayNode/driver/doc/output/SonarArrayNodeDriverClassDiagram.png)
-![](../../../nodes/SonarArrayNode/doc/output/SonarArrayNodeClassDiagram.png)
+![](../../../nodes/SonarArrayDriverNode/driver/doc/output/SonarArrayNodeDriverClassDiagram.png)
+![](../../../nodes/SonarArrayDriverNode/doc/output/SonarArrayDriverNodeClassDiagram.png)
 
 ### Sequence Diagrams
-![](../../../nodes/SonarArrayNode/driver/doc/output/SonarArrayNodeDriverSequenceDiagram.png)
-![](../../../nodes/SonarArrayNode/doc/output/SonarArrayNodeSequenceDiagram.png)
+![](../../../nodes/SonarArrayDriverNode/driver/doc/output/SonarArrayNodeDriverSequenceDiagram.png)
+![](../../../nodes/SonarArrayDriverNode/doc/output/SonarArrayDriverNodeSequenceDiagram.png)
