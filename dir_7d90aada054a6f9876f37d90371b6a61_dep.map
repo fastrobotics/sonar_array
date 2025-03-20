@@ -1,8 +1,0 @@
-<map id="nodes/SonarArrayNode/driver/MockSonarArrayNodeDriver" name="nodes/SonarArrayNode/driver/MockSonarArrayNodeDriver">
-<area shape="rect" id="node2" href="dir_d39de43ba09d2369125263ebd8e5fbe1.html" title="include" alt="" coords="133,63,205,111"/>
-<area shape="rect" id="node4" href="dir_f24ba3b6e2eec69df583e507cc1f7fc2.html" title="include" alt="" coords="133,159,205,207"/>
-<area shape="rect" id="edge1-headlabel" href="dir_000006_000004.html" title="1" alt="" coords="173,133,182,148"/>
-<area shape="rect" id="node3" href="dir_5abd388061d20b041f1a68a7751a50af.html" title="src" alt="" coords="37,63,109,111"/>
-<area shape="rect" id="clust2" href="dir_7d90aada054a6f9876f37d90371b6a61.html" alt="" coords="27,52,443,121"/>
-<area shape="rect" id="clust1" href="dir_19127123ae73a2270133f837d1156216.html" title="driver" alt="" coords="16,16,453,132"/>
-</map>

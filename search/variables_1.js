@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['diagnostic_5fcomponent_59',['DIAGNOSTIC_COMPONENT',['../classsonar__array_1_1SonarArrayNode.html#a9b28a6cddfa3a978838a585c8d1e20a5',1,'sonar_array::SonarArrayNode']]],
-  ['diagnostic_5fsubsystem_60',['DIAGNOSTIC_SUBSYSTEM',['../classsonar__array_1_1SonarArrayNode.html#a3929e99bd07db1ab87b22bf3c3cb0205',1,'sonar_array::SonarArrayNode']]],
-  ['diagnostic_5fsystem_61',['DIAGNOSTIC_SYSTEM',['../classsonar__array_1_1SonarArrayNode.html#a42e525dc768dc97f1a1bb140cb4a8c93',1,'sonar_array::SonarArrayNode']]]
+  ['diagnostic_5fcomponent_59',['DIAGNOSTIC_COMPONENT',['../classsonar__array_1_1SonarArrayDriverNode.html#abeb46b94ef84fd8b3daf30bd5537fa4c',1,'sonar_array::SonarArrayDriverNode']]],
+  ['diagnostic_5fsubsystem_60',['DIAGNOSTIC_SUBSYSTEM',['../classsonar__array_1_1SonarArrayDriverNode.html#a9e9e8f7587a80bf1a17424256e99fcf1',1,'sonar_array::SonarArrayDriverNode']]],
+  ['diagnostic_5fsystem_61',['DIAGNOSTIC_SYSTEM',['../classsonar__array_1_1SonarArrayDriverNode.html#aaee88f09f1de579349bdd0fa34831b77',1,'sonar_array::SonarArrayDriverNode']]]
 ];

@@ -1,4 +1,4 @@
-<map id="nodes/SonarArrayNode/driver/MockSonarArrayNodeDriver/src/test/test_MockSonarArrayNodeDriver.cpp" name="nodes/SonarArrayNode/driver/MockSonarArrayNodeDriver/src/test/test_MockSonarArrayNodeDriver.cpp">
+<map id="nodes/SonarArrayDriverNode/driver/MockSonarArrayNodeDriver/src/test/test_MockSonarArrayNodeDriver.cpp" name="nodes/SonarArrayDriverNode/driver/MockSonarArrayNodeDriver/src/test/test_MockSonarArrayNodeDriver.cpp">
 <area shape="rect" id="node1" title=" " alt="" coords="5,5,324,61"/>
 <area shape="rect" id="node2" title=" " alt="" coords="58,109,162,136"/>
 <area shape="rect" id="node3" title=" " alt="" coords="186,109,253,136"/>

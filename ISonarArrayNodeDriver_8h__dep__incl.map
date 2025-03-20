@@ -1,6 +1,6 @@
-<map id="nodes/SonarArrayNode/driver/include/ISonarArrayNodeDriver.h" name="nodes/SonarArrayNode/driver/include/ISonarArrayNodeDriver.h">
-<area shape="rect" id="node1" title=" " alt="" coords="155,5,349,61"/>
-<area shape="rect" id="node2" href="$BaseSonarArrayNodeDriver_8h.html" title=" " alt="" coords="141,109,363,165"/>
+<map id="nodes/SonarArrayDriverNode/driver/include/ISonarArrayNodeDriver.h" name="nodes/SonarArrayDriverNode/driver/include/ISonarArrayNodeDriver.h">
+<area shape="rect" id="node1" title=" " alt="" coords="133,5,363,61"/>
+<area shape="rect" id="node2" href="$BaseSonarArrayNodeDriver_8h.html" title=" " alt="" coords="119,109,377,165"/>
 <area shape="rect" id="node3" href="$SonarArrayNodeDriver_8h.html" title=" " alt="" coords="5,213,240,269"/>
-<area shape="rect" id="node4" href="$test__baseSonarArrayNodeDriver_8cpp.html" title=" " alt="" coords="265,213,498,269"/>
+<area shape="rect" id="node4" href="$test__baseSonarArrayNodeDriver_8cpp.html" title=" " alt="" coords="265,213,485,269"/>
 </map>
