@@ -114,8 +114,17 @@ eros::eros_diagnostic::Diagnostic SonarArrayDriverNode::read_launchparameters() 
     if (enable_mock) {
         process->set_enable_mock(true);
     }
+    std::vector<sensor_msgs::Range> sonar_config = read_sonar_config();
+    if (sonar_config.size() == 0) {
+        get_logger()->log_error("Unable to load Sonars!");
+    }
     get_logger()->log_notice("Configuration Files Loaded.");
     return diag;
+}
+std::vector<sensor_msgs::Range> SonarArrayDriverNode::read_sonar_config() {
+    std::vector<sensor_msgs::Range> sonars;
+
+    return sonars;
 }
 eros::eros_diagnostic::Diagnostic SonarArrayDriverNode::finish_initialization() {
     eros::eros_diagnostic::Diagnostic diag = diagnostic;
