@@ -8,7 +8,6 @@ Panels:
         - /Status1
         - /Grid1
         - /Range1
-        - /Range1/Status1
       Splitter Ratio: 0.5
     Tree Height: 719
   - Class: rviz/Selection
@@ -60,7 +59,7 @@ Visualization Manager:
       Color: 252; 233; 79
       Enabled: true
       Name: Range
-      Queue Size: 10
+      Queue Size: 20
       Topic: /robot/sonar
       Unreliable: false
       Value: true
@@ -108,9 +107,9 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.6803983449935913
+      Pitch: -0.024601440876722336
       Target Frame: <Fixed Frame>
-      Yaw: 1.220400333404541
+      Yaw: 1.1404004096984863
     Saved: ~
 Window Geometry:
   Displays:
