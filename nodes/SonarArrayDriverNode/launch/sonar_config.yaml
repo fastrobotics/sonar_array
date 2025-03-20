@@ -1,0 +1,10 @@
+sonars:
+  - label: sonar0
+    min_distance_m: 0.02
+    max_distance_m: 2.0
+    field_of_view_deg: 30
+
+  - label: sonar1
+    min_distance_m: 0.02
+    max_distance_m: 2.0
+    field_of_view: 30

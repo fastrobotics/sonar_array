@@ -8,6 +8,7 @@ Panels:
         - /Status1
         - /Grid1
         - /Range1
+        - /TF1
       Splitter Ratio: 0.5
     Tree Height: 719
   - Class: rviz/Selection
@@ -63,6 +64,105 @@ Visualization Manager:
       Topic: /robot/sonar
       Unreliable: false
       Value: true
+    - Class: rviz/TF
+      Enabled: true
+      Filter (blacklist): ""
+      Filter (whitelist): ""
+      Frame Timeout: 15
+      Frames:
+        All Enabled: true
+        sonar0:
+          Value: true
+        sonar1:
+          Value: true
+        sonar10:
+          Value: true
+        sonar11:
+          Value: true
+        sonar12:
+          Value: true
+        sonar13:
+          Value: true
+        sonar14:
+          Value: true
+        sonar15:
+          Value: true
+        sonar16:
+          Value: true
+        sonar17:
+          Value: true
+        sonar18:
+          Value: true
+        sonar19:
+          Value: true
+        sonar2:
+          Value: true
+        sonar3:
+          Value: true
+        sonar4:
+          Value: true
+        sonar5:
+          Value: true
+        sonar6:
+          Value: true
+        sonar7:
+          Value: true
+        sonar8:
+          Value: true
+        sonar9:
+          Value: true
+        sonar_array:
+          Value: true
+      Marker Alpha: 1
+      Marker Scale: 1
+      Name: TF
+      Show Arrows: true
+      Show Axes: true
+      Show Names: false
+      Tree:
+        sonar_array:
+          sonar0:
+            {}
+          sonar1:
+            {}
+          sonar10:
+            {}
+          sonar11:
+            {}
+          sonar12:
+            {}
+          sonar13:
+            {}
+          sonar14:
+            {}
+          sonar15:
+            {}
+          sonar16:
+            {}
+          sonar17:
+            {}
+          sonar18:
+            {}
+          sonar19:
+            {}
+          sonar2:
+            {}
+          sonar3:
+            {}
+          sonar4:
+            {}
+          sonar5:
+            {}
+          sonar6:
+            {}
+          sonar7:
+            {}
+          sonar8:
+            {}
+          sonar9:
+            {}
+      Update Interval: 0
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -91,7 +191,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 6.89558219909668
+      Distance: 3.814835786819458
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -99,17 +199,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 1.4072648286819458
-        Y: -0.33929795026779175
-        Z: 0.3396908640861511
+        X: -0.05515009164810181
+        Y: 0.5142452716827393
+        Z: 0.6449169516563416
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: -0.024601440876722336
+      Pitch: 0.6553981900215149
       Target Frame: <Fixed Frame>
-      Yaw: 1.1404004096984863
+      Yaw: 0.715400755405426
     Saved: ~
 Window Geometry:
   Displays:

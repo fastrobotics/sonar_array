@@ -1,37 +1,34 @@
 <?xml version="1.0"?>
 <launch>
-<arg name="enable_mock" default="False"/>
+<arg name="enable_mock" default="True"/>
 <arg name="robot_namespace" default="/"/>
 <arg name="verbosity_level" default="NOTICE"/> 
 <node pkg="rviz" type="rviz" output="screen" name="rviz" args="-d $(find sonar_array)/doc/Development/rviz.rviz"/>
-<node name="sonar_array_driver_node" pkg="sonar_array" type="sonar_array_driver_node"  output="screen" clear_params="true">
-        <param name="enable_mock"               value="$(arg enable_mock)"/>
-        <param name="robot_namespace"           value="$(arg robot_namespace)"/>
-        <param name="startup_delay"             value="0.0"/>
-	<param name="verbosity_level"           value="$(arg verbosity_level)"/>
-        <param name="require_pps_to_start"      value="false"/>    
-        <param name="loop1_rate"                value="50"/> 
-        <param name="loop2_rate"                value="10"/>
-        <param name="loop3_rate"                value="5"/>
-</node>
-<node pkg="tf2_ros" type="static_transform_publisher" name="sonar0_broadcaster" args="1 0 0 0 -0.2618 0 sonar_array sonar0" />
-<node pkg="tf2_ros" type="static_transform_publisher" name="sonar1_broadcaster" args="1 0 0 0.314 -0.2618 0 sonar_array sonar1" />
-<node pkg="tf2_ros" type="static_transform_publisher" name="sonar2_broadcaster" args="1 0 0 0.628 -0.2618 0 sonar_array sonar2" />
-<node pkg="tf2_ros" type="static_transform_publisher" name="sonar3_broadcaster" args="1 0 0 .942 -0.2618 0 sonar_array sonar3" />
-<node pkg="tf2_ros" type="static_transform_publisher" name="sonar4_broadcaster" args="1 0 0 1.256 -0.2618 0 sonar_array sonar4" />
-<node pkg="tf2_ros" type="static_transform_publisher" name="sonar5_broadcaster" args="1 0 0 1.57 -0.2618 0 sonar_array sonar5" />
-<node pkg="tf2_ros" type="static_transform_publisher" name="sonar6_broadcaster" args="1 0 0 1.884 -0.2618 0 sonar_array sonar6" />
-<node pkg="tf2_ros" type="static_transform_publisher" name="sonar7_broadcaster" args="1 0 0 2.199 -0.2618 0 sonar_array sonar7" />
-<node pkg="tf2_ros" type="static_transform_publisher" name="sonar8_broadcaster" args="1 0 0 2.513 -0.2618 0 sonar_array sonar8" />
-<node pkg="tf2_ros" type="static_transform_publisher" name="sonar9_broadcaster" args="1 0 0 2.827 -0.2618 0 sonar_array sonar9" />
-<node pkg="tf2_ros" type="static_transform_publisher" name="sonar10_broadcaster" args="1 0 0 3.141 -0.2618 0 sonar_array sonar10" />
-<node pkg="tf2_ros" type="static_transform_publisher" name="sonar11_broadcaster" args="1 0 0 3.455 -0.2618 0 sonar_array sonar11" />
-<node pkg="tf2_ros" type="static_transform_publisher" name="sonar12_broadcaster" args="1 0 0 3.769 -0.2618 0 sonar_array sonar12" />
-<node pkg="tf2_ros" type="static_transform_publisher" name="sonar13_broadcaster" args="1 0 0 4.084 -0.2618 0 sonar_array sonar13" />
-<node pkg="tf2_ros" type="static_transform_publisher" name="sonar14_broadcaster" args="1 0 0 4.398 -0.2618 0 sonar_array sonar14" />
-<node pkg="tf2_ros" type="static_transform_publisher" name="sonar15_broadcaster" args="1 0 0 4.712 -0.2618 0 sonar_array sonar15" />
-<node pkg="tf2_ros" type="static_transform_publisher" name="sonar16_broadcaster" args="1 0 0 5.026 -0.2618 0 sonar_array sonar16" />
-<node pkg="tf2_ros" type="static_transform_publisher" name="sonar17_broadcaster" args="1 0 0 5.34 -0.2618 0 sonar_array sonar17" />
-<node pkg="tf2_ros" type="static_transform_publisher" name="sonar18_broadcaster" args="1 0 0 5.654 -0.2618 0 sonar_array sonar18" />
-<node pkg="tf2_ros" type="static_transform_publisher" name="sonar19_broadcaster" args="1 0 0 5.969 -0.2618 0 sonar_array sonar19" />
+<include file="$(find sonar_array)/nodes/SonarArrayDriverNode/launch/sonar_array_driver_node.launch">
+        <arg name="enable_mock"               value="$(arg enable_mock)"/>
+        <arg name="robot_namespace"           value="$(arg robot_namespace)"/>
+        <arg name="comm_port"                 value="/dev/ttyUSB0"/>
+        <arg name="sonar_config"              value="$(find sonar_array)/nodes/SonarArrayDriverNode/launch/sonar_config.yaml"/>
+        <arg name="verbosity_level"           value="$(arg verbosity_level)"/>
+</include>
+<node pkg="tf2_ros" type="static_transform_publisher" name="sonar0_broadcaster" args="0 0 1 0 -0.2618 0 sonar_array sonar0" />
+<node pkg="tf2_ros" type="static_transform_publisher" name="sonar1_broadcaster" args="0 0 1 0.314 -0.2618 0 sonar_array sonar1" />
+<node pkg="tf2_ros" type="static_transform_publisher" name="sonar2_broadcaster" args="0 0 1 0.628 -0.2618 0 sonar_array sonar2" />
+<node pkg="tf2_ros" type="static_transform_publisher" name="sonar3_broadcaster" args="0 0 1 .942 -0.2618 0 sonar_array sonar3" />
+<node pkg="tf2_ros" type="static_transform_publisher" name="sonar4_broadcaster" args="0 0 1 1.256 -0.2618 0 sonar_array sonar4" />
+<node pkg="tf2_ros" type="static_transform_publisher" name="sonar5_broadcaster" args="0 0 1 1.57 -0.2618 0 sonar_array sonar5" />
+<node pkg="tf2_ros" type="static_transform_publisher" name="sonar6_broadcaster" args="0 0 1 1.884 -0.2618 0 sonar_array sonar6" />
+<node pkg="tf2_ros" type="static_transform_publisher" name="sonar7_broadcaster" args="0 0 1 2.199 -0.2618 0 sonar_array sonar7" />
+<node pkg="tf2_ros" type="static_transform_publisher" name="sonar8_broadcaster" args="0 0 1 2.513 -0.2618 0 sonar_array sonar8" />
+<node pkg="tf2_ros" type="static_transform_publisher" name="sonar9_broadcaster" args="0 0 1 2.827 -0.2618 0 sonar_array sonar9" />
+<node pkg="tf2_ros" type="static_transform_publisher" name="sonar10_broadcaster" args="0 0 1 3.141 -0.2618 0 sonar_array sonar10" />
+<node pkg="tf2_ros" type="static_transform_publisher" name="sonar11_broadcaster" args="0 0 1 3.455 -0.2618 0 sonar_array sonar11" />
+<node pkg="tf2_ros" type="static_transform_publisher" name="sonar12_broadcaster" args="0 0 1 3.769 -0.2618 0 sonar_array sonar12" />
+<node pkg="tf2_ros" type="static_transform_publisher" name="sonar13_broadcaster" args="0 0 1 4.084 -0.2618 0 sonar_array sonar13" />
+<node pkg="tf2_ros" type="static_transform_publisher" name="sonar14_broadcaster" args="0 0 1 4.398 -0.2618 0 sonar_array sonar14" />
+<node pkg="tf2_ros" type="static_transform_publisher" name="sonar15_broadcaster" args="0 0 1 4.712 -0.2618 0 sonar_array sonar15" />
+<node pkg="tf2_ros" type="static_transform_publisher" name="sonar16_broadcaster" args="0 0 1 5.026 -0.2618 0 sonar_array sonar16" />
+<node pkg="tf2_ros" type="static_transform_publisher" name="sonar17_broadcaster" args="0 0 1 5.34 -0.2618 0 sonar_array sonar17" />
+<node pkg="tf2_ros" type="static_transform_publisher" name="sonar18_broadcaster" args="0 0 1 5.654 -0.2618 0 sonar_array sonar18" />
+<node pkg="tf2_ros" type="static_transform_publisher" name="sonar19_broadcaster" args="0 0 1 5.969 -0.2618 0 sonar_array sonar19" />
 </launch>
