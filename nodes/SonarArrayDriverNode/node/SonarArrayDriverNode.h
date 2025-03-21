@@ -74,6 +74,7 @@ class SonarArrayDriverNode : public eros::BaseNode
 
    private:
     eros::eros_diagnostic::Diagnostic read_launchparameters();
+    bool read_sonar_config();
     SonarArrayDriverNodeProcess* process;
     actionlib::SimpleActionServer<eros::system_commandAction> system_command_action_server;
 

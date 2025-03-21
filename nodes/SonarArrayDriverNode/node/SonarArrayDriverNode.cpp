@@ -78,7 +78,11 @@ bool SonarArrayDriverNode::start() {
     diagnostic_types.push_back(eros::eros_diagnostic::DiagnosticType::COMMUNICATIONS);
     diagnostic_types.push_back(eros::eros_diagnostic::DiagnosticType::SENSORS);
     process->enable_diagnostics(diagnostic_types);
-    process->finish_initialization();
+    diagnostic = process->finish_initialization();
+    if (diagnostic.level >= eros::Level::Type::ERROR) {
+        logger->log_diagnostic(diagnostic);
+        return false;
+    }
     diagnostic = finish_initialization();
     logger->log_diagnostic(diagnostic);
     if (diagnostic.level > eros::Level::Type::WARN) {
@@ -114,8 +118,59 @@ eros::eros_diagnostic::Diagnostic SonarArrayDriverNode::read_launchparameters() 
     if (enable_mock) {
         process->set_enable_mock(true);
     }
+    bool status = read_sonar_config();
+    if (status == false) {
+        diag = process->update_diagnostic(eros::eros_diagnostic::DiagnosticType::DATA_STORAGE,
+                                          eros::Level::Type::ERROR,
+                                          eros::eros_diagnostic::Message::INITIALIZING_ERROR,
+                                          "Unable to load Sonar Config.");
+        logger->log_diagnostic(diag);
+        return diag;
+    }
+
     get_logger()->log_notice("Configuration Files Loaded.");
     return diag;
+}
+bool SonarArrayDriverNode::read_sonar_config() {
+    int sonar_count = 0;
+    if (n->getParam("sonar_config/sonar_count", sonar_count) == false) {
+        get_logger()->log_error("Unable to fetch: sonar_count");
+        return false;
+    }
+    if (sonar_count == 0) {
+        return false;
+    }
+    double minimum_distance_m = 0.0;
+    if (n->getParam("sonar_config/minimum_distance_m", minimum_distance_m) == false) {
+        get_logger()->log_error("Unable to fetch: minimum_distance_m");
+        return false;
+    }
+    double maximum_distance_m = 0.0;
+    if (n->getParam("sonar_config/maximum_distance_m", maximum_distance_m) == false) {
+        get_logger()->log_error("Unable to fetch: maximum_distance_m");
+        return false;
+    }
+    double field_of_view_deg = 0.0;
+    if (n->getParam("sonar_config/field_of_view_deg", field_of_view_deg) == false) {
+        get_logger()->log_error("Unable to fetch: field_of_view_deg");
+        return false;
+    }
+    std::vector<sensor_msgs::Range> sonar_config;
+    sonar_config.resize(sonar_count);
+    for (std::size_t i = 0; i < sonar_config.size(); ++i) {
+        sonar_config.at(i).radiation_type = sensor_msgs::Range::ULTRASOUND;
+        sonar_config.at(i).field_of_view = field_of_view_deg * M_PI / 180.0;
+        sonar_config.at(i).min_range = minimum_distance_m;
+        sonar_config.at(i).max_range = maximum_distance_m;
+        sonar_config.at(i).header.frame_id = "sonar" + std::to_string(i);
+    }
+    process->set_sonar_config(sonar_config);
+    std::string comm_port = "";
+    if (n->getParam("comm_port", comm_port) == false) {
+        get_logger()->log_warn("Unable to fetch: comm_port");
+    }
+    process->set_comm_port(comm_port);
+    return true;
 }
 eros::eros_diagnostic::Diagnostic SonarArrayDriverNode::finish_initialization() {
     eros::eros_diagnostic::Diagnostic diag = diagnostic;

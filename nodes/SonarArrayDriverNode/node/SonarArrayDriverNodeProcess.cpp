@@ -12,26 +12,20 @@ eros::eros_diagnostic::Diagnostic SonarArrayDriverNodeProcess::finish_initializa
     std::vector<sensor_msgs::Range> sonars;
 
     if (enable_mock) {
-        sonars.resize(20);
         logger->log_warn("Enabling Mock Sonary Array Node Driver.");
         driver = new MockSonarArrayNodeDriver();
     }
     else {
-        sonars.resize(1);
         driver = new SonarArrayNodeDriver();
     }
-
-    // Clean up this during AB#1491
-
-    for (std::size_t i = 0; i < sonars.size(); ++i) {
-        sonars.at(i).radiation_type = sensor_msgs::Range::ULTRASOUND;
-        sonars.at(i).field_of_view = 30.0 * M_PI / 180.0;
-        sonars.at(i).min_range = 0.02;  // meters
-        sonars.at(i).max_range = 2.0;   // meters
-        sonars.at(i).header.frame_id = "sonar" + std::to_string(i);
+    driver->init(diag, logger, sonar_config);
+    if (driver->set_comm_device(comm_port, B115200) == false) {
+        diag = update_diagnostic(eros::eros_diagnostic::DiagnosticType::COMMUNICATIONS,
+                                 eros::Level::Type::ERROR,
+                                 eros::eros_diagnostic::Message::INITIALIZING_ERROR,
+                                 "Unable to Initialize Comm Port: " + comm_port);
+        return diag;
     }
-    driver->init(diag, logger, sonars);
-    driver->set_comm_device("/dev/ttyUSB0", B115200);
 
     return diag;
 }
