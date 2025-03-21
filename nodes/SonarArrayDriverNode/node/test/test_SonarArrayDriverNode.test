@@ -6,6 +6,7 @@
             <arg name="robot_namespace" value="$(arg robot_namespace)"/>
             <arg name="verbosity_level" value="DEBUG"/>
             <arg name="enable_mock" value="True"/>
+            <arg name="sonar_config"  value="$(find sonar_array)/nodes/SonarArrayDriverNode/node/test/mock_sonar_config.yaml"/>
         </include>
         <test test-name="test_sonarArrayDriverNode" pkg="sonar_array" type="test_sonarArrayDriverNode"/>
     </group>
