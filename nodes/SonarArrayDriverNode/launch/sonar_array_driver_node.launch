@@ -7,8 +7,8 @@
 <arg name="sonar_config" default="sonar_config.yaml"/>
 <node name="sonar_array_driver_node" pkg="sonar_array" type="sonar_array_driver_node"  output="screen" clear_params="true">
         <param name="enable_mock"               value="$(arg enable_mock)"/>
-        <param name="robot_namespace"           value="$(arg robot_namespace)"/>
         <param name="comm_port"                 value="$(arg comm_port)"/>
+        <param name="robot_namespace"           value="$(arg robot_namespace)"/>
         <param name="startup_delay"             value="0.0"/>
 	<param name="verbosity_level"           value="$(arg verbosity_level)"/>
         <param name="require_pps_to_start"      value="false"/>    

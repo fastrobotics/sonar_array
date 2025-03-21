@@ -36,7 +36,7 @@ package sonar_array {
       +bool changenodestate_service(eros::srv_change_nodestate::Request& req, eros::srv_change_nodestate::Response& res)
       +system_commandAction_Callback(const eros::system_commandGoalConstPtr& goal)
       +command_Callback(const eros::command::ConstPtr& t_msg)
-
+      -bool read_sonar_config();
       -SonarArrayDriverNodeProcess* process;
   }
   class SonarArrayDriverNodeProcess #Orange {
@@ -46,6 +46,8 @@ package sonar_array {
       +std::vector<eros::eros_diagnostic::Diagnostic> new_commandmsg(eros::command msg)
       +std::vector<eros::eros_diagnostic::Diagnostic> check_programvariables()
       +cleanup()
+      +void set_sonar_config(std::vector<sensor_msgs::Range> _sonar_config) 
+      +void set_comm_port(std::string _comm_port)
       -ISonarArrayNodeDriver driver
 
   }
