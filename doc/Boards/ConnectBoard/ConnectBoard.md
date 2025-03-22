@@ -2,6 +2,14 @@
 # Connect Board
 The Connect Board provides the GPIO connections necessary to connect multiple Sonar's to the Parallax Propeller.
 
+## ToDo List
+| ToDo |
+| --- |
+| Check Shunt Size/Footprint |
+| Resistor Footprint |
+| Board Mounting Holes |
+| Prop Pin Connection Names |
+
 ## Requirements
 | Requirement | Description |
 | --- | --- |
