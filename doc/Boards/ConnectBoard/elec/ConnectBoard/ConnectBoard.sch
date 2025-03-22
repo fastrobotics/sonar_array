@@ -1,0 +1,230 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title "Prop 2 Sonar Connect Board"
+Date "2025-03-21"
+Rev ""
+Comp "FAST Robotics"
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L Device:R R1
+U 1 1 67DDD7C5
+P 2650 1650
+F 0 "R1" V 2443 1650 50  0000 C CNN
+F 1 "4.7k" V 2534 1650 50  0000 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 2580 1650 50  0001 C CNN
+F 3 "~" H 2650 1650 50  0001 C CNN
+	1    2650 1650
+	0    1    1    0   
+$EndComp
+$Comp
+L Connector:Conn_01x03_Male J1
+U 1 1 67DDEAD2
+P 1850 1750
+F 0 "J1" H 1958 1939 50  0000 C CNN
+F 1 "Sonar0" H 1958 1940 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 1850 1750 50  0001 C CNN
+F 3 "~" H 1850 1750 50  0001 C CNN
+	1    1850 1750
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x03_Male J2
+U 1 1 67DDFA61
+P 2400 900
+F 0 "J2" V 2508 1044 50  0000 L CNN
+F 1 "PowerSelect0" V 2553 1044 50  0001 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 2400 900 50  0001 C CNN
+F 3 "~" H 2400 900 50  0001 C CNN
+	1    2400 900 
+	0    1    1    0   
+$EndComp
+$Comp
+L power:+5V #PWR01
+U 1 1 67DE030F
+P 2050 1000
+F 0 "#PWR01" H 2050 850 50  0001 C CNN
+F 1 "+5V" H 2065 1173 50  0000 C CNN
+F 2 "" H 2050 1000 50  0001 C CNN
+F 3 "" H 2050 1000 50  0001 C CNN
+	1    2050 1000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2300 1100 2300 1150
+Wire Wire Line
+	2300 1150 2050 1150
+Wire Wire Line
+	2050 1150 2050 1000
+Wire Wire Line
+	2400 1750 2050 1750
+$Comp
+L power:GND #PWR02
+U 1 1 67DE19F8
+P 2200 1950
+F 0 "#PWR02" H 2200 1700 50  0001 C CNN
+F 1 "GND" H 2205 1777 50  0000 C CNN
+F 2 "" H 2200 1950 50  0001 C CNN
+F 3 "" H 2200 1950 50  0001 C CNN
+	1    2200 1950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2050 1850 2200 1850
+Wire Wire Line
+	2200 1850 2200 1950
+$Comp
+L Connector_Generic:Conn_02x06_Top_Bottom J3
+U 1 1 67DF5CBC
+P 4250 1350
+F 0 "J3" H 4300 1767 50  0000 C CNN
+F 1 "PropEdgeConnect-Conn1" H 4300 1676 50  0000 C CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_2x06_P2.54mm_Vertical" H 4250 1350 50  0001 C CNN
+F 3 "~" H 4250 1350 50  0001 C CNN
+	1    4250 1350
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR06
+U 1 1 67DFE1E9
+P 4600 1750
+F 0 "#PWR06" H 4600 1600 50  0001 C CNN
+F 1 "+3.3V" H 4615 1923 50  0000 C CNN
+F 2 "" H 4600 1750 50  0001 C CNN
+F 3 "" H 4600 1750 50  0001 C CNN
+	1    4600 1750
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	4550 1650 4600 1650
+Wire Wire Line
+	4600 1650 4600 1750
+Text Label 4600 1700 0    50   ~ 0
+V00
+$Comp
+L power:+5V #PWR05
+U 1 1 67DFF2F0
+P 4000 1750
+F 0 "#PWR05" H 4000 1600 50  0001 C CNN
+F 1 "+5V" H 4015 1923 50  0000 C CNN
+F 2 "" H 4000 1750 50  0001 C CNN
+F 3 "" H 4000 1750 50  0001 C CNN
+	1    4000 1750
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	4050 1650 4000 1650
+Wire Wire Line
+	4000 1650 4000 1750
+$Comp
+L power:GND #PWR04
+U 1 1 67E0384B
+P 3900 1150
+F 0 "#PWR04" H 3900 900 50  0001 C CNN
+F 1 "GND" V 3905 1022 50  0000 R CNN
+F 2 "" H 3900 1150 50  0001 C CNN
+F 3 "" H 3900 1150 50  0001 C CNN
+	1    3900 1150
+	0    1    1    0   
+$EndComp
+$Comp
+L power:GND #PWR07
+U 1 1 67E03F8A
+P 4650 1150
+F 0 "#PWR07" H 4650 900 50  0001 C CNN
+F 1 "GND" V 4655 1022 50  0000 R CNN
+F 2 "" H 4650 1150 50  0001 C CNN
+F 3 "" H 4650 1150 50  0001 C CNN
+	1    4650 1150
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	4050 1150 3900 1150
+Wire Wire Line
+	4550 1150 4650 1150
+Wire Wire Line
+	2800 1650 2950 1650
+Wire Wire Line
+	2950 1650 2950 1250
+Wire Wire Line
+	2950 1250 4050 1250
+Text Label 3450 1250 0    50   ~ 0
+P0
+NoConn ~ 4050 1350
+NoConn ~ 4050 1450
+NoConn ~ 4050 1550
+NoConn ~ 4550 1550
+NoConn ~ 4550 1450
+NoConn ~ 4550 1350
+NoConn ~ 4550 1250
+$Comp
+L power:+3.3V #PWR03
+U 1 1 67E0755F
+P 2750 1000
+F 0 "#PWR03" H 2750 850 50  0001 C CNN
+F 1 "+3.3V" H 2765 1173 50  0000 C CNN
+F 2 "" H 2750 1000 50  0001 C CNN
+F 3 "" H 2750 1000 50  0001 C CNN
+	1    2750 1000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2500 1100 2500 1150
+Wire Wire Line
+	2500 1150 2750 1150
+Wire Wire Line
+	2750 1150 2750 1000
+$Comp
+L power:PWR_FLAG #FLG0101
+U 1 1 67E0A1A8
+P 3900 1750
+F 0 "#FLG0101" H 3900 1825 50  0001 C CNN
+F 1 "PWR_FLAG" V 3900 1877 50  0000 L CNN
+F 2 "" H 3900 1750 50  0001 C CNN
+F 3 "~" H 3900 1750 50  0001 C CNN
+	1    3900 1750
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	3900 1750 4000 1750
+Connection ~ 4000 1750
+$Comp
+L power:PWR_FLAG #FLG0102
+U 1 1 67E0B197
+P 4800 1750
+F 0 "#FLG0102" H 4800 1825 50  0001 C CNN
+F 1 "PWR_FLAG" V 4800 1878 50  0000 L CNN
+F 2 "" H 4800 1750 50  0001 C CNN
+F 3 "~" H 4800 1750 50  0001 C CNN
+	1    4800 1750
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	4600 1750 4800 1750
+Connection ~ 4600 1750
+$Comp
+L power:PWR_FLAG #FLG0103
+U 1 1 67E0B7E3
+P 2300 1850
+F 0 "#FLG0103" H 2300 1925 50  0001 C CNN
+F 1 "PWR_FLAG" V 2300 1978 50  0000 L CNN
+F 2 "" H 2300 1850 50  0001 C CNN
+F 3 "~" H 2300 1850 50  0001 C CNN
+	1    2300 1850
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	2200 1850 2300 1850
+Connection ~ 2200 1850
+Wire Wire Line
+	2400 1100 2400 1750
+Wire Wire Line
+	2050 1650 2500 1650
+$EndSCHEMATC
