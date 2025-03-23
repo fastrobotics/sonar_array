@@ -9,6 +9,10 @@ The Connect Board provides the GPIO connections necessary to connect multiple So
 | Resistor Footprint |
 | Board Mounting Holes |
 | Prop Pin Connection Names |
+| Fine tune Footprint connections to Edge Breakout Board |
+| Verify Footprint: 2 x 6 Connector |
+| Verify Footprint: Resistor |
+
 
 ## Requirements
 | Requirement | Description |
