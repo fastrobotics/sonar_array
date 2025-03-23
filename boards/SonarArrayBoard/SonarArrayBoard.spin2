@@ -95,10 +95,11 @@ PUB run_medium_loop()
 
 
 PUB run_slow_loop()
+   send_debug()
   slow_loop_counter++
 
 PUB run_veryslow_loop()
-  send_debug()
+
 
   veryslow_loop_counter++
 
