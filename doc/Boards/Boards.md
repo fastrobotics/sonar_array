@@ -4,4 +4,5 @@
 | Board | 
 | --- |
 | [Parallax Propeller 2](ParallaxPropeller2/ParallaxPropeller2.md) |
+| [Connect Board](ConnectBoard/ConnectBoard.md) |
 

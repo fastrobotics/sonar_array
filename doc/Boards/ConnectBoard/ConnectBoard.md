@@ -1,0 +1,13 @@
+[Boards](../Boards.md)
+# Connect Board
+The Connect Board provides the GPIO connections necessary to connect multiple Sonar's to the Parallax Propeller.
+
+## Requirements
+| Requirement | Description |
+| --- | --- |
+| Connect up to 24 Sonars | GPIO connection for up to 24 Sonars |
+| Propeller Pin Protection | 4.7k Ohm Resistor on every Sonar Signal Pin. |
+| Connect groups of 4 Sonars | 6 Banks of 4 Sonars |
+| Signal protection disable resistor | Able to disable signal protection resistor per 4-bank |
+| Secure connection | Secure connection to Propeller 2 |
+| 3.3V/5V Select | Jumper selector for each 4-bank |
