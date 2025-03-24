@@ -13,6 +13,7 @@ The Connect Board provides the GPIO connections necessary to connect multiple So
 | Verify Footprint: 2 x 6 Connector |
 | Verify Footprint: Resistor |
 | Fix Edge Switches to run content even if debug port is connected at startup |
+| Change individual resistors to resistor array [ref](https://www.bourns.com/docs/Product-Datasheets/4100R.pdf) |
 
 
 ## Requirements
