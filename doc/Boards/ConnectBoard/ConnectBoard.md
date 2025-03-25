@@ -43,3 +43,5 @@ The Connect Board provides the GPIO connections necessary to connect multiple So
 ![](elec/ConnectBoard/ConnectBoard.png)
 - [Connect Board Schematic](elec/ConnectBoard/ConnectBoardSchematic.pdf)
 - [Connect Board PCB](elec/ConnectBoard/ConnectBoardPCB.pdf)
+
+## [Fabrication Shops](FabricationShops.md)
