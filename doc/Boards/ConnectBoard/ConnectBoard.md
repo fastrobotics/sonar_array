@@ -5,17 +5,27 @@ The Connect Board provides the GPIO connections necessary to connect multiple So
 ## ToDo List
 | Status | ToDo |
 | --- | --- |
-| | Check Shunt Size/Footprint |
-| | Resistor Footprint |
-| | Board Mounting Holes |
-| | Prop Pin Connection Names |
-| | Fine tune Footprint connections to Edge Breakout Board |
-| | Verify Footprint: 2 x 6 Connector |
-| | Verify Footprint: Resistor |
+| OK | Check Shunt Size/Footprint |
+| OK | Resistor Footprint |
+| OK | Board Mounting Holes |
+| OK | Prop Pin Connection Names |
+| OK | Fine tune Footprint connections to Edge Breakout Board |
+| OK | Verify Footprint: 2 x 6 Connector |
+| OK | Verify Footprint: Resistor |
 | | Fix Edge Switches to run content even if debug port is connected at startup |
-| | Change individual resistors to resistor array [ref](https://www.bourns.com/docs/Product-Datasheets/4100R.pdf) |
+| OK | Change individual resistors to resistor array [ref](https://www.bourns.com/docs/Product-Datasheets/4100R.pdf) |
 | | Fix silkscreen |
+| | PCB Manufacturer ERC Rules |
+| | Test Print PCB |
 
+## Bill Of Materials 
+| On-Hand? | Part | Quantity | Description |
+| --- | --- | --- | --- |
+| YES | 1x3 Vertical Header-Male | 27 | Headers for Sonars and PS Connections |
+| NO | 2x6 Vertical Header-Female | 3 | Headers for Propeller 2 |
+| YES | 1x4 Vertical Header-Male | 1 | Prop Plug Comm Port |
+| NO   | M3x? Standoff | 3 | Standoffs for Sonar Connect Board |
+| NO | 4 Resistor 8pin DIP Network Isolated | 6 | Resistor Network.  Can substitute for 3 16pin DIP 8 Resistors package |
 
 ## Requirements
 | Requirement | Description |
