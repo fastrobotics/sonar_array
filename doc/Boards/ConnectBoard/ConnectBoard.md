@@ -14,7 +14,7 @@ The Connect Board provides the GPIO connections necessary to connect multiple So
 | OK | Verify Footprint: Resistor |
 | | Fix Edge Switches to run content even if debug port is connected at startup |
 | OK | Change individual resistors to resistor array [ref](https://www.bourns.com/docs/Product-Datasheets/4100R.pdf) |
-| | Fix silkscreen |
+| OK | Fix silkscreen |
 | | PCB Manufacturer ERC Rules |
 | | Test Print PCB |
 
@@ -37,3 +37,8 @@ The Connect Board provides the GPIO connections necessary to connect multiple So
 | Secure connection | Secure connection to Propeller 2 |
 | 3.3V/5V Select | Jumper selector for each 8-bank |
 | Comm Port | Has 4-pin comm port connection to Raspeberry Pi |
+
+## Electrical Design
+![](elec/ConnectBoard/ConnectBoard.png)
+- [Connect Board Schematic](elec/ConnectBoard/ConnectBoardSchematic.pdf)
+- [Connect Board PCB](elec/ConnectBoard/ConnectBoardPCB.pdf)

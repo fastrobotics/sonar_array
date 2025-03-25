@@ -2,7 +2,7 @@
 
   (general
     (thickness 1.6)
-    (drawings 19)
+    (drawings 22)
     (tracks 254)
     (zones 0)
     (modules 38)
@@ -1978,6 +1978,15 @@
     )
   )
 
+  (gr_text M3 (at 128.0414 130.8354) (layer F.SilkS)
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
+  (gr_text "DC Jack\nBelow" (at 119.1514 54.8894 90) (layer F.SilkS)
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
+  (gr_text "Propeller 2 Edge Breakout\nSonar Connect\nDPG 2025\nRev0" (at 94.7674 71.9074) (layer F.SilkS)
+    (effects (font (size 1.5 1.5) (thickness 0.3)) (justify left))
+  )
   (gr_text <TX (at 97.0534 62.7634) (layer F.SilkS) (tstamp 67E28CB2)
     (effects (font (size 1 1) (thickness 0.15)))
   )
