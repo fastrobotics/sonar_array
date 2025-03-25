@@ -13,9 +13,10 @@ The Connect Board provides the GPIO connections necessary to connect multiple So
 | OK | Verify Footprint: 2 x 6 Connector |
 | OK | Verify Footprint: Resistor |
 | | Fix Edge Switches to run content even if debug port is connected at startup |
-| OK | Change individual resistors to resistor array [ref](https://www.bourns.com/docs/Product-Datasheets/4100R.pdf) |
+| OK | Change individual resistors to resistor array |
 | OK | Fix silkscreen |
 | | PCB Manufacturer ERC Rules |
+| | Verify Standoff/Height connection (include check for DC Barrel Jack)
 | | Test Print PCB |
 
 ## Bill Of Materials 
@@ -25,7 +26,7 @@ The Connect Board provides the GPIO connections necessary to connect multiple So
 | NO | 2x6 Vertical Header-Female | 3 | Headers for Propeller 2 |
 | YES | 1x4 Vertical Header-Male | 1 | Prop Plug Comm Port |
 | NO   | M3x? Standoff | 3 | Standoffs for Sonar Connect Board |
-| NO | 4 Resistor 8pin DIP Network Isolated | 6 | Resistor Network.  Can substitute for 3 16pin DIP 8 Resistors package |
+| NO | 4 Resistor 8pin DIP Network Isolated | 6 | Resistor Network.  Can substitute for 3 16pin DIP 8 Resistors package.  [part](https://www.bourns.com/docs/Product-Datasheets/4100R.pdf) |
 
 ## Requirements
 | Requirement | Description |
