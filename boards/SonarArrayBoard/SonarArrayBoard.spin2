@@ -2,6 +2,7 @@
 
 { Version History }
 {
+  23-March-2025: Added support for Comm Port and Debug Port
   18-March-2025: Changed units to mm instead of cm for Sonars
 }
 
@@ -17,10 +18,13 @@ CON { IO-Comms }
 
   RX_DEBUG     = 63
   TX_DEBUG     = 62
+  RX_COMM      = 0
+  TX_COMM      = 1
 
 CON { Comms Constants }
 
   BAUDRATE_DEBUG = 115_200
+  BAUDRATE_COMM  = 115_200
 
 CON { Sonar Constants }
   PIN_SONAR1 = 46
@@ -45,7 +49,8 @@ VAR { Sensor Variables }
 
 
 OBJ
-   term : "jm_fullduplexserial" 'ref: https://github.com/parallaxinc/propeller/tree/master/libraries/community/p2/All/jm_full_duplex_serial
+   comm_debug : "jm_fullduplexserial" 'ref: https://github.com/parallaxinc/propeller/tree/master/libraries/community/p2/All/jm_full_duplex_serial
+   comm_board : "jm_fullduplexserial" 'ref: https://github.com/parallaxinc/propeller/tree/master/libraries/community/p2/All/jm_full_duplex_serial
    ping : "jm_ping"
 
 PUB init()
@@ -90,10 +95,11 @@ PUB run_medium_loop()
 
 
 PUB run_slow_loop()
+   send_debug()
   slow_loop_counter++
 
 PUB run_veryslow_loop()
-  send_debug()
+
 
   veryslow_loop_counter++
 
@@ -106,14 +112,15 @@ PUB init_variables()
 
 PUB setup_comms()
 
-    term.start(RX_DEBUG, TX_DEBUG, %0000, BAUDRATE_DEBUG)
+    comm_debug.start(RX_DEBUG, TX_DEBUG, %0000, BAUDRATE_DEBUG)
+    comm_board.start(RX_COMM, TX_COMM, %0000, BAUDRATE_COMM)
 PUB send_sonar_packet()
 
-  term.str(string("$AA"))
-  term.fxdec(sequence_number,4)
-  term.fxdec(1,2) ' Only 1 Sonar supported currently
-  term.fxdec(distance1_mm,4)
-  term.str(string(10,13))
+  comm_board.str(string("$AA"))
+  comm_board.fxdec(sequence_number,4)
+  comm_board.fxdec(1,2) ' Only 1 Sonar supported currently
+  comm_board.fxdec(distance1_mm,4)
+  comm_board.str(string(10,13))
   if sequence_number >= 9999
     sequence_number := 0
   else
@@ -121,14 +128,14 @@ PUB send_sonar_packet()
 
 
 PUB send_dummy_sonar_packet()
-  term.str(string("$AA"))                               ' Packet Header
-  term.fxdec(sequence_number,4)                        ' Sequence Number
-  term.fxdec(max_number_sonars,2)                       ' Max Number of Sonars
+  comm_board.str(string("$AA"))                               ' Packet Header
+  comm_board.fxdec(sequence_number,4)                        ' Sequence Number
+  comm_board.fxdec(max_number_sonars,2)                       ' Max Number of Sonars
   repeat MAX_NUMBER_SONARS
-    term.fxdec(fakedistance_cm,4)                                     ' Max Sonar Value
+    comm_board.fxdec(fakedistance_cm,4)                                     ' Max Sonar Value
 
 
-  term.str(string(10,13))
+  comm_board.str(string(10,13))
   if sequence_number >= 9999
     sequence_number := 0
   else
@@ -140,15 +147,15 @@ PUB send_dummy_sonar_packet()
     fakedistance_cm++
 
 PUB send_debug()
-  term.str(string("Fast:"))
-  term.dec(fast_loop_counter)
-  term.str(string(" Med: "))
-  term.dec(medium_loop_counter)
-  term.str(string(" Slow: "))
-  term.dec(slow_loop_counter)
-  term.str(string(" Very Slow: "))
-  term.dec(veryslow_loop_counter)
-  term.str(string(10,13))
+  comm_debug.str(string("Fast:"))
+  comm_debug.dec(fast_loop_counter)
+  comm_debug.str(string(" Med: "))
+  comm_debug.dec(medium_loop_counter)
+  comm_debug.str(string(" Slow: "))
+  comm_debug.dec(slow_loop_counter)
+  comm_debug.str(string(" Very Slow: "))
+  comm_debug.dec(veryslow_loop_counter)
+  comm_debug.str(string(10,13))
 
 PUB read_sonars()
    distance1_mm := ping.millimeters(PIN_SONAR1)
