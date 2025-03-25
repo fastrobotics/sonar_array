@@ -341,12 +341,12 @@ Wire Wire Line
 $Comp
 L Connector:Conn_01x04_Male J0
 U 1 1 67F6CA92
-P 1000 1250
-F 0 "J0" H 1108 1531 50  0000 C CNN
-F 1 "Prop_CommPort" H 1108 1440 50  0000 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical" H 1000 1250 50  0001 C CNN
-F 3 "~" H 1000 1250 50  0001 C CNN
-	1    1000 1250
+P 1000 1050
+F 0 "J0" H 1100 1300 50  0000 C CNN
+F 1 "Prop_CommPort" H 1150 750 50  0000 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical" H 1000 1050 50  0001 C CNN
+F 3 "~" H 1000 1050 50  0001 C CNN
+	1    1000 1050
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -390,22 +390,18 @@ Wire Wire Line
 	1200 1150 2700 1150
 Text Label 2600 1150 0    50   ~ 0
 P0
-NoConn ~ 1200 1350
+NoConn ~ 1200 1050
 $Comp
 L power:GND #PWR0112
 U 1 1 67F955D8
-P 1300 1550
-F 0 "#PWR0112" H 1300 1300 50  0001 C CNN
-F 1 "GND" V 1200 1550 50  0000 R CNN
-F 2 "" H 1300 1550 50  0001 C CNN
-F 3 "" H 1300 1550 50  0001 C CNN
-	1    1300 1550
-	1    0    0    -1  
+P 1300 950
+F 0 "#PWR0112" H 1300 700 50  0001 C CNN
+F 1 "GND" V 1200 950 50  0000 R CNN
+F 2 "" H 1300 950 50  0001 C CNN
+F 3 "" H 1300 950 50  0001 C CNN
+	1    1300 950 
+	0    -1   -1   0   
 $EndComp
-Wire Wire Line
-	1200 1450 1300 1450
-Wire Wire Line
-	1300 1450 1300 1550
 Text GLabel 8900 800  1    50   Input ~ 0
 V56
 Wire Wire Line
@@ -1699,4 +1695,6 @@ F 3 "~" H 9400 4850 50  0001 C CNN
 	4    9400 4850
 	0    1    1    0   
 $EndComp
+Wire Wire Line
+	1200 950  1300 950 
 $EndSCHEMATC

@@ -1532,7 +1532,7 @@ F 1 "R_Pack04_Split" V 1784 5800 50  0000 C CNN
 F 2 "Package_DIP:DIP-8_W7.62mm" V 1830 5800 50  0001 C CNN
 F 3 "~" H 1900 5800 50  0001 C CNN
 	1    1900 5800
-	0    1    1    0   
+	0    -1   -1   0   
 $EndComp
 $Comp
 L Device:R_Pack04_Split R3
@@ -1543,7 +1543,7 @@ F 1 "R_Pack04_Split" V 4234 5800 50  0000 C CNN
 F 2 "Package_DIP:DIP-8_W7.62mm" V 4280 5800 50  0001 C CNN
 F 3 "~" H 4350 5800 50  0001 C CNN
 	2    4350 5800
-	0    -1   -1   0   
+	0    1    1    0   
 $EndComp
 $Comp
 L Device:R_Pack04_Split R3
@@ -1554,7 +1554,7 @@ F 1 "R_Pack04_Split" V 1784 6350 50  0000 C CNN
 F 2 "Package_DIP:DIP-8_W7.62mm" V 1830 6350 50  0001 C CNN
 F 3 "~" H 1900 6350 50  0001 C CNN
 	3    1900 6350
-	0    1    1    0   
+	0    -1   -1   0   
 $EndComp
 $Comp
 L Device:R_Pack04_Split R3
@@ -1565,7 +1565,7 @@ F 1 "R_Pack04_Split" V 4234 6350 50  0000 C CNN
 F 2 "Package_DIP:DIP-8_W7.62mm" V 4280 6350 50  0001 C CNN
 F 3 "~" H 4350 6350 50  0001 C CNN
 	4    4350 6350
-	0    -1   -1   0   
+	0    1    1    0   
 $EndComp
 $Comp
 L Device:R_Pack04_Split R4
@@ -1576,7 +1576,7 @@ F 1 "R_Pack04_Split" V 1784 4550 50  0000 C CNN
 F 2 "Package_DIP:DIP-8_W7.62mm" V 1830 4550 50  0001 C CNN
 F 3 "~" H 1900 4550 50  0001 C CNN
 	1    1900 4550
-	0    1    1    0   
+	0    -1   -1   0   
 $EndComp
 $Comp
 L Device:R_Pack04_Split R4
@@ -1587,7 +1587,7 @@ F 1 "R_Pack04_Split" V 4234 4550 50  0000 C CNN
 F 2 "Package_DIP:DIP-8_W7.62mm" V 4280 4550 50  0001 C CNN
 F 3 "~" H 4350 4550 50  0001 C CNN
 	2    4350 4550
-	0    -1   -1   0   
+	0    1    1    0   
 $EndComp
 $Comp
 L Device:R_Pack04_Split R4
@@ -1598,7 +1598,7 @@ F 1 "R_Pack04_Split" V 1784 5100 50  0000 C CNN
 F 2 "Package_DIP:DIP-8_W7.62mm" V 1830 5100 50  0001 C CNN
 F 3 "~" H 1900 5100 50  0001 C CNN
 	3    1900 5100
-	0    1    1    0   
+	0    -1   -1   0   
 $EndComp
 $Comp
 L Device:R_Pack04_Split R4
@@ -1609,7 +1609,7 @@ F 1 "R_Pack04_Split" V 4234 5100 50  0000 C CNN
 F 2 "Package_DIP:DIP-8_W7.62mm" V 4280 5100 50  0001 C CNN
 F 3 "~" H 4350 5100 50  0001 C CNN
 	4    4350 5100
-	0    -1   -1   0   
+	0    1    1    0   
 $EndComp
 $Comp
 L Device:R_Pack04_Split R5
@@ -1620,7 +1620,7 @@ F 1 "R_Pack04_Split" V 6834 5550 50  0000 C CNN
 F 2 "Package_DIP:DIP-8_W7.62mm" V 6880 5550 50  0001 C CNN
 F 3 "~" H 6950 5550 50  0001 C CNN
 	1    6950 5550
-	0    1    1    0   
+	0    -1   -1   0   
 $EndComp
 $Comp
 L Device:R_Pack04_Split R6
@@ -1631,7 +1631,7 @@ F 1 "R_Pack04_Split" V 6834 4300 50  0000 C CNN
 F 2 "Package_DIP:DIP-8_W7.62mm" V 6880 4300 50  0001 C CNN
 F 3 "~" H 6950 4300 50  0001 C CNN
 	1    6950 4300
-	0    1    1    0   
+	0    -1   -1   0   
 $EndComp
 $Comp
 L Device:R_Pack04_Split R5
@@ -1642,7 +1642,7 @@ F 1 "R_Pack04_Split" V 9284 5550 50  0000 C CNN
 F 2 "Package_DIP:DIP-8_W7.62mm" V 9330 5550 50  0001 C CNN
 F 3 "~" H 9400 5550 50  0001 C CNN
 	2    9400 5550
-	0    -1   -1   0   
+	0    1    1    0   
 $EndComp
 $Comp
 L Device:R_Pack04_Split R6
@@ -1653,7 +1653,7 @@ F 1 "R_Pack04_Split" V 9284 4300 50  0000 C CNN
 F 2 "Package_DIP:DIP-8_W7.62mm" V 9330 4300 50  0001 C CNN
 F 3 "~" H 9400 4300 50  0001 C CNN
 	2    9400 4300
-	0    -1   -1   0   
+	0    1    1    0   
 $EndComp
 $Comp
 L Device:R_Pack04_Split R5
@@ -1664,7 +1664,7 @@ F 1 "R_Pack04_Split" V 6834 6100 50  0000 C CNN
 F 2 "Package_DIP:DIP-8_W7.62mm" V 6880 6100 50  0001 C CNN
 F 3 "~" H 6950 6100 50  0001 C CNN
 	3    6950 6100
-	0    1    1    0   
+	0    -1   -1   0   
 $EndComp
 $Comp
 L Device:R_Pack04_Split R6
@@ -1675,7 +1675,7 @@ F 1 "R_Pack04_Split" V 6834 4850 50  0000 C CNN
 F 2 "Package_DIP:DIP-8_W7.62mm" V 6880 4850 50  0001 C CNN
 F 3 "~" H 6950 4850 50  0001 C CNN
 	3    6950 4850
-	0    1    1    0   
+	0    -1   -1   0   
 $EndComp
 $Comp
 L Device:R_Pack04_Split R5
@@ -1686,7 +1686,7 @@ F 1 "R_Pack04_Split" V 9284 6100 50  0000 C CNN
 F 2 "Package_DIP:DIP-8_W7.62mm" V 9330 6100 50  0001 C CNN
 F 3 "~" H 9400 6100 50  0001 C CNN
 	4    9400 6100
-	0    -1   -1   0   
+	0    1    1    0   
 $EndComp
 $Comp
 L Device:R_Pack04_Split R6
@@ -1697,6 +1697,6 @@ F 1 "R_Pack04_Split" V 9284 4850 50  0000 C CNN
 F 2 "Package_DIP:DIP-8_W7.62mm" V 9330 4850 50  0001 C CNN
 F 3 "~" H 9400 4850 50  0001 C CNN
 	4    9400 4850
-	0    -1   -1   0   
+	0    1    1    0   
 $EndComp
 $EndSCHEMATC
