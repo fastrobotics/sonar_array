@@ -15,6 +15,8 @@ alt initialize
     node -> process: enable_diagnostics()
     node -> process++: finish_initialization()
     process -> driver++: init()
+    activate driver
+    driver --> process--: diagnostic[]
     process --> node--
     node -> node: finish_initialization()
     node -> node: rescan_nodes()
@@ -30,8 +32,8 @@ alt loops
         node -> node++: run_loop1
         node -> process++: update(0.02, now)
         process -> driver++: update(0.02)
-        driver --> process--: diag
-        process --> node--: diag
+        driver --> process--: diagnostic[]
+        process --> node--: diagnostic[]
         node -> process++: get_sonar_data()
         process -> driver++: get_sonar_data()
         driver --> process--: sonar_data
