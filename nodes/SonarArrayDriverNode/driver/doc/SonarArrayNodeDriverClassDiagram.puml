@@ -15,19 +15,19 @@ package sensor_msgs {
 }
 namespace sonar_array {
     interface ISonarArrayNodeDriver #LimeGreen {
-        +{abstract} bool init(Diagnostic diagnostic,Logger logger,sensor_msgs::Range[] sonars)
+        +{abstract} Diagnostic[] init(Diagnostic diagnostic,Logger logger,sensor_msgs::Range[] sonars)
         +{abstract} bool is_fully_initialized()
         +{abstract} bool set_comm_device(std::string comm_device, int speed)
-        +{abstract} Diagnostic update(double current_time_sec, double dt)
+        +{abstract} Diagnostic[] update(double current_time_sec, double dt)
         +{abstract} bool finish()
         +{abstract} string pretty(string mode)
         +{abstract} sensor_msgs::Range[] get_sonar_data()
         +{abstract} std::string pretty(sensor_msgs::Range[] sonar_data)
     }
     abstract BaseSonarArrayNodeDriver #LimeGreen {
-        +bool init(Diagnostic diagnostic,Logger logger,sensor_msgs::Range[] sonars)
+        +Diagnostic[] init(Diagnostic diagnostic,Logger logger,sensor_msgs::Range[] sonars)
         +bool is_fully_initialized()
-        +Diagnostic update(double current_time_sec, double dt)
+        +Diagnostic[] update(double current_time_sec, double dt)
         +string pretty(string mode)
         +sensor_msgs::Range[] get_sonar_data()
         +std::string pretty(sensor_msgs::Range[] sonar_data)
@@ -37,9 +37,9 @@ namespace sonar_array {
     }
     ISonarArrayNodeDriver <|.. BaseSonarArrayNodeDriver
     class SonarArrayNodeDriver #LimeGreen {
-        +bool init(Diagnostic diagnostic,Logger logger,sensor_msgs::Range[] sonars)
-        +bool set_comm_device(std::string comm_device, int speed)
-        +Diagnostic update(double current_time_sec, double dt)
+        +Diagnostic[] init(Diagnostic diagnostic,Logger logger,sensor_msgs::Range[] sonars)
+        +Diagnostic[] set_comm_device(std::string comm_device, int speed)
+        +Diagnostic[] update(double current_time_sec, double dt)
         +string pretty(string mode)
         +bool finish()
         +int readFromSerialPort(char[] buffer, int size)
@@ -48,9 +48,9 @@ namespace sonar_array {
     }
     BaseSonarArrayNodeDriver <|-- SonarArrayNodeDriver
     class MockSonarArrayNodeDriver #LimeGreen {
-        +bool init(Diagnostic diagnostic,Logger logger,sensor_msgs::Range[] sonars)
-        +bool set_comm_device(std::string comm_device, int speed)
-        +Diagnostic update(double current_time_sec, double dt)
+        +Diagnostic[] init(Diagnostic diagnostic,Logger logger,sensor_msgs::Range[] sonars)
+        +Diagnostic[] set_comm_device(std::string comm_device, int speed)
+        +Diagnostic[] update(double current_time_sec, double dt)
         +string pretty(string mode)
         +bool finish()
     }
