@@ -15,9 +15,9 @@ The Connect Board provides the GPIO connections necessary to connect multiple So
 | | Fix Edge Switches to run content even if debug port is connected at startup |
 | OK | Change individual resistors to resistor array |
 | OK | Fix silkscreen |
-| | PCB Manufacturer ERC Rules |
-| | Verify Standoff/Height connection (include check for DC Barrel Jack)
-| | Test Print PCB |
+| OK | PCB Manufacturer ERC Rules |
+| OK | Verify Standoff/Height connection (include check for DC Barrel Jack)
+| N/A | Test Print PCB |
 
 ## Bill Of Materials 
 | On-Hand? | Part | Quantity | Description |
