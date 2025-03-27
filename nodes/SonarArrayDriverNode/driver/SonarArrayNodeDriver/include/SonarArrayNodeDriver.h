@@ -35,16 +35,20 @@ class SonarArrayNodeDriver : public BaseSonarArrayNodeDriver
     /**
      * @brief Initialize Sonar Array Node Driver
      *
+     * @param diagnostic
      * @param logger
-     * @return true
-     * @return false
+     * @param sonars
+     * @return Array of Diagnostics
      */
-    bool init(eros::eros_diagnostic::Diagnostic diagnostic,
-              eros::Logger* logger,
-              std::vector<sensor_msgs::Range> sonars) override;
-    eros::eros_diagnostic::Diagnostic update(double current_time_sec, double dt) override;
+    std::vector<eros::eros_diagnostic::Diagnostic> init(
+        eros::eros_diagnostic::Diagnostic diagnostic,
+        eros::Logger* logger,
+        std::vector<sensor_msgs::Range> sonars) override;
+    std::vector<eros::eros_diagnostic::Diagnostic> update(double current_time_sec,
+                                                          double dt) override;
 
-    bool set_comm_device(std::string comm_device, int speed);
+    std::vector<eros::eros_diagnostic::Diagnostic> set_comm_device(std::string comm_device,
+                                                                   int speed);
     /**
      * @brief Finish and Close Driver
      *

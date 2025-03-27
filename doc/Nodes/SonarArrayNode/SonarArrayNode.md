@@ -64,6 +64,9 @@ Examples:
 | READY | SENSORS | DEVICE_NOT_AVAILABLE | ERROR | Set when Sonar Array becomes unavailable. |
 | READY | SENSORS | NODATA | ERROR | Set when no Sensor data has been received. |
 | READY | SENSORS | NOERROR | INFO  | Set when no error is present with Sensors. |
+| READY | SOFTWARE | INITIALIZING | INFO | Set when Software is Initializing. |
+| READY | SOFTWARE | INITIALIZING_ERROR | ERROR | Set when there is an error in initialization. |
+| READY | SOFTWARE | NOERROR | INFO | Set when no Error is found with Software. |
 | READY | SYSTEM_RESOURCE | INITIALIZING | INFO | Set when Driver is initializing System Resource monitoring. |
 | READY | SYSTEM_RESOURCE | INITIALIZING_ERROR | ERROR | Set when Driver can't initialize System Resource monitoring. |
 | READY | SYSTEM_RESOURCE | NOERROR | INFO | Set when no error is present with System Resource monitoring. |

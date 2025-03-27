@@ -11,12 +11,14 @@ SonarArrayNodeDriver::~SonarArrayNodeDriver() {
 bool SonarArrayNodeDriver::finish() {
     return true;
 }
-bool SonarArrayNodeDriver::init(eros::eros_diagnostic::Diagnostic _diagnostic,
-                                eros::Logger* _logger,
-                                std::vector<sensor_msgs::Range> _sonars) {
+std::vector<eros::eros_diagnostic::Diagnostic> SonarArrayNodeDriver::init(
+    eros::eros_diagnostic::Diagnostic _diagnostic,
+    eros::Logger* _logger,
+    std::vector<sensor_msgs::Range> _sonars) {
     return BaseSonarArrayNodeDriver::init(_diagnostic, _logger, _sonars);
 }
-eros::eros_diagnostic::Diagnostic SonarArrayNodeDriver::update(double current_time_sec, double dt) {
+std::vector<eros::eros_diagnostic::Diagnostic> SonarArrayNodeDriver::update(double current_time_sec,
+                                                                            double dt) {
     auto diag = BaseSonarArrayNodeDriver::update(current_time_sec, dt);
     if (diag.level >= eros::Level::Type::ERROR) {
         logger->log_diagnostic(diag);
@@ -90,7 +92,8 @@ std::string SonarArrayNodeDriver::pretty(std::string mode) {
            " (Hz) Bad Packets: " + std::to_string(bad_packet_count) + "\n";
     return str;
 }
-bool SonarArrayNodeDriver::set_comm_device(std::string comm_device, int speed) {
+std::vector<eros::eros_diagnostic::Diagnostic> SonarArrayNodeDriver::set_comm_device(
+    std::string comm_device, int speed) {
     comm_device_ = comm_device;
     fd = open(comm_device.c_str(), O_RDWR);  // | O_NOCTTY | O_SYNC);
     if (fd < 0) {

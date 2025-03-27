@@ -22,17 +22,21 @@ class ISonarArrayNodeDriver
     /**
      * @brief Initialize Sonar Array Node Driver
      *
+     * @param diagnostic
      * @param logger
-     * @return true
-     * @return false
+     * @param sonars
+     * @return Array of Diagnostics
      */
-    virtual bool init(eros::eros_diagnostic::Diagnostic diagnostic,
-                      eros::Logger* logger,
-                      std::vector<sensor_msgs::Range> sonars) = 0;
+    virtual std::vector<eros::eros_diagnostic::Diagnostic> init(
+        eros::eros_diagnostic::Diagnostic diagnostic,
+        eros::Logger* logger,
+        std::vector<sensor_msgs::Range> sonars) = 0;
     virtual bool is_fully_initialized() = 0;
-    virtual bool set_comm_device(std::string comm_device, int speed) = 0;
+    virtual std::vector<eros::eros_diagnostic::Diagnostic> set_comm_device(std::string comm_device,
+                                                                           int speed) = 0;
 
-    virtual eros::eros_diagnostic::Diagnostic update(double current_time_sec, double dt) = 0;
+    virtual std::vector<eros::eros_diagnostic::Diagnostic> update(double current_time_sec,
+                                                                  double dt) = 0;
 
     /**
      * @brief Finish and Close Driver

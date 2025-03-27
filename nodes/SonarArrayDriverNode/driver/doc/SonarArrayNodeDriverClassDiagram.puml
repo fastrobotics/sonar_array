@@ -17,7 +17,7 @@ namespace sonar_array {
     interface ISonarArrayNodeDriver #LimeGreen {
         +{abstract} Diagnostic[] init(Diagnostic diagnostic,Logger logger,sensor_msgs::Range[] sonars)
         +{abstract} bool is_fully_initialized()
-        +{abstract} bool set_comm_device(std::string comm_device, int speed)
+        +{abstract} Diagnostic[] set_comm_device(std::string comm_device, int speed)
         +{abstract} Diagnostic[] update(double current_time_sec, double dt)
         +{abstract} bool finish()
         +{abstract} string pretty(string mode)

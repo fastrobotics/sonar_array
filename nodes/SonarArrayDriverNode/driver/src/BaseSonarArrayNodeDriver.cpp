@@ -1,10 +1,14 @@
 #include "BaseSonarArrayNodeDriver.h"
 namespace sonar_array {
-bool BaseSonarArrayNodeDriver::init(eros::eros_diagnostic::Diagnostic _diagnostic,
-                                    eros::Logger* _logger,
-                                    std::vector<sensor_msgs::Range> _sonars) {
+std::vector<eros::eros_diagnostic::Diagnostic> BaseSonarArrayNodeDriver::init(
+    eros::eros_diagnostic::Diagnostic _diagnostic,
+    eros::Logger* _logger,
+    std::vector<sensor_msgs::Range> _sonars) {
     diagnostic = _diagnostic;
+    std::vector<eros::eros_diagnostic::Diagnostic> diagnostics;
     if (_logger == nullptr) {
+        eros::eros_diagnostic::Diagnostic diag = diagnostic;
+        // CHANGE THIS!!!
         return false;
     }
     logger = _logger;
@@ -14,10 +18,10 @@ bool BaseSonarArrayNodeDriver::init(eros::eros_diagnostic::Diagnostic _diagnosti
     }
     sonars = _sonars;
 
-    return true;
+    return diagnostics;
 }
-eros::eros_diagnostic::Diagnostic BaseSonarArrayNodeDriver::update(double current_time_sec,
-                                                                   double dt) {
+std::vector<eros::eros_diagnostic::Diagnostic> BaseSonarArrayNodeDriver::update(
+    double current_time_sec, double dt) {
     auto diag = diagnostic;
     if (prev_current_time_sec < 0) {
         prev_current_time_sec = current_time_sec;
