@@ -26,7 +26,7 @@ void SonarArrayDriverNode::system_commandAction_Callback(
     logger->log_diagnostic(diag);
 }
 void SonarArrayDriverNode::command_Callback(const eros::command::ConstPtr &t_msg) {
-    eros::command cmd = eros_utility::ConvertUtility::convert_fromptr(t_msg);
+    eros::command cmd = eros::eros_utility::ConvertUtility::convert_fromptr(t_msg);
     auto diag_list = process->new_commandmsg(cmd);
     for (auto diag : diag_list) { logger->log_diagnostic(diag); }
 }
