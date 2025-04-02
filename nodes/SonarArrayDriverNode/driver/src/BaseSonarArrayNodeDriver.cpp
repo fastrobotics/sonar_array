@@ -1,35 +1,52 @@
 #include "BaseSonarArrayNodeDriver.h"
+using namespace eros::eros_diagnostic;
 namespace sonar_array {
-std::vector<eros::eros_diagnostic::Diagnostic> BaseSonarArrayNodeDriver::init(
-    eros::eros_diagnostic::Diagnostic _diagnostic,
-    eros::Logger* _logger,
-    std::vector<sensor_msgs::Range> _sonars) {
+std::vector<Diagnostic> BaseSonarArrayNodeDriver::init(Diagnostic _diagnostic,
+                                                       eros::Logger* _logger,
+                                                       std::vector<sensor_msgs::Range> _sonars) {
     diagnostic = _diagnostic;
-    std::vector<eros::eros_diagnostic::Diagnostic> diagnostics;
+    diagnostic_manager.initialize(diagnostic);
+    std::vector<DiagnosticType> diagnostic_types;
+    diagnostic_types.push_back(eros::eros_diagnostic::DiagnosticType::SOFTWARE);
+    diagnostic_types.push_back(eros::eros_diagnostic::DiagnosticType::DATA_STORAGE);
+    diagnostic_types.push_back(eros::eros_diagnostic::DiagnosticType::SYSTEM_RESOURCE);
+    diagnostic_types.push_back(eros::eros_diagnostic::DiagnosticType::COMMUNICATIONS);
+    diagnostic_types.push_back(eros::eros_diagnostic::DiagnosticType::SENSORS);
+    diagnostic_manager.enable_diagnostics(diagnostic_types);
     if (_logger == nullptr) {
-        eros::eros_diagnostic::Diagnostic diag = diagnostic;
-        // CHANGE THIS!!!
-        return false;
+        diagnostic = diagnostic_manager.update_diagnostic(DiagnosticType::SOFTWARE,
+                                                          eros::Level::Type::ERROR,
+                                                          Message::INITIALIZING_ERROR,
+                                                          "Logger Undefined!");
+
+        return diagnostic_manager.get_diagnostics();
     }
     logger = _logger;
     if (_sonars.size() == 0) {
-        logger->log_error("Sonar Count is 0!");
-        return false;
+        diagnostic = diagnostic_manager.update_diagnostic(DiagnosticType::DATA_STORAGE,
+                                                          eros::Level::Type::ERROR,
+                                                          Message::INITIALIZING_ERROR,
+                                                          "Sonar Count is 0!");
+        logger->log_diagnostic(diagnostic);
+
+        return diagnostic_manager.get_diagnostics();
     }
     sonars = _sonars;
-
-    return diagnostics;
+    for (auto type : diagnostic_types) {
+        if (type != DiagnosticType::SOFTWARE) {
+            diagnostic = diagnostic_manager.update_diagnostic(
+                type, eros::Level::Type::INFO, Message::NOERROR, "Initialized.");
+        }
+    }
+    return diagnostic_manager.get_diagnostics();
 }
 std::vector<eros::eros_diagnostic::Diagnostic> BaseSonarArrayNodeDriver::update(
     double current_time_sec, double dt) {
-    auto diag = diagnostic;
     if (prev_current_time_sec < 0) {
         prev_current_time_sec = current_time_sec;
-        diag.type = eros::eros_diagnostic::DiagnosticType::SOFTWARE;
-        diag.level = eros::Level::Type::INFO;
-        diag.message = eros::eros_diagnostic::Message::INITIALIZING;
-        diag.description = "First Run";
-        return diag;
+        diagnostic = diagnostic_manager.update_diagnostic(
+            DiagnosticType::SOFTWARE, eros::Level::Type::INFO, Message::NOERROR, "First Run.");
+        return diagnostic_manager.get_diagnostics();
     }
     double elap_time = current_time_sec - prev_current_time_sec;
 
@@ -38,19 +55,19 @@ std::vector<eros::eros_diagnostic::Diagnostic> BaseSonarArrayNodeDriver::update(
     // NO Practical way to Unit Test this
     // GCOVR_EXCL_START
     if (elap_time > (2.0 * dt)) {
-        diag.type = eros::eros_diagnostic::DiagnosticType::COMMUNICATIONS;
-        diag.level = eros::Level::Type::WARN;
-        diag.message = eros::eros_diagnostic::Message::DROPPING_PACKETS;
-        diag.description = "Expected Update Time: " + std::to_string(dt) +
-                           " Actual Time: " + std::to_string(elap_time);
-        return diag;
+        diagnostic =
+            diagnostic_manager.update_diagnostic(DiagnosticType::COMMUNICATIONS,
+                                                 eros::Level::Type::WARN,
+                                                 Message::DROPPING_PACKETS,
+                                                 "Expected Update Time: " + std::to_string(dt) +
+                                                     " Actual Time: " + std::to_string(elap_time));
+        return diagnostic_manager.get_diagnostics();
     }
     // GCOVR_EXCL_STOP
-    diag.type = eros::eros_diagnostic::DiagnosticType::SOFTWARE;
-    diag.level = eros::Level::Type::INFO;
-    diag.message = eros::eros_diagnostic::Message::NOERROR;
-    diag.description = "";
-    return diag;
+    diagnostic = diagnostic_manager.update_diagnostic(
+        DiagnosticType::SOFTWARE, eros::Level::Type::INFO, Message::NOERROR, "");
+
+    return diagnostic_manager.get_diagnostics();
 }
 
 std::string BaseSonarArrayNodeDriver::pretty(std::string mode) {

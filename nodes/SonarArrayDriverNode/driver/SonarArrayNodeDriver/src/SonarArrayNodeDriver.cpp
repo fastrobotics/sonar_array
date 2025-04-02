@@ -1,6 +1,7 @@
 #include "SonarArrayNodeDriver.h"
 // No practical way to unit test this
 // GCOVR_EXCL_START
+using namespace eros::eros_diagnostic;
 namespace sonar_array {
 SonarArrayNodeDriver::SonarArrayNodeDriver() {
 }
@@ -19,69 +20,70 @@ std::vector<eros::eros_diagnostic::Diagnostic> SonarArrayNodeDriver::init(
 }
 std::vector<eros::eros_diagnostic::Diagnostic> SonarArrayNodeDriver::update(double current_time_sec,
                                                                             double dt) {
-    auto diag = BaseSonarArrayNodeDriver::update(current_time_sec, dt);
-    if (diag.level >= eros::Level::Type::ERROR) {
-        logger->log_diagnostic(diag);
-        return diag;
+    BaseSonarArrayNodeDriver::update(current_time_sec, dt);
+    if (diagnostic_manager.get_highest_level() >= eros::Level::Type::ERROR) {
+        return diagnostic_manager.get_diagnostics();
     }
 
     char buffer[200];
 
     int n = readFromSerialPort(buffer, sizeof(buffer));
     if (n < 0) {
-        diag.type = eros::eros_diagnostic::DiagnosticType::COMMUNICATIONS;
-        diag.level = eros::Level::Type::ERROR;
-        diag.message = eros::eros_diagnostic::Message::DROPPING_PACKETS;
-        diag.description = strerror(errno);
-        logger->log_diagnostic(diag);
-        diagnostic = diag;
-        return diag;
+        diagnostic = diagnostic_manager.update_diagnostic(DiagnosticType::COMMUNICATIONS,
+                                                          eros::Level::Type::ERROR,
+                                                          Message::DROPPING_PACKETS,
+                                                          strerror(errno));
+        logger->log_diagnostic(diagnostic);
+        return diagnostic_manager.get_diagnostics();
     }
     else {
-        if (diag.level >= eros::Level::Type::WARN) {
-            diagnostic = diag;
-            logger->log_diagnostic(diag);
-            return diag;
-        }
         SonarArrayBoardPacketParser::ParsedPacket packet =
             SonarArrayBoardPacketParser::parsePacket(buffer);
         if (packet.parsed_ok == true) {
             if (processSequenceNumber(packet.sequence_number)) {
                 if (packet.sonar_count != sonars.size()) {
-                    diag.type = eros::eros_diagnostic::DiagnosticType::SOFTWARE;
-                    diag.level = eros::Level::Type::WARN;
-                    diag.message = eros::eros_diagnostic::Message::DROPPING_PACKETS;
-                    diag.description = "Unexpectd Number of Sonars!  " +
-                                       std::to_string(packet.sonar_count) +
-                                       " != " + std::to_string(sonars.size());
+                    diagnostic = diagnostic_manager.update_diagnostic(
+                        DiagnosticType::SOFTWARE,
+                        eros::Level::Type::WARN,
+                        Message::DROPPING_PACKETS,
+                        "Unexpectd Number of Sonars!  " + std::to_string(packet.sonar_count) +
+                            " != " + std::to_string(sonars.size()));
+                    logger->log_diagnostic(diagnostic);
+                    return diagnostic_manager.get_diagnostics();
                 }
                 else {
                     good_packet_count++;
                     packet.time_stamp = ros::Time::now();
                     updateSonarData(packet);
-                    diag.type = eros::eros_diagnostic::DiagnosticType::SOFTWARE;
-                    diag.level = eros::Level::Type::INFO;
-                    diag.message = eros::eros_diagnostic::Message::NOERROR;
-                    diag.description = "Driver OK";
+
+                    diagnostic = diagnostic_manager.update_diagnostic(DiagnosticType::SOFTWARE,
+                                                                      eros::Level::Type::INFO,
+                                                                      Message::NOERROR,
+                                                                      "Driver Ok");
+                    return diagnostic_manager.get_diagnostics();
                 }
             }
             else {
-                diag.type = eros::eros_diagnostic::DiagnosticType::SOFTWARE;
-                diag.level = eros::Level::Type::WARN;
-                diag.message = eros::eros_diagnostic::Message::DROPPING_PACKETS;
-                diag.description = "Missed a Packet";
+                diagnostic = diagnostic_manager.update_diagnostic(DiagnosticType::SOFTWARE,
+                                                                  eros::Level::Type::WARN,
+                                                                  Message::DROPPING_PACKETS,
+                                                                  "Missed a Packet");
+                return diagnostic_manager.get_diagnostics();
             }
         }
         else {
             bad_packet_count++;
-            diag.type = eros::eros_diagnostic::DiagnosticType::SOFTWARE;
-            diag.level = eros::Level::Type::WARN;
-            diag.message = eros::eros_diagnostic::Message::DROPPING_PACKETS;
-            logger->log_debug("Unable to parse Packet: " + std::string(buffer, n));
+
+            diagnostic = diagnostic_manager.update_diagnostic(
+                DiagnosticType::SOFTWARE,
+                eros::Level::Type::WARN,
+                Message::DROPPING_PACKETS,
+                "Unable to parse Packet: " + std::string(buffer, n));
+            logger->log_diagnostic(diagnostic);
+            return diagnostic_manager.get_diagnostics();
         }
-        diagnostic = diag;
-        return diag;
     }
+    return diagnostic_manager.get_diagnostics();
 }
 std::string SonarArrayNodeDriver::pretty(std::string mode) {
     std::string str = "Sonar Array Node Driver";

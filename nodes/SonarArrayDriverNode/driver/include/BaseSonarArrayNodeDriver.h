@@ -42,6 +42,7 @@ class BaseSonarArrayNodeDriver : public ISonarArrayNodeDriver
 
    protected:
     eros::eros_diagnostic::Diagnostic diagnostic;
+    eros::eros_diagnostic::DiagnosticManager diagnostic_manager;
     eros::Logger* logger;
     bool fully_initialized{false};
     std::vector<sensor_msgs::Range> sonars;

@@ -9,6 +9,7 @@
 #pragma once
 #include <eros/Logger.h>
 #include <eros_diagnostic/Diagnostic.h>
+#include <eros_diagnostic/DiagnosticManager.h>
 #include <eros_diagnostic/DiagnosticUtility.h>
 #include <sensor_msgs/Range.h>
 
