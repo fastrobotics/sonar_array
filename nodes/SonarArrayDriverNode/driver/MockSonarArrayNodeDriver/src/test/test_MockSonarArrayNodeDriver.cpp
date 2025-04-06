@@ -21,8 +21,9 @@ TEST(BasicTest, TestOperation) {
     double dt = 0.1;
     double timer = 0.0;
     while (timer <= timeToRun) {
-        auto diagnostic = SUT->update(timer, dt);
-        EXPECT_TRUE(diagnostic.level <= eros::Level::Type::NOTICE);
+        auto diagnostic_list = SUT->update(timer, dt);
+        EXPECT_LE(eros::eros_diagnostic::DiagnosticManager::get_highest_level(diagnostic_list),
+                  eros::Level::Type::NOTICE);
         EXPECT_GT(SUT->get_sonar_data().size(), 0);
 
         // logger->log_debug(SUT.pretty());

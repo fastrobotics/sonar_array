@@ -45,6 +45,7 @@ TEST(BasicTest, TestOperation) {
                 Logger::LoggerStatus::LOG_WRITTEN);
 
     eros_diagnostic::Diagnostic diag = tester->finish_initialization();
+    logger->log_diagnostic(diag);
     EXPECT_TRUE(diag.level <= Level::Type::NOTICE);
 
     tester->reset();
