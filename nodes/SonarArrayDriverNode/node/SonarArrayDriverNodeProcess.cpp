@@ -18,8 +18,10 @@ eros::eros_diagnostic::Diagnostic SonarArrayDriverNodeProcess::finish_initializa
     else {
         driver = new SonarArrayNodeDriver();
     }
-    driver->init(diag, logger, sonar_config);
-    if (driver->set_comm_device(comm_port, B115200) == false) {
+    auto diag_list = driver->init(diag, logger, sonar_config);
+    for (auto driver_diag : diag_list) { update_diagnostic(driver_diag); }
+    if (eros::eros_diagnostic::DiagnosticManager::get_highest_level(
+            driver->set_comm_device(comm_port, B115200)) >= eros::Level::Type::ERROR) {
         diag = update_diagnostic(eros::eros_diagnostic::DiagnosticType::COMMUNICATIONS,
                                  eros::Level::Type::ERROR,
                                  eros::eros_diagnostic::Message::INITIALIZING_ERROR,
@@ -36,7 +38,8 @@ void SonarArrayDriverNodeProcess::reset() {
 eros::eros_diagnostic::Diagnostic SonarArrayDriverNodeProcess::update(double t_dt,
                                                                       double t_ros_time) {
     eros::eros_diagnostic::Diagnostic diag = base_update(t_dt, t_ros_time);
-    diag = driver->update(t_ros_time, t_dt);
+    auto diag_list = driver->update(t_ros_time, t_dt);
+    for (auto driver_diag : diag_list) { update_diagnostic(driver_diag); }
     if (get_runtime() > 10.0) {
         if (driver->get_good_packet_count() == 0) {
             diag = update_diagnostic(eros::eros_diagnostic::DiagnosticType::SENSORS,

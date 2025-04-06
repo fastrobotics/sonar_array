@@ -35,13 +35,21 @@ class MockSonarArrayNodeDriver : public BaseSonarArrayNodeDriver
      * @return true
      * @return false
      */
-    bool init(eros::eros_diagnostic::Diagnostic diagnostic,
-              eros::Logger* logger,
-              std::vector<sensor_msgs::Range> sonars) override;
-    bool set_comm_device(std::string /* comm_device */, int /* speed */) override {
-        return true;
+    std::vector<eros::eros_diagnostic::Diagnostic> init(
+        eros::eros_diagnostic::Diagnostic diagnostic,
+        eros::Logger* logger,
+        std::vector<sensor_msgs::Range> sonars) override;
+    std::vector<eros::eros_diagnostic::Diagnostic> set_comm_device(std::string /* comm_device */,
+                                                                   int /* speed */) override {
+        diagnostic = diagnostic_manager.update_diagnostic(
+            eros::eros_diagnostic::DiagnosticType::COMMUNICATIONS,
+            eros::Level::Type::INFO,
+            eros::eros_diagnostic::Message::NOERROR,
+            "Sonar Array Node Driver Comm Port Fully Initialized.");
+        return diagnostic_manager.get_diagnostics();
     }
-    eros::eros_diagnostic::Diagnostic update(double current_time_sec, double dt) override;
+    std::vector<eros::eros_diagnostic::Diagnostic> update(double current_time_sec,
+                                                          double dt) override;
 
     /**
      * @brief Finish and Close Driver
