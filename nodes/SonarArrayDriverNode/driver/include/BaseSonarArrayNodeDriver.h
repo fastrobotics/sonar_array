@@ -39,6 +39,12 @@ class BaseSonarArrayNodeDriver : public ISonarArrayNodeDriver
         return run_time;
     }
     std::string pretty(std::vector<sensor_msgs::Range> sonar_data);
+    uint64_t get_good_packet_count() {
+        return good_packet_count;
+    }
+    uint64_t get_bad_packet_count() {
+        return bad_packet_count;
+    }
 
    protected:
     eros::eros_diagnostic::Diagnostic diagnostic;
@@ -46,6 +52,8 @@ class BaseSonarArrayNodeDriver : public ISonarArrayNodeDriver
     eros::Logger* logger;
     bool fully_initialized{false};
     std::vector<sensor_msgs::Range> sonars;
+    uint64_t good_packet_count{0};
+    uint64_t bad_packet_count{0};
 
    private:
     double prev_current_time_sec{-1.0};

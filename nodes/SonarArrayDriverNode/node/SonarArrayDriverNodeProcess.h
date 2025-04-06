@@ -57,6 +57,7 @@ class SonarArrayDriverNodeProcess : public eros::BaseNodeProcess
     bool enable_mock{false};
     std::vector<sensor_msgs::Range> sonar_config;
     std::string comm_port;
-    ISonarArrayNodeDriver* driver;  // Enable during AB#1452
+    ISonarArrayNodeDriver* driver;
+    double elapsed_time{0.0};
 };
 }  // namespace sonar_array

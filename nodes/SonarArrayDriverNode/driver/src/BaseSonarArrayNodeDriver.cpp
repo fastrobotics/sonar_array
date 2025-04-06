@@ -56,7 +56,7 @@ std::vector<eros::eros_diagnostic::Diagnostic> BaseSonarArrayNodeDriver::update(
     // GCOVR_EXCL_START
     if (elap_time > (2.0 * dt)) {
         diagnostic =
-            diagnostic_manager.update_diagnostic(DiagnosticType::COMMUNICATIONS,
+            diagnostic_manager.update_diagnostic(DiagnosticType::SENSORS,
                                                  eros::Level::Type::WARN,
                                                  Message::DROPPING_PACKETS,
                                                  "Expected Update Time: " + std::to_string(dt) +

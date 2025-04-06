@@ -36,8 +36,15 @@ void SonarArrayDriverNodeProcess::reset() {
 eros::eros_diagnostic::Diagnostic SonarArrayDriverNodeProcess::update(double t_dt,
                                                                       double t_ros_time) {
     eros::eros_diagnostic::Diagnostic diag = base_update(t_dt, t_ros_time);
-    // Support during AB#1452
     diag = driver->update(t_ros_time, t_dt);
+    if (get_runtime() > 10.0) {
+        if (driver->get_good_packet_count() == 0) {
+            diag = update_diagnostic(eros::eros_diagnostic::DiagnosticType::SENSORS,
+                                     eros::Level::Type::ERROR,
+                                     eros::eros_diagnostic::Message::NODATA,
+                                     "Never received any sonar data.");
+        }
+    }
     return diag;
 }
 std::vector<eros::eros_diagnostic::Diagnostic> SonarArrayDriverNodeProcess::new_commandmsg(

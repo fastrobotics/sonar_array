@@ -18,7 +18,7 @@ void SonarArrayDriverNode::system_commandAction_Callback(
     eros::system_commandResult system_commandResult_;
     system_command_action_server.setAborted(system_commandResult_);
     diag = process->update_diagnostic(
-        eros::eros_diagnostic::DiagnosticType::COMMUNICATIONS,
+        eros::eros_diagnostic::DiagnosticType::SENSORS,
         eros::Level::Type::WARN,
         eros::eros_diagnostic::Message::DROPPING_PACKETS,
         "Received unsupported CommandAction: " +

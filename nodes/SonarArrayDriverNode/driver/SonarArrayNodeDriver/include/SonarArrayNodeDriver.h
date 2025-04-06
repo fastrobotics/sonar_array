@@ -65,8 +65,7 @@ class SonarArrayNodeDriver : public BaseSonarArrayNodeDriver
     bool first_run{true};
     std::string comm_device_;
     int fd;
-    uint64_t good_packet_count{0};
-    uint64_t bad_packet_count{0};
+
     uint16_t latest_sequence_number{0};
 };
 }  // namespace sonar_array

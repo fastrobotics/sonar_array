@@ -49,5 +49,8 @@ class ISonarArrayNodeDriver
     virtual std::string pretty(std::string mode = "") = 0;
     virtual std::vector<sensor_msgs::Range> get_sonar_data() = 0;
     virtual std::string pretty(std::vector<sensor_msgs::Range> sonar_data) = 0;
+
+    virtual uint64_t get_good_packet_count() = 0;
+    virtual uint64_t get_bad_packet_count() = 0;
 };
 }  // namespace sonar_array
