@@ -19,7 +19,7 @@ CON { IO-Comms }
   RX_DEBUG     = 63
   TX_DEBUG     = 62
   RX_COMM      = 0
-  TX_COMM      = 1
+  TX_COMM      = 2
 
 CON { Comms Constants }
 
