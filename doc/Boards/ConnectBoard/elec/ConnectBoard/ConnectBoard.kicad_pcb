@@ -2,7 +2,7 @@
 
   (general
     (thickness 1.6)
-    (drawings 22)
+    (drawings 25)
     (tracks 254)
     (zones 0)
     (modules 38)
@@ -1985,6 +1985,15 @@
     )
   )
 
+  (gr_text "S + -" (at 153.5504 73.1504) (layer F.Cu)
+    (effects (font (size 1.35 1.35) (thickness 0.3)))
+  )
+  (gr_text 5V (at 156.2354 77.4954) (layer F.Cu) (tstamp 67F4F897)
+    (effects (font (size 1 1) (thickness 0.25)))
+  )
+  (gr_text 3.3V (at 149.8854 77.4954) (layer F.Cu)
+    (effects (font (size 1 1) (thickness 0.25)))
+  )
   (gr_text M3 (at 128.0414 130.8354) (layer F.SilkS)
     (effects (font (size 1 1) (thickness 0.15)))
   )
