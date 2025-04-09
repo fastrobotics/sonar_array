@@ -13,18 +13,29 @@ class TesterSonarArrayNodeDriver : public BaseSonarArrayNodeDriver
     virtual ~TesterSonarArrayNodeDriver() {
         finish();
     }
-    bool init(eros::eros_diagnostic::Diagnostic diagnostic,
-              eros::Logger* logger,
-              std::vector<sensor_msgs::Range> sonars) override {
-        bool status = BaseSonarArrayNodeDriver::init(diagnostic, logger, sonars);
-        if (status == true) {
+    std::vector<eros::eros_diagnostic::Diagnostic> init(
+        eros::eros_diagnostic::Diagnostic diagnostic,
+        eros::Logger* logger,
+        std::vector<sensor_msgs::Range> sonars) override {
+        BaseSonarArrayNodeDriver::init(diagnostic, logger, sonars);
+        diagnostic =
+            diagnostic_manager.update_diagnostic(eros::eros_diagnostic::DiagnosticType::SOFTWARE,
+                                                 eros::Level::Type::INFO,
+                                                 eros::eros_diagnostic::Message::NOERROR,
+                                                 "Tester Fully Initialized.");
+        if (diagnostic_manager.get_highest_level() < eros::Level::Type::WARN) {
             fully_initialized = true;
-            return true;
         }
-        return false;
+        return diagnostic_manager.get_diagnostics();
     }
-    bool set_comm_device(std::string /* comm_device */, int /* speed */) {
-        return true;
+    std::vector<eros::eros_diagnostic::Diagnostic> set_comm_device(std::string /* comm_device */,
+                                                                   int /* speed */) {
+        diagnostic = diagnostic_manager.update_diagnostic(
+            eros::eros_diagnostic::DiagnosticType::COMMUNICATIONS,
+            eros::Level::Type::INFO,
+            eros::eros_diagnostic::Message::NOERROR,
+            "Tester Fully Initialized.");
+        return diagnostic_manager.get_diagnostics();
     }
     bool finish() {
         return true;
@@ -36,7 +47,9 @@ TEST(BasicTest, Test_Initialization) {
     eros::eros_diagnostic::Diagnostic diagnostic;
     std::vector<sensor_msgs::Range> sonars;
     sonars.resize(1);
-    EXPECT_TRUE(SUT.init(diagnostic, logger, sonars));
+    EXPECT_LE(eros::eros_diagnostic::DiagnosticManager::get_highest_level(
+                  SUT.init(diagnostic, logger, sonars)),
+              eros::Level::Type::NOTICE);
     EXPECT_TRUE(SUT.is_fully_initialized());
 
     delete logger;
@@ -47,7 +60,9 @@ TEST(BasicTest, FailureModes) {
         TesterSonarArrayNodeDriver SUT;
         eros::eros_diagnostic::Diagnostic diagnostic;
         std::vector<sensor_msgs::Range> sonars;
-        EXPECT_FALSE(SUT.init(diagnostic, logger, sonars));
+        EXPECT_GE(eros::eros_diagnostic::DiagnosticManager::get_highest_level(
+                      SUT.init(diagnostic, logger, sonars)),
+                  eros::Level::Type::WARN);
     }
 }
 

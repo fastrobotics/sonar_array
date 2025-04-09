@@ -51,19 +51,21 @@ Examples:
 ## Diagnostics Strategy
 | Status | Diagnostic Type | Message | Level | Description |
 | --- | --- | --- | --- | --- |
-| READY | COMMUNICATIONS | INITIALIZING | INFO | Set when Comms with Sonar Array are initializing. |
-| READY | COMMUNICATIONS | INITIALIZING_ERROR | ERROR | Set when the Comms port to the Sonar Array can't be initialized. |
+| DONE | COMMUNICATIONS | INITIALIZING | INFO | Set when Comms with Sonar Array are initializing. |
+| DONE | COMMUNICATIONS | INITIALIZING_ERROR | ERROR | Set when the Comms port to the Sonar Array can't be initialized. |
 | READY | COMMUNICATIONS | DEVICE_NOT_AVAILABLE | ERROR | Set when Comm Port becomes unavailable. |
-| READY | COMMUNICATIONS | NODATA | ERROR | Set when Comm Port never received data. |
-| READY | COMMUNICATIONS | NOERROR | INFO | Set when no error is present. |
-| READY | DATA_STORAGE | INITIALIZING | INFO | Set when Driver is initializing configuration. |
-| READY | DATA_STORAGE | INITIALIZING_ERROR | ERROR | Set when Driver can't initialize configuration. |
-| READY | DATA_STORAGE | NOERROR | INFO | Set when no error is found with Data Storage. |
-| READY | SENSORS | INITIALIZING | INFO | Set when Sensors are Initializing. |
-| READY | SENSORS | DROPPING_PACKETS | WARN | Set when Sensor Array is missing data. |
-| READY | SENSORS | DEVICE_NOT_AVAILABLE | ERROR | Set when Sonar Array becomes unavailable. |
-| READY | SENSORS | NODATA | ERROR | Set when no Sensor data has been received. |
+| DONE | COMMUNICATIONS | NOERROR | INFO | Set when no error is present. |
+| DONE | DATA_STORAGE | INITIALIZING | INFO | Set when Driver is initializing configuration. |
+| DONE | DATA_STORAGE | INITIALIZING_ERROR | ERROR | Set when Driver can't initialize configuration. |
+| DONE | DATA_STORAGE | NOERROR | INFO | Set when no error is found with Data Storage. |
+| DONE | SENSORS | INITIALIZING | INFO | Set when Sensors are Initializing. |
+| DONE | SENSORS | DROPPING_PACKETS | WARN | Set when Sensor Array is missing data. |
+| DONE | SENSORS | DEVICE_NOT_AVAILABLE | ERROR | Set when Sonar Array becomes unavailable. |
+| DONE | SENSORS | NODATA | ERROR | Set when no Sensor data has been received. |
 | READY | SENSORS | NOERROR | INFO  | Set when no error is present with Sensors. |
+| READY | SOFTWARE | INITIALIZING | INFO | Set when Software is Initializing. |
+| DONE | SOFTWARE | INITIALIZING_ERROR | ERROR | Set when there is an error in initialization. |
+| DONE | SOFTWARE | NOERROR | INFO | Set when no Error is found with Software. |
 | READY | SYSTEM_RESOURCE | INITIALIZING | INFO | Set when Driver is initializing System Resource monitoring. |
 | READY | SYSTEM_RESOURCE | INITIALIZING_ERROR | ERROR | Set when Driver can't initialize System Resource monitoring. |
 | READY | SYSTEM_RESOURCE | NOERROR | INFO | Set when no error is present with System Resource monitoring. |

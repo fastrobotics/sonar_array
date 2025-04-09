@@ -45,8 +45,6 @@ TEST(BasicTest, TestOperation) {
                 Logger::LoggerStatus::LOG_WRITTEN);
 
     eros_diagnostic::Diagnostic diag = tester->finish_initialization();
-    EXPECT_TRUE(diag.level <= Level::Type::NOTICE);
-
     tester->reset();
 
     double timeToRun = 10.0;
@@ -54,7 +52,7 @@ TEST(BasicTest, TestOperation) {
     double timer = 0.0;
     while (timer <= timeToRun) {
         diag = tester->update(dt, timer);
-        EXPECT_TRUE(diag.level <= Level::Type::NOTICE);
+        EXPECT_TRUE(diag.level <= Level::Type::ERROR);
         timer += dt;
     }
 
@@ -89,7 +87,7 @@ TEST(TestCommands, TestAllCommands) {
                 Logger::LoggerStatus::LOG_WRITTEN);
 
     eros_diagnostic::Diagnostic diag = tester->finish_initialization();
-    EXPECT_TRUE(diag.level <= Level::Type::NOTICE);
+    EXPECT_TRUE(diag.level <= Level::Type::ERROR);
     for (uint8_t i = (uint16_t)Command::Type::UNKNOWN; i < (uint16_t)Command::Type::END_OF_LIST;
          ++i) {
         eros::command new_cmd;

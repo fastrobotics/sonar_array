@@ -32,13 +32,13 @@ class SonarArrayDriverNode : public eros::BaseNode
     const uint16_t MAJOR_RELEASE_VERSION = 0;
 
     /*! \brief The Minor Release Version of the Node.*/
-    const uint16_t MINOR_RELEASE_VERSION = 0;
+    const uint16_t MINOR_RELEASE_VERSION = 1;
 
     /*! \brief The Build Number of the Node.*/
-    const uint16_t BUILD_NUMBER = 4;
+    const uint16_t BUILD_NUMBER = 5;
 
     /*! \brief A Description of the Firmware.*/
-    const std::string FIRMWARE_DESCRIPTION = "Latest Rev: 31-Mar-2025";
+    const std::string FIRMWARE_DESCRIPTION = "Latest Rev: 9-Apr-2025";
 
     /*! \brief What System this Node falls under.*/
     const eros::System::MainSystem DIAGNOSTIC_SYSTEM = eros::System::MainSystem::ROVER;

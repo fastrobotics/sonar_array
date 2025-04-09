@@ -57,7 +57,8 @@ int main(int argc, char* argv[]) {
     std::vector<sensor_msgs::Range> sonars;
     sonars.resize(sonar_count);
     driver->init(diag, logger, sonars);
-    if (driver->set_comm_device(device, B115200) == false) {
+    if (eros::eros_diagnostic::DiagnosticManager::get_highest_level(
+            driver->set_comm_device(device, B115200)) >= eros::Level::Type::ERROR) {
         logger->log_error("Error Initializing Driver.  Exiting.");
         return 1;
     }

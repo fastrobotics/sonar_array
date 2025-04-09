@@ -18,7 +18,7 @@ void SonarArrayDriverNode::system_commandAction_Callback(
     eros::system_commandResult system_commandResult_;
     system_command_action_server.setAborted(system_commandResult_);
     diag = process->update_diagnostic(
-        eros::eros_diagnostic::DiagnosticType::COMMUNICATIONS,
+        eros::eros_diagnostic::DiagnosticType::SENSORS,
         eros::Level::Type::WARN,
         eros::eros_diagnostic::Message::DROPPING_PACKETS,
         "Received unsupported CommandAction: " +
@@ -177,11 +177,11 @@ eros::eros_diagnostic::Diagnostic SonarArrayDriverNode::finish_initialization() 
                                       eros::eros_diagnostic::Message::NOERROR,
                                       "Comms Ready.");
     diag = process->update_diagnostic(eros::eros_diagnostic::DiagnosticType::SOFTWARE,
-                                      eros::Level::Type::INFO,
+                                      eros::Level::Type::DEBUG,
                                       eros::eros_diagnostic::Message::NOERROR,
                                       "Running");
     diag = process->update_diagnostic(eros::eros_diagnostic::DiagnosticType::DATA_STORAGE,
-                                      eros::Level::Type::INFO,
+                                      eros::Level::Type::DEBUG,
                                       eros::eros_diagnostic::Message::NOERROR,
                                       "All Configuration Files Loaded.");
     diag = process->update_diagnostic(eros::eros_diagnostic::DiagnosticType::SENSORS,
@@ -210,7 +210,7 @@ bool SonarArrayDriverNode::run_01hz() {
 }
 bool SonarArrayDriverNode::run_01hz_noisy() {
     eros::eros_diagnostic::Diagnostic diag = diagnostic;
-    logger->log_debug(pretty());
+    logger->log_notice(pretty());
     return true;
 }
 std::string SonarArrayDriverNode::pretty() {
