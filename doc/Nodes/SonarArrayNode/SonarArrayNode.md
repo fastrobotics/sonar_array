@@ -57,7 +57,7 @@ Examples:
 | DONE | COMMUNICATIONS | NOERROR | INFO | Set when no error is present. |
 | READY | DATA_STORAGE | INITIALIZING | INFO | Set when Driver is initializing configuration. |
 | DONE | DATA_STORAGE | INITIALIZING_ERROR | ERROR | Set when Driver can't initialize configuration. |
-| READY | DATA_STORAGE | NOERROR | INFO | Set when no error is found with Data Storage. |
+| DONE | DATA_STORAGE | NOERROR | INFO | Set when no error is found with Data Storage. |
 | DONE | SENSORS | INITIALIZING | INFO | Set when Sensors are Initializing. |
 | DONE | SENSORS | DROPPING_PACKETS | WARN | Set when Sensor Array is missing data. |
 | DONE | SENSORS | DEVICE_NOT_AVAILABLE | ERROR | Set when Sonar Array becomes unavailable. |
@@ -65,7 +65,7 @@ Examples:
 | READY | SENSORS | NOERROR | INFO  | Set when no error is present with Sensors. |
 | READY | SOFTWARE | INITIALIZING | INFO | Set when Software is Initializing. |
 | DONE | SOFTWARE | INITIALIZING_ERROR | ERROR | Set when there is an error in initialization. |
-| READY | SOFTWARE | NOERROR | INFO | Set when no Error is found with Software. |
+| DONE | SOFTWARE | NOERROR | INFO | Set when no Error is found with Software. |
 | READY | SYSTEM_RESOURCE | INITIALIZING | INFO | Set when Driver is initializing System Resource monitoring. |
 | READY | SYSTEM_RESOURCE | INITIALIZING_ERROR | ERROR | Set when Driver can't initialize System Resource monitoring. |
 | READY | SYSTEM_RESOURCE | NOERROR | INFO | Set when no error is present with System Resource monitoring. |
