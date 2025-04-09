@@ -73,6 +73,7 @@ SonarArrayDriverNodeProcess::check_programvariables() {
 }
 std::string SonarArrayDriverNodeProcess::pretty() {
     std::string str = "Node State: " + eros::Node::NodeStateString(get_nodestate());
+    str += driver->pretty();
     return str;
 }
 }  // namespace sonar_array

@@ -65,7 +65,9 @@ std::vector<eros::eros_diagnostic::Diagnostic> BaseSonarArrayNodeDriver::update(
     }
     // GCOVR_EXCL_STOP
     diagnostic = diagnostic_manager.update_diagnostic(
-        DiagnosticType::SOFTWARE, eros::Level::Type::INFO, Message::NOERROR, "");
+        DiagnosticType::SOFTWARE, eros::Level::Type::DEBUG, Message::NOERROR, "");
+    diagnostic = diagnostic_manager.update_diagnostic(
+        DiagnosticType::SENSORS, eros::Level::Type::DEBUG, Message::NOERROR, "");
 
     return diagnostic_manager.get_diagnostics();
 }

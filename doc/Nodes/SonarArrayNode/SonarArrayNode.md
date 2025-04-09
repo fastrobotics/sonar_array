@@ -55,7 +55,7 @@ Examples:
 | DONE | COMMUNICATIONS | INITIALIZING_ERROR | ERROR | Set when the Comms port to the Sonar Array can't be initialized. |
 | READY | COMMUNICATIONS | DEVICE_NOT_AVAILABLE | ERROR | Set when Comm Port becomes unavailable. |
 | DONE | COMMUNICATIONS | NOERROR | INFO | Set when no error is present. |
-| READY | DATA_STORAGE | INITIALIZING | INFO | Set when Driver is initializing configuration. |
+| DONE | DATA_STORAGE | INITIALIZING | INFO | Set when Driver is initializing configuration. |
 | DONE | DATA_STORAGE | INITIALIZING_ERROR | ERROR | Set when Driver can't initialize configuration. |
 | DONE | DATA_STORAGE | NOERROR | INFO | Set when no error is found with Data Storage. |
 | DONE | SENSORS | INITIALIZING | INFO | Set when Sensors are Initializing. |

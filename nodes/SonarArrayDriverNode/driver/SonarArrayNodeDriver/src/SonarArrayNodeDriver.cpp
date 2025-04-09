@@ -26,9 +26,9 @@ std::vector<eros::eros_diagnostic::Diagnostic> SonarArrayNodeDriver::update(doub
     }
 
     char buffer[200];
+    int num_bytes_read = readFromSerialPort(buffer, sizeof(buffer));
 
-    int n = readFromSerialPort(buffer, sizeof(buffer));
-    if (n < 0) {
+    if (num_bytes_read < 0) {
         diagnostic = diagnostic_manager.update_diagnostic(DiagnosticType::SENSORS,
                                                           eros::Level::Type::ERROR,
                                                           Message::DROPPING_PACKETS,
@@ -55,33 +55,40 @@ std::vector<eros::eros_diagnostic::Diagnostic> SonarArrayNodeDriver::update(doub
                     good_packet_count++;
                     packet.time_stamp = ros::Time::now();
                     updateSonarData(packet);
-
-                    diagnostic = diagnostic_manager.update_diagnostic(DiagnosticType::SOFTWARE,
-                                                                      eros::Level::Type::INFO,
-                                                                      Message::NOERROR,
-                                                                      "Driver Ok");
-                    return diagnostic_manager.get_diagnostics();
                 }
             }
             else {
-                diagnostic = diagnostic_manager.update_diagnostic(DiagnosticType::SENSORS,
-                                                                  eros::Level::Type::WARN,
-                                                                  Message::DROPPING_PACKETS,
-                                                                  "Missed a Packet");
-                return diagnostic_manager.get_diagnostics();
+                missed_packet_count++;
             }
         }
         else {
             bad_packet_count++;
-
-            diagnostic = diagnostic_manager.update_diagnostic(
-                DiagnosticType::SENSORS,
-                eros::Level::Type::WARN,
-                Message::DROPPING_PACKETS,
-                "Unable to parse Packet: " + std::string(buffer, n));
-            logger->log_diagnostic(diagnostic);
-            return diagnostic_manager.get_diagnostics();
         }
+    }
+
+    if (good_packet_rate > 8.0) {
+        diagnostic = diagnostic_manager.update_diagnostic(
+            DiagnosticType::SOFTWARE, eros::Level::Type::INFO, Message::NOERROR, "Driver Ok");
+        logger->log_diagnostic(diagnostic);
+        diagnostic = diagnostic_manager.update_diagnostic(
+            DiagnosticType::SENSORS,
+            eros::Level::Type::INFO,
+            Message::NOERROR,
+            "Good Packet Rate: " + std::to_string(get_good_packet_rate()) + " (Hz)");
+    }
+    else if (missed_packet_rate > 1.0) {
+        diagnostic = diagnostic_manager.update_diagnostic(
+            DiagnosticType::SENSORS,
+            eros::Level::Type::WARN,
+            Message::DROPPING_PACKETS,
+            "Missed Packet Rate: " + std::to_string(get_missed_packet_rate()) + " (Hz)");
+    }
+    else if (bad_packet_rate > 1.0) {
+        diagnostic = diagnostic_manager.update_diagnostic(
+            DiagnosticType::SENSORS,
+            eros::Level::Type::WARN,
+            Message::DROPPING_PACKETS,
+            "Bad Packet Rate: " + std::to_string(get_bad_packet_rate()) + " (Hz)");
     }
     return diagnostic_manager.get_diagnostics();
 }
@@ -90,8 +97,11 @@ std::string SonarArrayNodeDriver::pretty(std::string mode) {
     str += " Comm Device: " + comm_device_ + "\n";
     str += BaseSonarArrayNodeDriver::pretty(mode) + "\n";
     str += "Good Packets: " + std::to_string(good_packet_count) +
-           " Rate: " + std::to_string(good_packet_count / get_runtime()) +
-           " (Hz) Bad Packets: " + std::to_string(bad_packet_count) + "\n";
+           " Rate: " + std::to_string(get_good_packet_rate()) +
+           " (Hz) Missed Packets: " + std::to_string(missed_packet_count) +
+           " Rate: " + std::to_string(get_missed_packet_rate()) +
+           " (Hz) Bad Packets: " + std::to_string(bad_packet_count) +
+           " Rate: " + std::to_string(get_bad_packet_rate()) + " (Hz)\n";
     return str;
 }
 std::vector<eros::eros_diagnostic::Diagnostic> SonarArrayNodeDriver::set_comm_device(
