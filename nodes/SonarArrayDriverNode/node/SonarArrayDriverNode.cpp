@@ -191,7 +191,7 @@ eros::eros_diagnostic::Diagnostic SonarArrayDriverNode::finish_initialization() 
     return diag;
 }
 bool SonarArrayDriverNode::run_loop1() {
-    process->update(0.02, ros::Time::now().toSec());
+    process->update(0.1, ros::Time::now().toSec());
     auto sonar_data = process->get_sonar_data();
     for (auto sonar : sonar_data) { sonardata_pub.publish(sonar); }
     return true;

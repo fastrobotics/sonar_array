@@ -49,7 +49,7 @@ eros::eros_diagnostic::Diagnostic SonarArrayNodeDriver::update(double current_ti
                     diag.type = eros::eros_diagnostic::DiagnosticType::SOFTWARE;
                     diag.level = eros::Level::Type::WARN;
                     diag.message = eros::eros_diagnostic::Message::DROPPING_PACKETS;
-                    diag.description = "Unexpectd Number of Sonars!  " +
+                    diag.description = "Unexpected Number of Sonars!  " +
                                        std::to_string(packet.sonar_count) +
                                        " != " + std::to_string(sonars.size());
                 }
