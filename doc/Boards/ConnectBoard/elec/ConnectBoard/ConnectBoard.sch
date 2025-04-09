@@ -5,8 +5,8 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title "Prop 2 Sonar Connect Board"
-Date "2025-03-25"
-Rev "Rev0"
+Date "2025-04-08"
+Rev "Rev1"
 Comp "FAST Robotics"
 Comment1 ""
 Comment2 ""

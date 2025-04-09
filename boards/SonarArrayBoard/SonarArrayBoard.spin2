@@ -10,7 +10,7 @@ CON { timing }
   _clkfreq = 160_000_000                                                  'Standard clock frequency = 160 MHz
   m_clkfreq = _clkfreq/1000
   FAST_LOOP_MSEC = 10 ' 100 Hz
-  MEDIUM_LOOP_MSEC = 20 ' 50 Hz
+  MEDIUM_LOOP_MSEC = 100 ' 50 Hz
   SLOW_LOOP_MSEC = 200 ' 5 Hz
   VERYSLOW_LOOP_MSEC = 1000 ' 1 Hz
 
@@ -19,7 +19,7 @@ CON { IO-Comms }
   RX_DEBUG     = 63
   TX_DEBUG     = 62
   RX_COMM      = 0
-  TX_COMM      = 1
+  TX_COMM      = 2
 
 CON { Comms Constants }
 
@@ -27,10 +27,40 @@ CON { Comms Constants }
   BAUDRATE_COMM  = 115_200
 
 CON { Sonar Constants }
+'' Bank 1
+  PIN_SONAR0 = 63 '' DOESNT WORK, SEE BUG #1558
+  PIN_SONAR1 = 62
+  PIN_SONAR2 = 61
+  PIN_SONAR3 = 60
+  PIN_SONAR4 = 59
+  PIN_SONAR5 = 58
+  PIN_SONAR6 = 57
+  PIN_SONAR7 = 56
+'' Bank 2
+{
+  PIN_SONAR0 = 55
+  PIN_SONAR1 = 54
+  PIN_SONAR2 = 53
+  PIN_SONAR3 = 52
+  PIN_SONAR4 = 51
+  PIN_SONAR5 = 50
+  PIN_SONAR6 = 49
+  PIN_SONAR7 = 48
+}
+'' Bank 3
+{
+  PIN_SONAR0 = 47
   PIN_SONAR1 = 46
+  PIN_SONAR2 = 45
+  PIN_SONAR3 = 44
+  PIN_SONAR4 = 43
+  PIN_SONAR5 = 42
+  PIN_SONAR6 = 41
+  PIN_SONAR7 = 40
+}
 
 CON { Other App Constants }
-  MAX_NUMBER_SONARS = 20
+  MAX_NUMBER_SONARS = 1
 
 VAR { timing }
   long fast_loop_counter
@@ -44,7 +74,15 @@ VAR { Messaging }
 
 VAR { Sensor Variables }
   word fakedistance_cm
+
+  word distance0_mm
   word distance1_mm
+  word distance2_mm
+  word distance3_mm
+  word distance4_mm
+  word distance5_mm
+  word distance6_mm
+  word distance7_mm
 
 
 
@@ -95,7 +133,7 @@ PUB run_medium_loop()
 
 
 PUB run_slow_loop()
-   send_debug()
+  'send_debug()
   slow_loop_counter++
 
 PUB run_veryslow_loop()
@@ -112,14 +150,21 @@ PUB init_variables()
 
 PUB setup_comms()
 
-    comm_debug.start(RX_DEBUG, TX_DEBUG, %0000, BAUDRATE_DEBUG)
+    'comm_debug.start(RX_DEBUG, TX_DEBUG, %0000, BAUDRATE_DEBUG)
     comm_board.start(RX_COMM, TX_COMM, %0000, BAUDRATE_COMM)
 PUB send_sonar_packet()
 
   comm_board.str(string("$AA"))
   comm_board.fxdec(sequence_number,4)
-  comm_board.fxdec(1,2) ' Only 1 Sonar supported currently
+  comm_board.fxdec(MAX_NUMBER_SONARS,2)
+  'comm_board.fxdec(distance0_mm,4)
   comm_board.fxdec(distance1_mm,4)
+  'comm_board.fxdec(distance2_mm,4)
+ 'comm_board.fxdec(distance3_mm,4)
+  'comm_board.fxdec(distance4_mm,4)
+ 'comm_board.fxdec(distance5_mm,4)
+  'comm_board.fxdec(distance6_mm,4)
+  'comm_board.fxdec(distance7_mm,4)
   comm_board.str(string(10,13))
   if sequence_number >= 9999
     sequence_number := 0
@@ -147,6 +192,7 @@ PUB send_dummy_sonar_packet()
     fakedistance_cm++
 
 PUB send_debug()
+  comm_debug.fxdec(distance1_mm,4)
   comm_debug.str(string("Fast:"))
   comm_debug.dec(fast_loop_counter)
   comm_debug.str(string(" Med: "))
@@ -158,4 +204,11 @@ PUB send_debug()
   comm_debug.str(string(10,13))
 
 PUB read_sonars()
+   'distance0_mm := ping.millimeters(PIN_SONAR0)
    distance1_mm := ping.millimeters(PIN_SONAR1)
+   'distance2_mm := ping.millimeters(PIN_SONAR2)
+  ' distance3_mm := ping.millimeters(PIN_SONAR3)
+   'distance4_mm := ping.millimeters(PIN_SONAR4)
+   'distance5_mm := ping.millimeters(PIN_SONAR5)
+  ' distance6_mm := ping.millimeters(PIN_SONAR6)
+   'distance7_mm := ping.millimeters(PIN_SONAR7)
