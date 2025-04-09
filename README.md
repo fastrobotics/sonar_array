@@ -22,6 +22,10 @@ The Sonar Array will be composed of the following:
 - Software Driver running on a Board to use the Sonar Sensors, along with a ROS Node that can communicate with the Board that publishes this data over ROS.
 - Visualization tools used to see the Sonar Array in action
 
+![](doc/Media/bench1_8April2025.jpg)
+![](doc/Boards/ConnectBoard/elec/ConnectBoard/ConnectBoard.png)
+![](doc/Media/rviz.png)
+
 ## Project Plan
 | Status | Epic |
 | --- | --- |
